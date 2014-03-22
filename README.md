@@ -13,4 +13,6 @@ platform for collegue students sharing their study resources
 
 4. get all jars the project need from http://yun.baidu.com/share/link?shareid=3857170828&uk=1375928361
 
-5. 
+## Run
+
+We can run classes in package com.crsp.test for test(Run as JUnit)
