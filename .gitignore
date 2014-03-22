@@ -4,3 +4,33 @@
 *.jar
 *.war
 *.ear
+
+# System #
+*~
+~*
+*.bak
+
+# IDEs #
+.idea
+*.sublime-*
+.classpath
+.project
+.mymetadata
+/.myeclipse
+/.setting
+/bin
+/classes
+/lib
+
+# Bower #
+bower_components
+
+# JAVA #
+*.log
+
+# Custom #
+README.htm*
+
+/config
+/content
+/docs/api
