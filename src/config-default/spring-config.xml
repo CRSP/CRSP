@@ -10,7 +10,7 @@
        ">
 
 	<!-- 扫描注解Bean -->
-	<context:component-scan base-package="com.micromall">
+	<context:component-scan base-package="com.crsp">
 		<!-- 通过exclude-filter 把所有 @Controller注解的表现层控制器组件排除 -->
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -39,7 +39,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>com.micromall</value>
+				<value>com.crsp</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
