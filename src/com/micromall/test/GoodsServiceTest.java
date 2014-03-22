@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.micromall.service.GoodsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-config.xml"})
+@ContextConfiguration(locations = {"classpath:config/spring-config.xml"})
 public class GoodsServiceTest {
 	@Autowired
 	private GoodsService goodsService;
