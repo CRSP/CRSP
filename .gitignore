@@ -36,3 +36,4 @@ README.htm*
 /docs/api
 /WebRoot/WEB-INF/classes
 /src/config
+/WebRoot/WEB-INF/web.xml
