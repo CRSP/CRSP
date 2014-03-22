@@ -22,7 +22,7 @@ public class GoodsController {
 
 	@RequestMapping(value="list")
 	public String list() {
-		System.out.println("GoodsController.list:Passing through...");
+		System.out.println("GoodsController.list:Passing through..., hahah");
 		this.goodsService.save();
 		return "goods_list";
 	}
