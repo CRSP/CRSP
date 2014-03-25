@@ -34,5 +34,5 @@ README.htm*
 /config
 /content
 /docs/api
-/WebRoot/WEB-INF/classes
+/WebRoot/WEB-INF/
 /src/config
