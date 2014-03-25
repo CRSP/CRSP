@@ -12,7 +12,7 @@ import com.crsp.dao.DepartmentDAO;
 import com.crsp.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-config.xml" })
+@ContextConfiguration(locations = { "classpath:config/spring-config.xml" })
 public class DepartmentTest {
 	@Autowired
 	private DepartmentDAO departmentDAO;// 院系表的DAO接口类
@@ -27,8 +27,10 @@ public class DepartmentTest {
 		// update(department);
 		// delete(department);
 		// findById(1);
+		// findAll();
 		// findBySchool(1);
 		// findByProperty("name","河");
+		// findLikeProperty("name","河");
 	}
 
 	// 添加院系信息
@@ -51,11 +53,30 @@ public class DepartmentTest {
 		System.out.println(departmentDAO.findById(id).toString());
 	}
 
+	// 查询所有院系的信息
+	public void findAll() {
+		@SuppressWarnings("unchecked")
+		List<Department> list = (List<Department>) departmentDAO.findAll();
+		for (Department d : list) {
+			System.out.println(d.toString());
+		}
+	}
+
 	// 根据某个属性查询院系的信息
 	public void findByProperty(String propertyName, Object value) {
 		@SuppressWarnings("unchecked")
 		List<Department> list = (List<Department>) departmentDAO
 				.findByProperty(propertyName, value);
+		for (Department d : list) {
+			System.out.println(d.toString());
+		}
+	}
+
+	// 根据某个属性模糊查询院系的信息
+	public void findLikeProperty(String propertyName, Object value) {
+		@SuppressWarnings("unchecked")
+		List<Department> list = (List<Department>) departmentDAO
+				.findLikeProperty(propertyName, value);
 		for (Department d : list) {
 			System.out.println(d.toString());
 		}

@@ -13,7 +13,7 @@ import com.crsp.entity.Department;
 import com.crsp.entity.School;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/spring-config.xml"})
+@ContextConfiguration(locations = { "classpath:config/spring-config.xml" })
 public class SchoolTest {
 	@Autowired
 	private SchoolDAO schoolDAO;// 学校表的DAO接口类
@@ -28,9 +28,10 @@ public class SchoolTest {
 		// update(school);
 		// delete(school);
 		// findById(1);
+		// findAll();
 		// findByProvince(1);
 		// findByProperty("name","河");
-		findDepartments(1);
+		//findDepartments(1);
 	}
 
 	// 添加学校信息
@@ -51,6 +52,15 @@ public class SchoolTest {
 	// 根据Id查询学校信息
 	public void findById(int id) {
 		System.out.println(schoolDAO.findById(id).toString());
+	}
+
+	// 查询所有学校的信息
+	public void findAll() {
+		@SuppressWarnings("unchecked")
+		List<School> list = (List<School>) schoolDAO.findAll();
+		for (School sh : list) {
+			System.out.println(sh.toString());
+		}
 	}
 
 	// 根据某个属性查询学校的信息

@@ -12,7 +12,7 @@ import com.crsp.dao.ProvinceDAO;
 import com.crsp.entity.Province;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-config.xml"})
+@ContextConfiguration(locations = {"classpath:config/spring-config.xml"})
 public class ProvinceTest {
 	@Autowired
 	private ProvinceDAO provinceDAO;// 省份表的DAO接口类

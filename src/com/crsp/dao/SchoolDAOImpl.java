@@ -57,9 +57,34 @@ public class SchoolDAOImpl implements SchoolDAO {
 		return sh;
 	}
 
+	// 查询所有的学校
+	@Override
+	public List<?> findAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tr = session.beginTransaction();
+		Query query = session.createQuery("from School");
+		List<?> list = query.list();
+		tr.commit();
+		return list;
+	}
+
 	// 根据某个属性查询学校的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tr = session.beginTransaction();
+		String queryString = "from School as model where model." + propertyName
+				+ "=?";
+		Query queryObject = session.createQuery(queryString);
+		queryObject.setParameter(0, value);
+		List<?> list = queryObject.list();
+		tr.commit();
+		return list;
+	}
+
+	// 根据某个属性模糊查询学校的信息
+	@Override
+	public List<?> findLikeProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
 		String queryString = "from School as model where model." + propertyName
@@ -74,14 +99,7 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 查找相应省份的学校信息
 	@Override
 	public List<?> findByProvince(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		Query queryObject = session
-				.createQuery("from School sh where sh.province_id=?");
-		queryObject.setParameter(0, id);
-		List<?> list = queryObject.list();
-		tr.commit();
-		return list;
+		return findByProperty("province_id", id);
 	}
 
 	// 查询学校开设的院系

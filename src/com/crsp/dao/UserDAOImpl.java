@@ -10,71 +10,71 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.crsp.entity.Department;
+import com.crsp.entity.User;
 
-/*院系表的DAO实现类*/
+/*用户管理的DAO实现类*/
 @Repository
-public class DepartmentDAOImpl implements DepartmentDAO {
+public class UserDAOImpl implements UserDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
-	// 添加院系信息
+	// 添加用户信息
 	@Override
-	public void save(Department department) {
+	public void save(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		session.persist(department);
+		session.persist(user);
 		tr.commit();
 	}
 
-	// 更新院系信息
+	// 更新用户信息
 	@Override
-	public void update(Department department) {
+	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		session.update(department);
+		session.update(user);
 		tr.commit();
 	}
 
-	// 删除院系信息
+	// 删除用户信息
 	@Override
-	public void delete(Department department) {
+	public void delete(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		session.delete(department);
+		session.delete(user);
 		tr.commit();
 	}
 
-	// 根据Id查询院系信息
+	// 根据Id查询用户信息
 	@Override
-	public Department findById(int id) {
+	public User findById(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		Department sh = (Department) session.load(Department.class, id);
-		sh.getName();// 测试用,可以删除
+		User user = (User) session.load(User.class, id);
+		user.getUser_name();// 测试用,可以删除
 		tr.commit();
-		return sh;
+		return user;
 	}
-	
-	// 查询所有的院系
+
+	// 查询所有用户
 	@Override
-	public List<?> findAll(){
+	public List<?> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		Query query = session.createQuery("from Department");
+		Query query = session.createQuery("from User");
 		List<?> list = query.list();
 		tr.commit();
 		return list;
 	}
 
-	// 根据某个属性查询院系的信息
+	// 根据某个属性查询用户的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		String queryString = "from Department as model where model."
-				+ propertyName + "=?";
+		String queryString = "from User as model where model." + propertyName
+				+ "=?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
@@ -82,13 +82,13 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return list;
 	}
 
-	// 根据某个属性模糊查询院系的信息
+	// 根据某个属性模糊查询用户的信息
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tr = session.beginTransaction();
-		String queryString = "from Department as model where model."
-				+ propertyName + " like ?";
+		String queryString = "from User as model where model." + propertyName
+				+ " like ?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
 		List<?> list = queryObject.list();
@@ -96,16 +96,15 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return list;
 	}
 
-	// 查找相应学校的院系信息
+	// 根据学校查询用户
 	@Override
-	public List<?> findBySchool(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		Query queryObject = session
-				.createQuery("select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
-		queryObject.setParameter(0, id);
-		List<?> list = queryObject.list();
-		tr.commit();
-		return list;
+	public List<?> findBySchool(int school_id) {
+		return findByProperty("school_id", school_id);
+	}
+
+	// 根据院系查询用户
+	@Override
+	public List<?> findByDepartment(int department_id) {
+		return findByProperty("department_id", department_id);
 	}
 }
