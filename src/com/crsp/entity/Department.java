@@ -28,6 +28,16 @@ public class Department implements Serializable {
 	private String name;// 名称
 	@Column
 	private String description;// 描述
+	@Column
+	private String avatar;//头像
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
 	public int getId() {
 		return id;

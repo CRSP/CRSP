@@ -28,7 +28,7 @@ public class SchoolTest {
 		// update(school);
 		// delete(school);
 		// findById(1);
-		// findAll();
+		 findAll();
 		// findByProvince(1);
 		// findByProperty("name","河");
 		//findDepartments(1);

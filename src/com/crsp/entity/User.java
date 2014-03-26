@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 /*用户表实体类*/
 @Entity
-@Table(name = "department")
+@Table(name = "user")
 public class User implements Serializable {
 
 	/**
@@ -30,7 +30,8 @@ public class User implements Serializable {
 	private String user_pwd;// 用户密码
 	private String user_name;// 用户名
 	private String avatar;// 用户头像
-	private int points;// 积分
+	@Column(name = "points")
+	private Integer points;// 积分
 	private String email;// 邮箱
 
 	public int getId() {

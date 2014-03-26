@@ -23,18 +23,14 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void save(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.persist(user);
-		tr.commit();
+		session.save(user);
 	}
 
 	// 更新用户信息
 	@Override
 	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.update(user);
-		tr.commit();
+		session.update(user);	
 	}
 
 	// 删除用户信息
@@ -56,6 +52,19 @@ public class UserDAOImpl implements UserDAO {
 		tr.commit();
 		return user;
 	}
+	
+	// 根据Id查询用户信息
+		@Override
+		public User findByUserId(String id) {
+			User user = null;
+			List list =  findByProperty("user_id", id);
+			if(list.size() != 0){
+				user = (User)list.get(0);
+			}else{
+				
+			}
+			return user;
+		}
 
 	// 查询所有用户
 	@Override
@@ -72,13 +81,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+	//	Transaction tr = session.beginTransaction();*/
 		String queryString = "from User as model where model." + propertyName
 				+ "=?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
-		tr.commit();
+	//	tr.commit();
 		return list;
 	}
 

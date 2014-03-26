@@ -1,6 +1,6 @@
 package com.crsp.test;
 
-import java.util.List;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,17 +8,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.crsp.dao.UserDAO;
+
 import com.crsp.entity.User;
+import com.crsp.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/spring-config.xml" })
 public class UsertTest {
 	@Autowired
-	private UserDAO userDAO;// 用户表的DAO接口类
+	//private UserDAO userDAO;// 用户表的DAO接口类
+	private UserService userService;
 
 	@Test
 	public void testSave() {
+		
+/*		User user=userService.UserLogin("1", "123456");
+		if(user!=null){
+			System.out.println(user.toString());
+		}
+		else{
+			System.out.println("输入有误！");
+		}*/
+		User user = new User();
+		user.setId(5);
+		user.setUser_id("123");
+		user.setSchool_id(1);
+		user.setDepartment_id(1);
+		user.setEmail("123");
+		user.setUser_name("123");
+		user.setUser_pwd("123456");
+		
+/*		user = userService.userSignUp(user);
+		if(user!=null)
+		System.out.println(user.toString());
+		else{
+			System.out.println("用户存在!");
+		}*/
+		
+/*		boolean flag=userService.updateInformation(user);
+		if(flag==true){
+			System.out.println("保存成功！");
+		}
+		else{
+			System.out.println("插入错误！");
+		}*/
+		
+		user=userService.seeInformation(user.getUser_id());
+		if(user!=null){
+			System.out.println(user.toString());
+		}
+		else{
+			System.out.println("查看错误");
+		}
 		/*
 		 * User user = new User(); user.setId(69);
 		 * user.setUser_name("周五了");
@@ -27,11 +68,13 @@ public class UsertTest {
 		// update(user);
 		// delete(user);
 		// findById(1);
-		// findAll();
+		//userDAO.findAll();
 		// findByProperty("user_name","河");
 	}
+	
+	
 
-	// 添加用户信息
+/*	// 添加用户信息
 	public void save(User user) {
 		userDAO.save(user);
 	}
@@ -78,5 +121,5 @@ public class UsertTest {
 		for (User u : list) {
 			System.out.println(u.toString());
 		}
-	}
+	}*/
 }
