@@ -53,7 +53,8 @@ public class UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
-		}		
+		}	
+		
 		return user;  
 		
 		/*		tr = session.beginTransaction();
@@ -102,7 +103,7 @@ public class UserService {
 			tr.commit();
 			
 		} catch (Exception e) {
-			System.out.println("保存错误！");
+			System.out.println("查看错误！");
 			e.printStackTrace();
 			tr.rollback();
 		}							

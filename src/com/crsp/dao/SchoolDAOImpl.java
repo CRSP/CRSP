@@ -22,19 +22,15 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 添加学校信息
 	@Override
 	public void save(School school) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.persist(school);
-		tr.commit();
+		Session session = sessionFactory.getCurrentSession();	
+		session.persist(school);	
 	}
 
 	// 更新学校信息
 	@Override
 	public void update(School school) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(school);
-		tr.commit();
 	}
 
 	// 删除学校信息
@@ -49,11 +45,8 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 根据Id查询学校信息
 	@Override
 	public School findById(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		School sh = (School) session.load(School.class, id);
-		sh.getName();// 测试用,可以删除
-		tr.commit();
+		Session session = sessionFactory.getCurrentSession();		
+		School sh = (School) session.get(School.class, id);			
 		return sh;
 	}
 
@@ -105,13 +98,11 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 查询学校开设的院系
 	@Override
 	public List<?> findDepartments(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();	
 		Query queryObject = session
 				.createQuery("select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
 		queryObject.setParameter(0, id);
 		List<?> list = queryObject.list();
-		tr.commit();
 		return list;
 	}
 }
