@@ -23,48 +23,38 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public void save(Department department) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.persist(department);
-		tr.commit();
+		session.persist(department);	
 	}
 
 	// 更新院系信息
 	@Override
 	public void update(Department department) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(department);
-		tr.commit();
 	}
 
 	// 删除院系信息
 	@Override
 	public void delete(Department department) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.delete(department);
-		tr.commit();
+		Session session = sessionFactory.getCurrentSession();		
+		session.delete(department);		
 	}
 
 	// 根据Id查询院系信息
 	@Override
 	public Department findById(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		Department sh = (Department) session.load(Department.class, id);
-		sh.getName();// 测试用,可以删除
-		tr.commit();
+		sh.getName();// 测试用,可以删除	
 		return sh;
 	}
 	
 	// 查询所有的院系
 	@Override
 	public List<?> findAll(){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();		
 		Query query = session.createQuery("from Department");
-		List<?> list = query.list();
-		tr.commit();
+		List<?> list = query.list();		
 		return list;
 	}
 
@@ -72,13 +62,11 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		String queryString = "from Department as model where model."
 				+ propertyName + "=?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
-		tr.commit();
 		return list;
 	}
 
@@ -86,13 +74,11 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		String queryString = "from Department as model where model."
 				+ propertyName + " like ?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();
-		tr.commit();
+		List<?> list = queryObject.list();	
 		return list;
 	}
 
@@ -100,12 +86,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public List<?> findBySchool(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		Query queryObject = session
 				.createQuery("select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
 		queryObject.setParameter(0, id);
 		List<?> list = queryObject.list();
-		tr.commit();
 		return list;
 	}
 }

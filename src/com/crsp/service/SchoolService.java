@@ -88,5 +88,24 @@ public class SchoolService {
 			tr.rollback();
 		}		
 		return list;
-	}			
+	}	
+	
+	//查找各地区的学校
+	public List<School> findSchool(int province_id){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tr = null;	
+		List<School> list=null;
+		try {
+			tr = session.beginTransaction();
+			list=(List<School>)schoolDAO.findByProvince(province_id);
+			tr.commit();			
+		} catch (Exception e) {
+			System.out.println("查看错误！");
+			e.printStackTrace();
+			tr.rollback();
+		}		
+		return list;	
+	}
+	
+	
 }

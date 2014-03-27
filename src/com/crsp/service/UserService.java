@@ -57,21 +57,6 @@ public class UserService {
 		
 		return user;  
 		
-		/*		tr = session.beginTransaction();
-		User user1=null;
-		if (userDAO.findByUserId(user.getUser_id()) == null) {
-			userDAO.save(user);
-			user1=userDAO.findByUserId(user.getUser_id());
-			if(user1==null){
-				System.out.println("数据插入错误！");
-			}
-			
-		}
-		else{
-			System.out.println("用户存在！");
-		}
-		tr.commit();
-		return user1;*/
 	}
 	
 	//更新信息
