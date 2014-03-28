@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.crsp.dao.SchoolDAO;
-import com.crsp.entity.Department;
 import com.crsp.entity.School;
 import com.crsp.service.SchoolService;
 
@@ -22,10 +20,10 @@ public class SchoolServiceTest {
 	@Test
 	public void schoolTest(){
 		School school=new School();
-		school.setId(100);
-/*		school.setDescription("1");
-		school.setProvince_id(1);
-		school.setAvatar("1");
+		//school.setId(100);
+	//	school.setDescription("1");
+		school.setProvince_id(100);
+/*			school.setAvatar("1");
 		school.setName("1");*/
 		
 /*		school=schoolService.addSchool(school);
@@ -50,17 +48,19 @@ public class SchoolServiceTest {
 		else{
 			System.out.println("查看错误");
 		}*/
-		List<Department> list=schoolService.findDepartment(school.getId());
+		List<School> list=schoolService.findSchool(school.getProvince_id());
 		//System.out.println(list.size());
-		if(list.size()!=0){
-			for(Department d:list){
-				System.out.println(d.toString());
+		
+	    if(list.size()!=0){
+			for(School s:list){
+				System.out.println(s.toString());
 			}
 		}
 		else{
 			System.out.println("没有院系");
-		}
 		
+		}
 	}
+	
 
 }

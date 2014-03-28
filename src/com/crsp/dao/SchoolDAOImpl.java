@@ -64,28 +64,24 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 根据某个属性查询学校的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();	
 		String queryString = "from School as model where model." + propertyName
 				+ "=?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
-		tr.commit();
 		return list;
 	}
 
 	// 根据某个属性模糊查询学校的信息
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();	
 		String queryString = "from School as model where model." + propertyName
 				+ " like ?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();
-		tr.commit();
+		List<?> list = queryObject.list();		
 		return list;
 	}
 
