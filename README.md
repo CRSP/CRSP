@@ -13,7 +13,7 @@ platform for collegue students sharing their study resources
 
 4. copy src/config-default, rename the copy of config-default to config, change the jdbc.properties of config(like password=root -> password=123456) so that you can run the project
 
-5. get all jars the project need from http://yun.baidu.com/share/link?shareid=402875213&uk=1375928361
+5. get all jars the project need from http://yun.baidu.com/share/link?shareid=793048064&uk=1375928361
 
 ## Test
 
