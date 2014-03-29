@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -19,52 +18,48 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
 	// 添加院系信息
 	@Override
 	public void save(Department department) {
-		Session session = sessionFactory.getCurrentSession();
-		session.persist(department);	
+		getSession().save(department);
 	}
 
 	// 更新院系信息
 	@Override
 	public void update(Department department) {
-		Session session = sessionFactory.getCurrentSession();		
-		session.update(department);
+		getSession().update(department);
 	}
 
 	// 删除院系信息
 	@Override
 	public void delete(Department department) {
-		Session session = sessionFactory.getCurrentSession();		
-		session.delete(department);		
+		getSession().delete(department);
 	}
 
 	// 根据Id查询院系信息
 	@Override
 	public Department findById(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Department sh = (Department) session.load(Department.class, id);
-		sh.getName();// 测试用,可以删除	
-		return sh;
+		return (Department) getSession().get(Department.class, id);
 	}
-	
+
 	// 查询所有的院系
 	@Override
-	public List<?> findAll(){
-		Session session = sessionFactory.getCurrentSession();		
-		Query query = session.createQuery("from Department");
-		List<?> list = query.list();		
+	public List<?> findAll() {
+		Query query = getSession().createQuery("from Department");
+		List<?> list = query.list();
 		return list;
 	}
 
 	// 根据某个属性查询院系的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();
 		String queryString = "from Department as model where model."
 				+ propertyName + "=?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
 		return list;
@@ -73,21 +68,20 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	// 根据某个属性模糊查询院系的信息
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();
 		String queryString = "from Department as model where model."
 				+ propertyName + " like ?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();	
+		List<?> list = queryObject.list();
 		return list;
 	}
 
 	// 查找相应学校的院系信息
 	@Override
 	public List<?> findBySchool(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Query queryObject = session
-				.createQuery("select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
+		Query queryObject = getSession()
+				.createQuery(
+						"select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
 		queryObject.setParameter(0, id);
 		List<?> list = queryObject.list();
 		return list;

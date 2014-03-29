@@ -1,0 +1,27 @@
+    body {
+        font-family: "微软雅黑"
+    }
+
+    .myrow {
+        margin-bottom: 10px;
+    }
+
+    td {
+        word-break: break-all;
+    }
+
+    .schoolname {
+        font-size: large;
+    }
+
+    .autocut {
+        width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        -icab-text-overflow: ellipsis;
+        -khtml-text-overflow: ellipsis;
+        -moz-text-overflow: ellipsis;
+        -webkit-text-overflow: ellipsis;
+    }

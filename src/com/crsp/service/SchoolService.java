@@ -25,17 +25,7 @@ public class SchoolService {
 	
 	//添加学校
 	public School addSchool(School school){
-		Session session=sessionFactory.getCurrentSession();
-		Transaction tr=null;
-		try{
-			tr=session.beginTransaction();
-			schoolDAO.save(school);
-			tr.commit();			
-		}
-		catch (Exception e) {
-			school=null;
-			System.out.println("插入错误");
-		}
+		schoolDAO.save(school);
 		return school;
 	}
 	//更新学校信息
