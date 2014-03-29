@@ -47,12 +47,8 @@
 				<div class="control-group">
 					<label class="control-label">区域</label>
 					<div class="controls">
-						<select>
-							<option value="1">广东省</option>
-							<option value="2">黑龙江省</option>
-							<option value="3">河南省</option>
-							<option value="4">湖北省</option>
-							<option value="5">香港</option>
+						<select id="reg_provinces" name="provinceid">
+							<option value="">请选择</option>
 						</select>
 					</div>
 				</div>
@@ -60,25 +56,13 @@
 				<div class="control-group">
 					<sf:label path="school_id" class="control-label">学校</sf:label>
 					<div class="controls">
-						<sf:select path="school_id">
-							<option value="1">五邑大学</option>
-							<option value="2">北京大学</option>
-							<option value="3">武汉大学</option>
-							<option value="4">清华大学</option>
-							<option value="5">浙江大学</option>
-						</sf:select>
+						<sf:select path="school_id" id="reg_schools"></sf:select>
 					</div>
 				</div>
 				<div class="control-group">
 					<sf:label path="department_id" class="control-label">院系</sf:label>
 					<div class="controls">
-						<sf:select path="department_id">
-							<option value="1">计算机学院</option>
-							<option value="2">文学院</option>
-							<option value="3">外语学院</option>
-							<option value="4">经管学院</option>
-							<option value="5">土建学院</option>
-						</sf:select>
+						<sf:select path="department_id" id="reg_departments"></sf:select>
 					</div>
 				</div>
 				<div class="control-group">
@@ -106,22 +90,51 @@
 	var msg = '${message}';
 	if (msg)
 		alert(msg);
-	console.log(msg);
 </script>
-
 <script>
+	function getProvinces() {
+		$.get('${requestScope.basePath}/province/list', function(data) {
+			for ( var i = 0; i < data.length; i++) {
+				var opt = data[i];
+				$('#reg_provinces').append(
+						[ '<option value="', opt.id, '">', opt.name,
+								'</option>' ].join(''));
+			}
+		});
+
+	}
+
 	function getSchools() {
-		$.get("", function(data) {
+		$.get('${requestScope.basePath}/school/list/province/'
+				+ $('#reg_provinces option:selected').val(), function(data) {
 			//获取学校
+			$('#reg_schools').empty();
+			for ( var i = 0; i < data.length; i++) {
+				var opt = data[i];
+				$('#reg_schools').append(
+						[ '<option value="', opt.id, '">', opt.name,
+								'</option>' ].join(''));
+			}
 		});
 	}
 
 	function getDepartments() {
-		$.get("", function(data) {
+		$.get('${requestScope.basePath}/school/department/list/' + $('#reg_schools option:selected').val(), function(data) {
 			//获取学院
-
+			$('#reg_departments').empty();
+			for(var i = 0; i < data.length; i++) {
+				var opt = data[i];
+				$('#reg_departments').append(
+						[ '<option value="', opt.id, '">', opt.name,
+								'</option>' ].join(''));
+			}
 		});
 	}
+</script>
+<script>
+	$('#reg_provinces').on('change', getSchools);
+	$('#reg_schools').on('change', getDepartments);
+	getProvinces();
 </script>
 
 </html>

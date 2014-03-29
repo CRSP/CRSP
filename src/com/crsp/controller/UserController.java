@@ -44,21 +44,6 @@ public class UserController {
 		return userService;
 	}
 	
-	@RequestMapping(value="/fuck", method=RequestMethod.GET)
-	@ResponseBody
-	public User fuck() {
-		User u = new User();
-		u.setDepartment_id(1);
-		u.setEmail("532079207@qq.com");
-		u.setId(100);
-		u.setPoints(20);
-		u.setSchool_id(2);
-		u.setUser_id("11111");
-		u.setUser_name("fuckfuckfuck");
-		u.setUser_pwd("11111");
-		return u;
-	}
-	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	@ResponseBody
 	public Map userLogin(HttpSession session, HttpServletRequest request) {
@@ -115,6 +100,7 @@ public class UserController {
 			return "register";
 		}
 		
+		//*验证学校，省份，院系的关系是否正确
 		
 		//保存用户
 		user.setPoints(20);//初始点数20
