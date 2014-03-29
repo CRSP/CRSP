@@ -20,8 +20,6 @@ public class UserService {
 	
 	//用户登陆
 	public User userLogin(String id, String password) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		User user = null;
 		user = userDAO.findByUserId(id);
 		if (user == null) {
@@ -33,65 +31,32 @@ public class UserService {
 				user = null;
 			}
 		}
-		tr.commit();
 		return user;
 	}
 	
 	//用户注册，
 	public User userSignUp(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = null;		
-		try {
-			tr = session.beginTransaction();
+	
 			if (userDAO.findByUserId(user.getUser_id()) == null) {
 				userDAO.save(user);	
 			}
 			else{
 			user=null;
 			}
-			tr.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		}	
-		
-		return user;  
+			
+		return userDAO.findById(user.getId());
 		
 	}
 	
 	//更新信息
-	public boolean updateInformation(User user){
-		boolean flag=false;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = null;	
-		try {
-			tr = session.beginTransaction();
-			userDAO.update(user);						
-			tr.commit();
-			flag=true;
-		} catch (Exception e) {
-			System.out.println("保存错误！");
-			e.printStackTrace();
-			tr.rollback();
-		}			
-		return flag;
+	public void updateInformation(User user){
+	
+	     userDAO.update(user);						
 	}
 	
 	//查看信息
 	public User seeInformation(String  user_id){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = null;	
-		User user=null;
-		try {
-			tr = session.beginTransaction();
-			user=userDAO.findByUserId(user_id);						
-			tr.commit();
-			
-		} catch (Exception e) {
-			System.out.println("查看错误！");
-			e.printStackTrace();
-			tr.rollback();
-		}							
-		return user;
+							
+		return userDAO.findByUserId(user_id);	
 	}
 }

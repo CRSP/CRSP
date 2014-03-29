@@ -20,20 +20,20 @@ public class DepartmentServiceTest {
 	public void departmentTest(){
 		
 		Department department=new Department();
-		//department.setId(100);
+		//department.setId(1);
 		
-/*		department.setDescription("1");
-		department.setAvatar("1");
-		department.setName("1");*/
+	department.setDescription("2");
+		department.setAvatar("2");
+		department.setName("2");
 		
 		
-/*		department=departmentService.addDepartment(department);
+		department=departmentService.addDepartment(department);
 		if(department!=null){
 			System.out.println(department.toString());
 		}
 		else{
 			System.out.println("添加错误");
-		}*/
+		}
 		
 /*		if(departmentService.updateInformation(department)){
 			System.out.println(department.toString());
@@ -42,13 +42,13 @@ public class DepartmentServiceTest {
 			System.out.println("更新错误");
 		}*/
 		
-		department=departmentService.seeInformation(department.getId());
+/*		department=departmentService.seeInformation(department.getId());
 		if(department!=null){
 			System.out.println(department.toString());
 		}
 		else{
 			System.out.println("查看错误");
-		}
+		}*/
 		
 	}
 }

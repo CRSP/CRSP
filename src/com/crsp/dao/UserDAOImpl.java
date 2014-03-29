@@ -1,4 +1,4 @@
-package com.crsp.dao;
+﻿package com.crsp.dao;
 
 import java.util.List;
 
@@ -43,14 +43,7 @@ public class UserDAOImpl implements UserDAO {
 	// 根据Id查询用户信息
 	@Override
 	public User findById(int id) {
-<<<<<<< HEAD
-		Session session = sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, id);
-		user.getUser_name();// 测试用,可以删除
-		return user;
-=======
 		return (User) getSession().get(User.class, id);
->>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 	}
 
 	// 根据Id查询用户信息
@@ -68,24 +61,14 @@ public class UserDAOImpl implements UserDAO {
 	// 查询所有用户
 	@Override
 	public List<?> findAll() {
-<<<<<<< HEAD
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from User");
-		List<?> list = query.list();		
-=======
 		Query query = getSession().createQuery("from User");
 		List<?> list = query.list();
->>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 		return list;
 	}
 
 	// 根据某个属性查询用户的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
-<<<<<<< HEAD
-		Session session = sessionFactory.getCurrentSession();
-=======
->>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 		String queryString = "from User as model where model." + propertyName
 				+ "=?";
 		Query queryObject = getSession().createQuery(queryString);
