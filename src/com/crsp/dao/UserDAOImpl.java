@@ -46,10 +46,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findById(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		User user = (User) session.load(User.class, id);
 		user.getUser_name();// 测试用,可以删除
-		tr.commit();
 		return user;
 	}
 	
@@ -70,10 +68,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<?> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		Query query = session.createQuery("from User");
-		List<?> list = query.list();
-		tr.commit();
+		List<?> list = query.list();		
 		return list;
 	}
 
@@ -81,13 +77,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
 		Session session = sessionFactory.getCurrentSession();
-	//	Transaction tr = session.beginTransaction();*/
 		String queryString = "from User as model where model." + propertyName
 				+ "=?";
 		Query queryObject = session.createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
-	//	tr.commit();
 		return list;
 	}
 
