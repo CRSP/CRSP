@@ -19,6 +19,7 @@ public class DepartmentService {
 	
 	//添加院系
 	public Department addDepartment(Department department){
+		
 		Session session=sessionFactory.getCurrentSession();
 		Transaction tr=null;
 		try{

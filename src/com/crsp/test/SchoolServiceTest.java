@@ -21,18 +21,18 @@ public class SchoolServiceTest {
 	public void schoolTest(){
 		School school=new School();
 		//school.setId(100);
-	//	school.setDescription("1");
-		school.setProvince_id(100);
-/*			school.setAvatar("1");
-		school.setName("1");*/
+		school.setDescription("1");
+		school.setProvince_id(2);
+		school.setAvatar("1");
+		school.setName("1");
 		
-/*		school=schoolService.addSchool(school);
+		school=schoolService.addSchool(school);
 		if(school!=null){
 			System.out.println("添加成功");
 		}
 		else{
 			System.out.println("插入错误");
-		}*/
+		}
 		
 /*		if(schoolService.updateInformation(school)){
 			System.out.println("保存成功");
@@ -48,7 +48,7 @@ public class SchoolServiceTest {
 		else{
 			System.out.println("查看错误");
 		}*/
-		List<School> list=schoolService.findSchool(school.getProvince_id());
+		/*List<School> list=schoolService.findSchool(school.getProvince_id());
 		//System.out.println(list.size());
 		
 	    if(list.size()!=0){
@@ -59,7 +59,7 @@ public class SchoolServiceTest {
 		else{
 			System.out.println("没有院系");
 		
-		}
+		}*/
 	}
 	
 

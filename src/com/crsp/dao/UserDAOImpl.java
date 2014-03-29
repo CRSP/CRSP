@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -19,89 +18,90 @@ public class UserDAOImpl implements UserDAO {
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
 	// 添加用户信息
 	@Override
 	public void save(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		getSession().save(user);
 	}
 
 	// 更新用户信息
 	@Override
 	public void update(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(user);	
+		getSession().update(user);
 	}
 
 	// 删除用户信息
 	@Override
 	public void delete(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.delete(user);
-		tr.commit();
+		getSession().delete(user);
 	}
 
 	// 根据Id查询用户信息
 	@Override
 	public User findById(int id) {
+<<<<<<< HEAD
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		User user = (User) session.load(User.class, id);
 		user.getUser_name();// 测试用,可以删除
-		tr.commit();
 		return user;
+=======
+		return (User) getSession().get(User.class, id);
+>>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 	}
-	
+
 	// 根据Id查询用户信息
-		@Override
-		public User findByUserId(String id) {
-			User user = null;
-			List list =  findByProperty("user_id", id);
-			if(list.size() != 0){
-				user = (User)list.get(0);
-			}else{
-				
-			}
+	@Override
+	public User findByUserId(String id) {
+		User user = null;
+		List<?> list = findByProperty("user_id", id);
+		if (list.size() != 0) {
+			user = (User) list.get(0);
 			return user;
 		}
+		return null;
+	}
 
 	// 查询所有用户
 	@Override
 	public List<?> findAll() {
+<<<<<<< HEAD
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		Query query = session.createQuery("from User");
+		List<?> list = query.list();		
+=======
+		Query query = getSession().createQuery("from User");
 		List<?> list = query.list();
-		tr.commit();
+>>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 		return list;
 	}
 
 	// 根据某个属性查询用户的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
+<<<<<<< HEAD
 		Session session = sessionFactory.getCurrentSession();
-	//	Transaction tr = session.beginTransaction();*/
+=======
+>>>>>>> 000f3b6d18cfce89c6cf2a495a52ab82b60169f7
 		String queryString = "from User as model where model." + propertyName
 				+ "=?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
-	//	tr.commit();
 		return list;
 	}
 
 	// 根据某个属性模糊查询用户的信息
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
 		String queryString = "from User as model where model." + propertyName
 				+ " like ?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
 		List<?> list = queryObject.list();
-		tr.commit();
 		return list;
 	}
 
