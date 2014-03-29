@@ -33,5 +33,6 @@ public interface UserDAO {
 	// 根据院系查询用户
 	public List<?> findByDepartment(int department_id);
 
-	User findByUserId(String id);
+	// 更加用户的账户查询用户
+	public User findByUserId(String id);
 }

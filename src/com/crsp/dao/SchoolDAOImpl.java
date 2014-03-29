@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -19,55 +18,48 @@ public class SchoolDAOImpl implements SchoolDAO {
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
 	// 添加学校信息
 	@Override
 	public void save(School school) {
-		Session session = sessionFactory.getCurrentSession();	
-		session.persist(school);	
+		getSession().save(school);
 	}
 
 	// 更新学校信息
 	@Override
 	public void update(School school) {
-		Session session = sessionFactory.getCurrentSession();		
-		session.update(school);
+		getSession().update(school);
 	}
 
 	// 删除学校信息
 	@Override
 	public void delete(School school) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		session.delete(school);
-		tr.commit();
+		getSession().delete(school);
 	}
 
 	// 根据Id查询学校信息
 	@Override
 	public School findById(int id) {
-		Session session = sessionFactory.getCurrentSession();		
-		School sh = (School) session.get(School.class, id);			
-		return sh;
+		return (School) getSession().get(School.class, id);
 	}
 
 	// 查询所有的学校
 	@Override
 	public List<?> findAll() {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tr = session.beginTransaction();
-		Query query = session.createQuery("from School");
+		Query query = getSession().createQuery("from School");
 		List<?> list = query.list();
-		tr.commit();
 		return list;
 	}
 
 	// 根据某个属性查询学校的信息
 	@Override
 	public List<?> findByProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();	
 		String queryString = "from School as model where model." + propertyName
 				+ "=?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value);
 		List<?> list = queryObject.list();
 		return list;
@@ -76,12 +68,11 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 根据某个属性模糊查询学校的信息
 	@Override
 	public List<?> findLikeProperty(String propertyName, Object value) {
-		Session session = sessionFactory.getCurrentSession();	
 		String queryString = "from School as model where model." + propertyName
 				+ " like ?";
-		Query queryObject = session.createQuery(queryString);
+		Query queryObject = getSession().createQuery(queryString);
 		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();		
+		List<?> list = queryObject.list();
 		return list;
 	}
 
@@ -94,9 +85,9 @@ public class SchoolDAOImpl implements SchoolDAO {
 	// 查询学校开设的院系
 	@Override
 	public List<?> findDepartments(int id) {
-		Session session = sessionFactory.getCurrentSession();	
-		Query queryObject = session
-				.createQuery("select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
+		Query queryObject = getSession()
+				.createQuery(
+						"select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
 		queryObject.setParameter(0, id);
 		List<?> list = queryObject.list();
 		return list;
