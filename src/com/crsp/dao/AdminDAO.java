@@ -3,6 +3,7 @@ package com.crsp.dao;
 import java.util.List;
 
 import com.crsp.entity.Admin;
+import com.crsp.utils.Page;
 
 /*管理员表的DAO接口类*/
 public interface AdminDAO {
@@ -18,15 +19,18 @@ public interface AdminDAO {
 	// 根据Id查询管理员信息
 	public Admin findById(int id);
 	
-	// 查询所有的管理员
-	public List<?> findAll();
+	// 分页查询所有的管理员
+	public List<?> findByPage(Page page);
 	
 	// 根据管理员的用户名查询
 	public Admin findByName(String name);
 
 	// 根据某个属性查询管理员的信息
-	public List<?> findByProperty(String propertyName, Object value);
+	public List<?> findByProperty(Page page,String propertyName, Object value);
 	
 	// 根据某个属性模糊查询管理员的信息
-	public List<?> findLikeProperty(String propertyName, Object value);
+	public List<?> findLikeProperty(Page page,String propertyName, Object value);
+	
+	// 查询总记录数
+	public int queryCount(String hql);
 }

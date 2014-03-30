@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.crsp.entity.User;
+import com.crsp.utils.Page;
+import com.crsp.utils.PageUtil;
 
 /*用户管理的DAO实现类*/
 @Repository
@@ -50,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findByUserId(String id) {
 		User user = null;
-		List<?> list = findByProperty("user_id", id);
+		List<?> list = findByProperty(null, "user_id", id);
 		if (list.size() != 0) {
 			user = (User) list.get(0);
 			return user;
@@ -58,45 +60,98 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	// 查询所有用户
+	// 分页查询用户信息
 	@Override
-	public List<?> findAll() {
+	public List<?> findByPage(Page page) {
+		// 初始化分页信息
+		PageUtil.initPage(page, queryCount(null));
 		Query query = getSession().createQuery("from User");
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
 		List<?> list = query.list();
 		return list;
 	}
 
 	// 根据某个属性查询用户的信息
 	@Override
-	public List<?> findByProperty(String propertyName, Object value) {
+	public List<?> findByProperty(Page page, String propertyName, Object value) {
 		String queryString = "from User as model where model." + propertyName
 				+ "=?";
-		Query queryObject = getSession().createQuery(queryString);
-		queryObject.setParameter(0, value);
-		List<?> list = queryObject.list();
+		Query query = getSession().createQuery(queryString);
+		query.setParameter(0, value);
+		if (page != null) {
+			// 初始化分页信息
+			PageUtil.initPage(
+					page,
+					queryCount("select count(*) from User as model where model."
+							+ propertyName + "=" + value));
+			query.setFirstResult(page.getBeginIndex());// 查询的起点
+			query.setMaxResults(page.getPageSize()); // 查询记录数
+		}
+		List<?> list = query.list();
 		return list;
 	}
 
 	// 根据某个属性模糊查询用户的信息
 	@Override
-	public List<?> findLikeProperty(String propertyName, Object value) {
+	public List<?> findLikeProperty(Page page, String propertyName, Object value) {
 		String queryString = "from User as model where model." + propertyName
 				+ " like ?";
-		Query queryObject = getSession().createQuery(queryString);
-		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();
+		Query query = getSession().createQuery(queryString);
+		query.setParameter(0, value + "%");
+		if (page != null) {
+			// 初始化分页信息
+			PageUtil.initPage(
+					page,
+					queryCount("select count(*) from User as model where model."
+							+ propertyName + " like " + value + "%"));
+			query.setFirstResult(page.getBeginIndex());// 查询的起点
+			query.setMaxResults(page.getPageSize()); // 查询记录数
+		}
+		List<?> list = query.list();
 		return list;
 	}
 
-	// 根据学校查询用户
+	// 分页查询该用户上传的资源信息
 	@Override
-	public List<?> findBySchool(int school_id) {
-		return findByProperty("school_id", school_id);
+	public List<?> findResources(Page page, int user_id) {
+		// 初始化分页信息
+		PageUtil.initPage(page,
+				queryCount("select count(*) from Resource r where r.user_id="
+						+ user_id));
+		Query query = getSession().createQuery(
+				"from Resource r where user_id=?");
+		query.setParameter(0, user_id);
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
+		List<?> list = query.list();
+		return list;
 	}
 
-	// 根据院系查询用户
+	// 分页查找该用户的资源记录
 	@Override
-	public List<?> findByDepartment(int department_id) {
-		return findByProperty("department_id", department_id);
+	public List<?> findRecords(Page page, int user_id) {
+		// 初始化分页信息
+		PageUtil.initPage(page,
+				queryCount("select count(*) from Record r where r.user_id="
+						+ user_id));
+		Query query = getSession().createQuery(
+				"from Record r where r.user_id=?");
+		query.setParameter(0, user_id);
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
+		List<?> list = query.list();
+		return list;
+	}
+
+	// 查询总记录数
+	@Override
+	public int queryCount(String hql) {
+		if (hql == null) {
+			hql = "select count(*) from User";
+		}
+		Query query = getSession().createQuery(hql);
+		List<?> list = query.list();
+		return ((Long) list.get(0)).intValue();
 	}
 }

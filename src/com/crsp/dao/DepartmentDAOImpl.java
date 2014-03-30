@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.crsp.entity.Department;
+import com.crsp.utils.Page;
+import com.crsp.utils.PageUtil;
 
 /*院系表的DAO实现类*/
 @Repository
@@ -45,45 +47,76 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	public Department findById(int id) {
 		return (Department) getSession().get(Department.class, id);
 	}
-
+	
+	// 根据院系的名称查询
+	@Override
+	public Department findByName(String name) {
+		List<?> list = findByProperty(null, "name", name);
+		if (list.size() != 0) {
+			return (Department) list.get(0);
+		}
+		return null;
+	}
+	
 	// 查询所有的院系
 	@Override
-	public List<?> findAll() {
+	public List<?> findByPage(Page page) {
+		PageUtil.initPage(page, queryCount(null));// 初始化分页信息
 		Query query = getSession().createQuery("from Department");
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
 		List<?> list = query.list();
 		return list;
 	}
 
 	// 根据某个属性查询院系的信息
 	@Override
-	public List<?> findByProperty(String propertyName, Object value) {
+	public List<?> findByProperty(Page page, String propertyName, Object value) {
 		String queryString = "from Department as model where model."
 				+ propertyName + "=?";
-		Query queryObject = getSession().createQuery(queryString);
-		queryObject.setParameter(0, value);
-		List<?> list = queryObject.list();
+		Query query = getSession().createQuery(queryString);
+		query.setParameter(0, value);
+		if (page != null) {
+			// 初始化分页信息
+			PageUtil.initPage(
+					page,
+					queryCount("select count(*) from Department as model where model."
+							+ propertyName + "=" + value));
+			query.setFirstResult(page.getBeginIndex());// 查询的起点
+			query.setMaxResults(page.getPageSize()); // 查询记录数
+		}
+		List<?> list = query.list();
 		return list;
 	}
 
 	// 根据某个属性模糊查询院系的信息
 	@Override
-	public List<?> findLikeProperty(String propertyName, Object value) {
+	public List<?> findLikeProperty(Page page, String propertyName, Object value) {
 		String queryString = "from Department as model where model."
 				+ propertyName + " like ?";
-		Query queryObject = getSession().createQuery(queryString);
-		queryObject.setParameter(0, value + "%");
-		List<?> list = queryObject.list();
+		Query query = getSession().createQuery(queryString);
+		query.setParameter(0, value + "%");
+		if (page != null) {
+			// 初始化分页信息
+			PageUtil.initPage(
+					page,
+					queryCount("select count(*) from Department as model where model."
+							+ propertyName + " like " + value + "%"));
+			query.setFirstResult(page.getBeginIndex());// 查询的起点
+			query.setMaxResults(page.getPageSize()); // 查询记录数
+		}
+		List<?> list = query.list();
 		return list;
 	}
 
-	// 查找相应学校的院系信息
+	// 查询总记录数
 	@Override
-	public List<?> findBySchool(int id) {
-		Query queryObject = getSession()
-				.createQuery(
-						"select dp from School sh,Department dp,School_Department sh_dp where sh.id=? and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id");
-		queryObject.setParameter(0, id);
-		List<?> list = queryObject.list();
-		return list;
+	public int queryCount(String hql) {
+		if (hql == null) {
+			hql = "select count(*) from Department a";
+		}
+		Query query = getSession().createQuery(hql);
+		List<?> list = query.list();
+		return ((Long) list.get(0)).intValue();
 	}
 }

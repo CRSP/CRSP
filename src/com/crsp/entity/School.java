@@ -76,7 +76,8 @@ public class School implements Serializable {
 
 	@Override
 	public String toString() {
-		return "School [id=" + id + ", name=" + name + ", description="
-				+ description + ", province_id=" + province_id + "]";
+		return "School [id=" + id + ", province_id=" + province_id + ", name="
+				+ name + ", description=" + description + ", avatar=" + avatar
+				+ "]";
 	}
 }

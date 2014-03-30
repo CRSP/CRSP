@@ -23,7 +23,7 @@ public class Department implements Serializable {
 	@Column(name = "id")
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
-	private int id;// 主键,自增
+	private Integer id;// 主键,自增
 	@Column
 	private String name;// 名称
 	@Column
@@ -39,11 +39,11 @@ public class Department implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -66,6 +66,6 @@ public class Department implements Serializable {
 	@Override
 	public String toString() {
 		return "Department [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
+				+ description + ", avatar=" + avatar + "]";
 	}
 }

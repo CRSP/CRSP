@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.crsp.dao.UserDAO;
 import com.crsp.entity.User;
+import com.crsp.utils.Page;
 
 @Service
 public class UserManageService {
@@ -14,9 +15,9 @@ public class UserManageService {
 
 	
 	//查找所有用户
-	public List<User> findAllUser(){
-			
-		return (List<User>)userDAO.findAll();
+	@SuppressWarnings("unchecked")
+	public List<User> findAllUser(Page page){
+		return (List<User>)userDAO.findAll(page);
 		
 	}
 	//根据记录ID查找用户

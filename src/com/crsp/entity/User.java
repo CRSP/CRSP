@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,14 +27,23 @@ public class User implements Serializable {
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
 	private int id;// Id,主键
-	private int school_id;// 学校Id,外键
-	private int department_id;// 院系Id,外键
+	@ManyToOne(targetEntity=School.class)
+	@JoinColumn(referencedColumnName="id",name="school_id")
+	private School school;// 学校
+	@ManyToOne(targetEntity=Department.class)
+	@JoinColumn(referencedColumnName="id",name="department_id")
+	private Department department;// 院系
+	@Column
 	private String user_id;// 用户Id
+	@Column
 	private String user_pwd;// 用户密码
+	@Column
 	private String user_name;// 用户名
+	@Column
 	private String avatar;// 用户头像
-	@Column(name = "points")
+	@Column
 	private Integer points;// 积分
+	@Column
 	private String email;// 邮箱
 
 	public int getId() {
@@ -41,21 +53,21 @@ public class User implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getSchool_id() {
-		return school_id;
+	
+	public School getSchool() {
+		return school;
 	}
 
-	public void setSchool_id(int school_id) {
-		this.school_id = school_id;
+	public void setSchool(School school) {
+		this.school = school;
 	}
 
-	public int getDepartment_id() {
-		return department_id;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartment_id(int department_id) {
-		this.department_id = department_id;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public String getUser_id() {
@@ -90,14 +102,6 @@ public class User implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -106,12 +110,16 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", school_id=" + school_id
-				+ ", department_id=" + department_id + ", user_id=" + user_id
-				+ ", user_pwd=" + user_pwd + ", user_name=" + user_name
-				+ ", avatar=" + avatar + ", points=" + points + ", email="
-				+ email + "]";
+		return "User [id=" + id + ", school=" + school.toString() + ", department="
+				+ department.toString() + ", user_id=" + user_id + ", user_pwd="
+				+ user_pwd + ", user_name=" + user_name + ", avatar=" + avatar
+				+ ", points=" + points + ", email=" + email + "]";
 	}
+
 }

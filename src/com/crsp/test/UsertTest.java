@@ -2,6 +2,8 @@ package com.crsp.test;
 
 
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +11,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
+import com.crsp.dao.UserDAO;
 import com.crsp.entity.User;
 import com.crsp.service.UserService;
+import com.crsp.utils.Page;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/spring-config.xml" })
 public class UsertTest {
 	@Autowired
-	//private UserDAO userDAO;// 用户表的DAO接口类
-	private UserService userService;
+	private UserDAO userDAO;// 用户表的DAO接口类
+	//@Autowired
+//	private UserService userService;
 
 	@Test
 	public void testSave() {
@@ -29,14 +34,14 @@ public class UsertTest {
 		else{
 			System.out.println("输入有误！");
 		}*/
-		User user = new User();
+		/*User user = new User();
 		user.setId(5);
 		user.setUser_id("123");
 		user.setSchool_id(1);
 		user.setDepartment_id(1);
 		user.setEmail("123");
 		user.setUser_name("123");
-		user.setUser_pwd("123456");
+		user.setUser_pwd("123456");*/
 		
 /*		user = userService.userSignUp(user);
 		if(user!=null)
@@ -53,13 +58,13 @@ public class UsertTest {
 			System.out.println("插入错误！");
 		}*/
 		
-		user=userService.seeInformation(user.getUser_id());
+	/*	user=userService.seeInformation(user.getUser_id());
 		if(user!=null){
 			System.out.println(user.toString());
 		}
 		else{
 			System.out.println("查看错误");
-		}
+		}*/
 		/*
 		 * User user = new User(); user.setId(69);
 		 * user.setUser_name("周五了");
@@ -70,6 +75,12 @@ public class UsertTest {
 		// findById(1);
 		//userDAO.findAll();
 		// findByProperty("user_name","河");
+		Page page = new Page();
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) userDAO.findByPage(page);
+		for(User u : users){
+			System.out.println(u.toString());
+		}
 	}
 	
 	

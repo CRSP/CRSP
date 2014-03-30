@@ -3,6 +3,7 @@ package com.crsp.dao;
 import java.util.List;
 
 import com.crsp.entity.School;
+import com.crsp.utils.Page;
 
 /*学校表的DAO接口类*/
 public interface SchoolDAO {
@@ -17,19 +18,28 @@ public interface SchoolDAO {
 
 	// 根据Id查询学校信息
 	public School findById(int id);
+
+	// 根据名称查询学校信息
+	public School findByName(String name);
+
+	// 分页查询学校开设的院系
+	public List<?> findDepartments(Page page, int school_id);
+
+	// 查询学校开设的所有院系
+	public List<?> findDepartments(int school_id);
 	
-	// 查询所有的学校信息
-	public List<?> findAll();
+	// 分页查询该学校的用户信息
+	public List<?> findUsers(Page page,int school_id);
+
+	// 分页查询所有的学校信息
+	public List<?> findByPage(Page page);
 
 	// 根据某个属性查询学校的信息
-	public List<?> findByProperty(String propertyName, Object value);
-	
-	// 根据某个属性模糊查询学校的信息
-	public List<?> findLikeProperty(String propertyName, Object value);
+	public List<?> findByProperty(Page page, String propertyName, Object value);
 
-	// 查找相应省份的学校信息
-	public List<?> findByProvince(int id);
-	
-	// 查询学校开设的院系
-	public List<?> findDepartments(int id);
+	// 根据某个属性模糊查询学校的信息
+	public List<?> findLikeProperty(Page page, String propertyName, Object value);
+
+	// 查询总记录数
+	public int queryCount(String hql);
 }

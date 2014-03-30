@@ -24,17 +24,17 @@ public class Province implements Serializable {
 	@Column(name = "id")
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
-	private int id;// 主键,自增
+	private Integer id;// 主键,自增
 	@Column
 	private String type;// 类型
 	@Column
 	private String name;// 名称
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -8,12 +8,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.crsp.entity.Admin;
+import com.crsp.entity.Resource;
 import com.crsp.utils.Page;
 import com.crsp.utils.PageUtil;
 
-/*管理员表的DAO实现类*/
-public class AdminDAOImpl implements AdminDAO {
+/*资源表的DAO实现类*/
+public class ResourceDAOImpl implements ResourceDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
@@ -22,63 +22,78 @@ public class AdminDAOImpl implements AdminDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	// 添加管理员信息
+	// 添加资源信息
 	@Override
-	public void save(Admin admin) {
-		getSession().save(admin);
+	public void save(Resource resource) {
+		getSession().save(resource);
 	}
 
-	// 更新管理员信息
+	// 更新资源信息
 	@Override
-	public void update(Admin admin) {
-		getSession().update(admin);
+	public void update(Resource resource) {
+		getSession().update(resource);
 	}
 
-	// 删除管理员信息
+	// 删除资源信息
 	@Override
-	public void delete(Admin admin) {
-		getSession().delete(admin);
+	public void delete(Resource resource) {
+		getSession().delete(resource);
 	}
 
-	// 根据Id查询管理员信息
+	// 根据Id查询资源信息
 	@Override
-	public Admin findById(int id) {
-		return (Admin) getSession().get(Admin.class, id);
+	public Resource findById(int id) {
+		return (Resource) getSession().get(Resource.class, id);
 	}
 
-	// 根据管理员的用户名查询
+	// 根据资源名查询
 	@Override
-	public Admin findByName(String name) {
-		List<?> list = findByProperty(null, "user_name", name);
+	public Resource findByName(String name) {
+		List<?> list = findByProperty(null,"name", name);
 		if (list.size() != 0) {
-			return (Admin) list.get(0);
+			return (Resource)list.get(0);
 		}
 		return null;
 	}
 
-	// 查询所有的管理员
+	// 分页查找该资源的记录
 	@Override
-	public List<?> findByPage(Page page) {
-		PageUtil.initPage(page, queryCount(null));// 初始化分页信息
-		Query query = getSession().createQuery("from Admin");
+	public List<?> findRecords(Page page, int resource_id) {
+		// 初始化分页信息
+		PageUtil.initPage(page, queryCount("select count(*) from Record r where r.resource_id=" + resource_id));
+		Query query = getSession().createQuery(
+				"from Record r where r.resource_id=?");
+		query.setParameter(0, resource_id);
 		query.setFirstResult(page.getBeginIndex());// 查询的起点
 		query.setMaxResults(page.getPageSize()); // 查询记录数
 		List<?> list = query.list();
 		return list;
 	}
 
-	// 根据某个属性查询管理员的信息
+	// 分页查询资源
+	@Override
+	public List<?> findByPage(Page page) {
+		// 初始化分页信息
+		PageUtil.initPage(page, queryCount(null));
+		Query query = getSession().createQuery("from Resource");
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
+		List<?> list = query.list();
+		return list;
+	}
+
+	// 根据某个属性查询资源的信息
 	@Override
 	public List<?> findByProperty(Page page, String propertyName, Object value) {
-		String queryString = "from Admin as model where model." + propertyName
-				+ "=?";
+		String queryString = "from Resource as model where model."
+				+ propertyName + "=?";
 		Query query = getSession().createQuery(queryString);
 		query.setParameter(0, value);
 		if (page != null) {
 			// 初始化分页信息
 			PageUtil.initPage(
 					page,
-					queryCount("select count(*) from Admin as model where model."
+					queryCount("select count(*) from Resource as model where model."
 							+ propertyName + "=" + value));
 			query.setFirstResult(page.getBeginIndex());// 查询的起点
 			query.setMaxResults(page.getPageSize()); // 查询记录数
@@ -87,18 +102,18 @@ public class AdminDAOImpl implements AdminDAO {
 		return list;
 	}
 
-	// 根据某个属性模糊查询管理员的信息
+	// 根据某个属性模糊查询资源的信息
 	@Override
 	public List<?> findLikeProperty(Page page, String propertyName, Object value) {
-		String queryString = "from Admin as model where model." + propertyName
-				+ " like ?";
+		String queryString = "from Resource as model where model."
+				+ propertyName + " like ?";
 		Query query = getSession().createQuery(queryString);
 		query.setParameter(0, value + "%");
 		if (page != null) {
 			// 初始化分页信息
 			PageUtil.initPage(
 					page,
-					queryCount("select count(*) from Admin as model where model."
+					queryCount("select count(*) from Resource as model where model."
 							+ propertyName + " like " + value + "%"));
 			query.setFirstResult(page.getBeginIndex());// 查询的起点
 			query.setMaxResults(page.getPageSize()); // 查询记录数
@@ -111,7 +126,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int queryCount(String hql) {
 		if (hql == null) {
-			hql = "select count(*) from Admin";
+			hql = "select count(*) from Resource";
 		}
 		Query query = getSession().createQuery(hql);
 		List<?> list = query.list();
