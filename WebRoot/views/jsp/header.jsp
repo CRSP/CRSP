@@ -34,16 +34,17 @@
 			<p class="navbar-text pull-right">
 				<!-- Button to trigger modal -->
 				<c:if test="${sessionScope.ID == null || sessionScope.user_name == null}">
-					<a href="#loginModel" class="navbar-link" data-toggle="modal">请登录</a>
+					<a href="#loginModel" class="navbar-link" data-toggle="modal">请登录</a>&nbsp;|&nbsp;
+					<a href="${requestScope.basePath}/user/register/init" class="navbar-link" data-toggle="modal">我要注册</a>
 				</c:if>
 				<c:if test="${sessionScope.ID != null && sessionScope.user_name != null}">
-					你好,<a href="#" class="navbar-link">${sessionScope.user_name}</a>&nbsp;|&nbsp;<a href="${requestScope.basePath}/user/logout">注销登录</a>
+					你好,<a href="${requestScope.basePath}/my/" class="navbar-link">${sessionScope.user_name}</a>&nbsp;|&nbsp;<a href="${requestScope.basePath}/user/logout">退出</a>
 				</c:if>
 			</p>
 
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li><a href="#">首页</a></li>
+					<li><a href="${requestScope.basePath}/index">首页</a></li>
 					<li><a href="#about">各大高校</a></li>
 					<li><a href="#contact">最新资源</a></li>
 					<li><a href="#contact">上传资源</a></li>
@@ -90,7 +91,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<label class="checkbox"> <input type="checkbox" name="rememberme">
-						记住我</label>
+						记住我&nbsp;|&nbsp;<a href="#">忘记密码?</a></label>
 				</div>
 			</div>
 		</div>

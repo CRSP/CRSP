@@ -79,7 +79,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/register/init", method=RequestMethod.GET)
-	public String initUserForm(Model model) {
+	public String initUserForm(Model model, HttpSession session) {
+		if(session.getAttribute("user_name") != null) {
+			return "redirect:/index";
+		}
 		model.addAttribute(new User());
 		return "register";
 	}

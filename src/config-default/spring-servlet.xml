@@ -18,7 +18,17 @@
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-		
+
+	<!-- 权限Exeception -->
+	<bean id="handlerExceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.crsp.utils.AuthorizationException">redirect:/index</prop>
+			</props>
+		</property>
+	</bean>
+
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="ignoreAcceptHeader" value="true" />
@@ -42,23 +52,33 @@
 				</bean>
 			</list>
 		</property>
-
 		<property name="defaultViews">
 			<list>
 				<!-- for application/json -->
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
 				<!-- for application/xml -->
-				<!-- <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
-					<property name="marshaller">
-						<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
-					</property>
-				</bean> -->
+				<!-- <bean class="org.springframework.web.servlet.view.xml.MarshallingView"> 
+					<property name="marshaller"> <bean class="org.springframework.oxm.xstream.XStreamMarshaller" 
+					/> </property> </bean> -->
 			</list>
 		</property>
 	</bean>
 	<mvc:annotation-driven />
-	<mvc:resources location="/views/plugins/" mapping="/views/plugins/**"/>
-	<mvc:resources location="/views/css/" mapping="/views/css/**"/>
-	<mvc:resources location="/views/avatars/" mapping="/views/avatars/**"/>
+	<mvc:resources location="/views/plugins/" mapping="/views/plugins/**" />
+	<mvc:resources location="/views/css/" mapping="/views/css/**" />
+	<mvc:resources location="/views/avatars/" mapping="/views/avatars/**" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*" />
+			<mvc:mapping path="/my/*" />
+			<bean class="com.crsp.filter.SecurityInterceptor">
+				<property name="excludedUrls">
+					<list>
+						<value>/index</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

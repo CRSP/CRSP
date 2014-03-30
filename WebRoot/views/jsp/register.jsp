@@ -10,7 +10,7 @@
 <meta http-equiv="description" content="This is my page">
 </head>
 <body>
-	<br><%@ include file="header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<sf:form class="form-horizontal span6 offset3" modelAttribute="user"
