@@ -22,8 +22,6 @@
 				<li><a href="${requestScope.basePath}/my/download">下载资源</a></li>
 				<li><a href="${requestScope.basePath}/my/record">得分记录</a></li>
 			</ul>
-
-
 			<!-- upload begin -->
 			<div class="tab-pane active" id="my_upload">
 				<table class="table table-striped table-condensed">

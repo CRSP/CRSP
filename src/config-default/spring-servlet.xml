@@ -68,6 +68,7 @@
 	<mvc:resources location="/views/plugins/" mapping="/views/plugins/**" />
 	<mvc:resources location="/views/css/" mapping="/views/css/**" />
 	<mvc:resources location="/views/avatars/" mapping="/views/avatars/**" />
+	<mvc:resources location="/views/images/" mapping="/views/images/**"/>
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*" />

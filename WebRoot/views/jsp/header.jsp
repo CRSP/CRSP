@@ -45,8 +45,8 @@
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li><a href="${requestScope.basePath}/index">首页</a></li>
-					<li><a href="#about">各大高校</a></li>
-					<li><a href="#contact">最新资源</a></li>
+					<li><a href="${requestScope.basePath}/school/list">各大高校</a></li>
+					<li><a href="${requestScope.basePath}/resource/list">最新资源</a></li>
 					<li><a href="#contact">上传资源</a></li>
 					<li><a href="#contact">购买积分</a></li>
 					<li><a href="#contact">地区省份</a></li>
@@ -96,7 +96,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn">关闭</a> <input type="submit" class="btn btn-success" value="登陆"/>
+			<a href="#" class="btn" data-dismiss="modal">关闭</a> <input type="submit" class="btn btn-success" value="登陆"/>
 		</div>
 	</div>
 </form>

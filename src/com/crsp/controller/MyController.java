@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value="/my")
 public class MyController {
-	//myservice
+	//myService
 	
 	
 	@RequestMapping(value={"/", "/upload"}, method=RequestMethod.GET)
