@@ -7,12 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.crsp.entity.Resource;
 import com.crsp.utils.Page;
 import com.crsp.utils.PageUtil;
 
 /*资源表的DAO实现类*/
+@Repository
 public class ResourceDAOImpl implements ResourceDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
@@ -129,6 +131,15 @@ public class ResourceDAOImpl implements ResourceDAO {
 			hql = "select count(*) from Resource";
 		}
 		Query query = getSession().createQuery(hql);
+		List<?> list = query.list();
+		return ((Long) list.get(0)).intValue();
+	}
+	// 查询某资源的下载次数
+	@Override
+	public int findDownCount(int id) {
+		Query query = getSession().createQuery("select count(*) from Record r where r.resource_id=? and type=?");
+		query.setParameter(0, id);
+		query.setParameter(1, 1);
 		List<?> list = query.list();
 		return ((Long) list.get(0)).intValue();
 	}

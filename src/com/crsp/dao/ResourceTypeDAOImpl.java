@@ -7,12 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.crsp.entity.Resource_Type;
 import com.crsp.utils.Page;
 import com.crsp.utils.PageUtil;
 
 /*资源类型表的DAO实现类*/
+@Repository
 public class ResourceTypeDAOImpl implements ResourceTypeDAO {
 	@Autowired
 	@Qualifier("sessionFactory")

@@ -30,7 +30,7 @@ public class Record implements Serializable {
 	@Column
 	private int delta;// 积分
 	@Column
-	private int type;// 类型
+	private int type;// 类型,0为上传资源的记录,1为下载资源的记录
 	@Column
 	private String time;// 时间
 

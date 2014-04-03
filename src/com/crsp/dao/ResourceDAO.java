@@ -33,7 +33,10 @@ public interface ResourceDAO {
 
 	// 根据某个属性模糊查询资源的信息
 	public List<?> findLikeProperty(Page page, String propertyName, Object value);
-
+	
+	// 查询某资源的下载次数
+	public int findDownCount(int id);
+	
 	// 查询总记录数
 	public int queryCount(String hql);
 }

@@ -42,4 +42,8 @@ public class Resource_Type implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Resource_Type [id=" + id + ", name=" + name + "]";
+	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,13 +27,15 @@ public class School implements Serializable {
 	@GeneratedValue(generator = "paymentableGenerator")
 	private int id;// 主键,自增
 	@Column
-	private int province_id;// 省份Id,外键
+	private int province_id;// 外键,省份Id
 	@Column
 	private String name;// 名称
 	@Column
 	private String description;// 描述
 	@Column
-	private String avatar; //头像
+	private String avatar; // 头像
+	@Transient
+	private Province province;// 省份对象
 
 	public String getAvatar() {
 		return avatar;
@@ -74,10 +77,18 @@ public class School implements Serializable {
 		this.province_id = province_id;
 	}
 
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
 	@Override
 	public String toString() {
 		return "School [id=" + id + ", province_id=" + province_id + ", name="
 				+ name + ", description=" + description + ", avatar=" + avatar
-				+ "]";
+				+ ", province=" + province + "]";
 	}
 }

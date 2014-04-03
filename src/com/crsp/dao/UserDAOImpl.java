@@ -154,4 +154,26 @@ public class UserDAOImpl implements UserDAO {
 		List<?> list = query.list();
 		return ((Long) list.get(0)).intValue();
 	}
+
+	// 查询用户的名称
+	@Override
+	public String findUserName(int id) {
+		Query query = getSession().createQuery(
+				"select u.user_name from User u where u.id=?");
+		query.setParameter(0, id);
+		List<?> list = query.list();
+		if (list != null) {
+			return (String) list.get(0);
+		}
+		return null;
+	}
+	
+	// 查询某用户拥有的资源数量
+	@Override
+	public int findResourceCount(int id) {
+		Query query = getSession().createQuery("select count(*) from Resource r where r.user_id=?");
+		query.setParameter(0, id);
+		List<?> list = query.list();
+		return ((Long) list.get(0)).intValue();
+	}
 }

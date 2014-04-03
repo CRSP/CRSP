@@ -11,7 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
+import com.crsp.dao.ResourceDAO;
+import com.crsp.dao.SchoolDAO;
 import com.crsp.dao.UserDAO;
+import com.crsp.entity.Resource;
+import com.crsp.entity.School;
 import com.crsp.entity.User;
 import com.crsp.service.UserService;
 import com.crsp.utils.Page;
@@ -21,6 +25,10 @@ import com.crsp.utils.Page;
 public class UsertTest {
 	@Autowired
 	private UserDAO userDAO;// 用户表的DAO接口类
+	@Autowired 
+	private ResourceDAO resourceDAO;
+	@Autowired 
+	private SchoolDAO schoolDAO;
 	//@Autowired
 //	private UserService userService;
 
@@ -73,13 +81,23 @@ public class UsertTest {
 		// update(user);
 		// delete(user);
 		// findById(1);
-		//userDAO.findAll();
+		// userDAO.findAll();
 		// findByProperty("user_name","河");
 		Page page = new Page();
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) userDAO.findByPage(page);
+		/*List<User> users = (List<User>) userDAO.findByPage(page);
 		for(User u : users){
 			System.out.println(u.toString());
+		}*/
+		/*List<Resource> resources = (List<Resource>) resourceDAO.findByPage(page);
+		for(Resource u : resources){
+			u.setUser_name(userDAO.findUserName(u.getUser_id()));
+			System.out.println(u.toString());
+		}*/
+		List<School> ss = (List<School>) schoolDAO.findByPage(page);
+		for(School s : ss){
+			
+			System.out.println(s.toString());
 		}
 	}
 	

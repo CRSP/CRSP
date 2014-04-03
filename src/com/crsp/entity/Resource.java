@@ -6,7 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,18 +26,21 @@ public class Resource implements Serializable {
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
 	private Integer id;// 主键
+	@ManyToOne(targetEntity = Resource_Type.class)
+	@JoinColumn(referencedColumnName = "id", name = "type_id")
+	private Resource_Type resource_type;// 外键,类型编号
 	@Column
-	private Integer type_id;// 外键,类型编号
+	private Integer user_id;
 	@Column
-	private Integer user_id;// 外键,用户编号
+	private String name;//资源名
 	@Column
-	private String name;// 资源名
-	@Column
-	private Integer status;// 资源状态
+	private Integer status;// 资源状态,0为待审核状态,1为已审核状态
 	@Column
 	private String time;// 上传时间
 	@Column
 	private Integer price;// 资源积分
+	@Transient
+	private String user_name;
 
 	public Integer getId() {
 		return id;
@@ -44,12 +50,12 @@ public class Resource implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getType_id() {
-		return type_id;
+	public Resource_Type getResource_type() {
+		return resource_type;
 	}
 
-	public void setType_id(Integer type_id) {
-		this.type_id = type_id;
+	public void setResource_type(Resource_Type resource_type) {
+		this.resource_type = resource_type;
 	}
 
 	public Integer getUser_id() {
@@ -90,5 +96,21 @@ public class Resource implements Serializable {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	@Override
+	public String toString() {
+		return "Resource [id=" + id + ", resource_type=" + resource_type
+				+ ", user_id=" + user_id + ", name=" + name + ", status="
+				+ status + ", time=" + time + ", price=" + price
+				+ ", user_name=" + user_name + "]";
 	}
 }

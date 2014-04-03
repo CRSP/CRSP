@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -27,11 +26,11 @@ public class User implements Serializable {
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
 	private int id;// Id,主键
-	@ManyToOne(targetEntity=School.class)
-	@JoinColumn(referencedColumnName="id",name="school_id")
+	@ManyToOne(targetEntity = School.class)
+	@JoinColumn(referencedColumnName = "id", name = "school_id")
 	private School school;// 学校
-	@ManyToOne(targetEntity=Department.class)
-	@JoinColumn(referencedColumnName="id",name="department_id")
+	@ManyToOne(targetEntity = Department.class)
+	@JoinColumn(referencedColumnName = "id", name = "department_id")
 	private Department department;// 院系
 	@Column
 	private String user_id;// 用户Id
@@ -53,7 +52,7 @@ public class User implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public School getSchool() {
 		return school;
 	}
@@ -116,10 +115,11 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", school=" + school.toString() + ", department="
-				+ department.toString() + ", user_id=" + user_id + ", user_pwd="
-				+ user_pwd + ", user_name=" + user_name + ", avatar=" + avatar
-				+ ", points=" + points + ", email=" + email + "]";
+		return "User [id=" + id + ", school=" + school.toString()
+				+ ", department=" + department.toString() + ", user_id="
+				+ user_id + ", user_pwd=" + user_pwd + ", user_name="
+				+ user_name + ", avatar=" + avatar + ", points=" + points
+				+ ", email=" + email + "]";
 	}
 
 }
