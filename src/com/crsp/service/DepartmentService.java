@@ -16,6 +16,7 @@ public class DepartmentService {
 		 departmentDAO.save(department);
 		 return  departmentDAO.findById(department.getId());	
 	}
+	
 	//更新信息
 	public void updateInformation(Department department){
 	

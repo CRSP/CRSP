@@ -15,8 +15,7 @@ public class UserService {
 
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
-	private SessionFactory sessionFactory;
+
 	
 	//用户登陆
 	public User userLogin(String id, String password) {

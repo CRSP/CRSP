@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.crsp.entity.User;
 import com.crsp.service.UserManageService;
+import com.crsp.utils.Page;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,8 +21,8 @@ public class UserManageServiceTest {
 	
 	@Test
 	public void userTest(){
-		User user=new User();
-		user.setId(1);
+/*		User user=new User();
+		user.setId(1);*/
 		
 		
 		
@@ -35,15 +36,19 @@ public class UserManageServiceTest {
 			System.out.println("没有用户");
 		}*/
 		
-		user=userManageService.findUserByID(user.getId());
+/*		user=userManageService.findUserByID(user.getId());
 		if(user!=null){
 			System.out.println(user.toString());
 		}
 		else{
 			System.out.println("查看错误");
+		}*/
+		
+		Page page=new Page();
+		List<User> list=userManageService.findAllUser(page);
+		for(User u:list){
+			System.out.println(u.toString());
 		}
-		
-		
 		
 		
 	}
