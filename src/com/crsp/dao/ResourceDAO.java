@@ -18,6 +18,7 @@ public interface ResourceDAO {
 
 	// 根据Id查询资源信息
 	public Resource findById(int id);
+	
 
 	// 根据资源名查询
 	public Resource findByName(String name);
