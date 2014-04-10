@@ -31,15 +31,18 @@ public interface UserDAO {
 	// 分页查询该用户上传的资源信息
 	public List<?> findResources(Page page, int user_id);
 
+	// 分页查询该用户上传的资源信息
+	public List<?> findResources(Page page, int user_id, int status);
+
 	// 分页查询该用户的资源记录
 	public List<?> findRecords(Page page, int user_id);
 
 	// 分页查询用户信息
 	public List<?> findByPage(Page page);
-	
+
 	// 查询用户的名称
 	public String findUserName(int id);
-	
+
 	// 查询某用户拥有的资源数量
 	public int findResourceCount(int id);
 
