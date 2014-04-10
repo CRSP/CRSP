@@ -110,4 +110,21 @@ public class RecordDAOImpl implements RecordDAO {
 		List<?> list = query.list();
 		return ((Long) list.get(0)).intValue();
 	}
+
+	// 分页查询该用户上传的资源信息
+	@Override
+	public List<?> findByUser(Page page, int user_id, int type) {
+		// 初始化分页信息
+		PageUtil.initPage(page,
+				queryCount("select count(*) from Record r where r.user_id="
+						+ user_id + " and r.type=" + type));
+		Query query = getSession().createQuery(
+				"from Record r where user_id=? and r.type");
+		query.setParameter(0, user_id);
+		query.setParameter(1, type);
+		query.setFirstResult(page.getBeginIndex());// 查询的起点
+		query.setMaxResults(page.getPageSize()); // 查询记录数
+		List<?> list = query.list();
+		return list;
+	}
 }

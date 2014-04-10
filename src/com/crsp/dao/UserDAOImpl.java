@@ -128,23 +128,6 @@ public class UserDAOImpl implements UserDAO {
 		return list;
 	}
 
-	// 分页查询该用户上传的资源信息
-	@Override
-	public List<?> findResources(Page page, int user_id, int status) {
-		// 初始化分页信息
-		PageUtil.initPage(page,
-				queryCount("select count(*) from Resource r where r.user_id="
-						+ user_id + " and r.status=" + status));
-		Query query = getSession().createQuery(
-				"from Resource r where user_id=? and r.status");
-		query.setParameter(0, user_id);
-		query.setParameter(1, status);
-		query.setFirstResult(page.getBeginIndex());// 查询的起点
-		query.setMaxResults(page.getPageSize()); // 查询记录数
-		List<?> list = query.list();
-		return list;
-	}
-
 	// 分页查找该用户的资源记录
 	@Override
 	public List<?> findRecords(Page page, int user_id) {
