@@ -86,5 +86,12 @@
 		<!-- 定义了将采用何种拦截操作，这里引用到 txAdvice -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointCut" />
 	</aop:config>
+	<!-- easyMock测试	 -->
+	<bean id="userDAO" class="org.easymock.EasyMock" factory-method="createStrictMock">
+		<constructor-arg value="com.crsp.dao.UserDAO" />
+	</bean>
 
+	<bean id="userService2" class="com.crsp.service.UserServiceImpl2">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
 </beans>

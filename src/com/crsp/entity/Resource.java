@@ -32,7 +32,7 @@ public class Resource implements Serializable {
 	@Column
 	private Integer user_id;
 	@Column
-	private String name;//资源名
+	private String name;// 资源名
 	@Column
 	private Integer status;// 资源状态,0为待审核状态,1为已审核状态
 	@Column
@@ -58,11 +58,11 @@ public class Resource implements Serializable {
 		this.resource_type = resource_type;
 	}
 
-	public Integer getUser_id() {
+	public Integer getUser_id1() {
 		return user_id;
 	}
 
-	public void setUser_id(Integer user_id) {
+	public void setUser_id1(Integer user_id) {
 		this.user_id = user_id;
 	}
 
@@ -104,13 +104,5 @@ public class Resource implements Serializable {
 
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
-	}
-
-	@Override
-	public String toString() {
-		return "Resource [id=" + id + ", resource_type=" + resource_type
-				+ ", user_id=" + user_id + ", name=" + name + ", status="
-				+ status + ", time=" + time + ", price=" + price
-				+ ", user_name=" + user_name + "]";
 	}
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-03-30 19:12:29
+Date: 2014-04-12 21:02:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -117,15 +117,17 @@ DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record` (
   `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `upload_user_id` int(11) NOT NULL,
+  `download_user_id` int(11) NOT NULL,
   `delta` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `time` varchar(45) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_record_resource1_idx` (`resource_id`),
-  KEY `fk_record_user1_idx` (`user_id`),
+  KEY `fk_record_user1_idx` (`upload_user_id`),
+  KEY `fk_record_user2_idx` (`download_user_id`),
   CONSTRAINT `fk_record_resource1` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_record_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_record_user1` FOREIGN KEY (`upload_user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_record_user2` FOREIGN KEY (`download_user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
