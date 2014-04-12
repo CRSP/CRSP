@@ -36,10 +36,10 @@ public interface UserDAO {
 
 	// 分页查询用户信息
 	public List<?> findByPage(Page page);
-	
+
 	// 查询用户的名称
 	public String findUserName(int id);
-	
+
 	// 查询某用户拥有的资源数量
 	public int findResourceCount(int id);
 

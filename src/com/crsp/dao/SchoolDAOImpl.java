@@ -64,7 +64,7 @@ public class SchoolDAOImpl implements SchoolDAO {
 		// 初始化分页信息
 		PageUtil.initPage(
 				page,
-				queryCount("select dp from School sh,Department dp,School_Department sh_dp where sh.id="
+				queryCount("select count(*) from School sh,Department dp,School_Department sh_dp where sh.id="
 						+ school_id
 						+ " and sh.id=sh_dp.school_id and sh_dp.department_id=dp.id"));
 		Query query = getSession()

@@ -1,7 +1,7 @@
 CRSP
 ====
 
-platform for collegue students sharing their study resources
+platform for college students sharing their study resources
 
 ## Install
 

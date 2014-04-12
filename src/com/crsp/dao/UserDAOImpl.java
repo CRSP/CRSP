@@ -167,11 +167,12 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return null;
 	}
-	
+
 	// 查询某用户拥有的资源数量
 	@Override
 	public int findResourceCount(int id) {
-		Query query = getSession().createQuery("select count(*) from Resource r where r.user_id=?");
+		Query query = getSession().createQuery(
+				"select count(*) from Resource r where r.user_id=?");
 		query.setParameter(0, id);
 		List<?> list = query.list();
 		return ((Long) list.get(0)).intValue();

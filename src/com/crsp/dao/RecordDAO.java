@@ -21,7 +21,10 @@ public interface RecordDAO {
 
 	// 分页查询资源记录
 	public List<?> findByPage(Page page);
-
+	
+	// 通过用户Id查询资源
+	public List<?> findByUser(Page page,int user_id,int type);
+	
 	// 根据某个属性查询资源记录的信息
 	public List<?> findByProperty(Page page, String propertyName, Object value);
 

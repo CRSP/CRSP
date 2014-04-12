@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,6 +34,11 @@ public class Record implements Serializable {
 	private int type;// 类型,0为上传资源的记录,1为下载资源的记录
 	@Column
 	private String time;// 时间
+	@Transient
+	private String resource_name;
+	@Transient
+	private String user_name;
+	
 
 	public int getId() {
 		return id;
@@ -82,4 +88,19 @@ public class Record implements Serializable {
 		this.time = time;
 	}
 
+	public String getResource_name() {
+		return resource_name;
+	}
+
+	public void setResource_name(String resource_name) {
+		this.resource_name = resource_name;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 }

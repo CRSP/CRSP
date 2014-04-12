@@ -18,12 +18,16 @@ public interface ResourceDAO {
 
 	// 根据Id查询资源信息
 	public Resource findById(int id);
+	
 
 	// 根据资源名查询
 	public Resource findByName(String name);
 
 	// 分页查询资源
 	public List<?> findByPage(Page page);
+	
+	// 分页查询资源
+	public List<?> findByPage(Page page,int status);
 
 	// 分页查找该资源的记录
 	public List<?> findRecords(Page page, int resource_id);
