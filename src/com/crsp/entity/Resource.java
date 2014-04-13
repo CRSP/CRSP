@@ -58,11 +58,11 @@ public class Resource implements Serializable {
 		this.resource_type = resource_type;
 	}
 
-	public Integer getUser_id1() {
+	public Integer getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id1(Integer user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 
