@@ -1,5 +1,7 @@
 package com.crsp.service;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.crsp.dao.UserDAO;
 import com.crsp.entity.User;
+import com.crsp.entity.Record;
+import com.crsp.utils.Page;
 
 @Service
 public class UserService {
@@ -58,4 +62,16 @@ public class UserService {
 							
 		return userDAO.findByUserId(user_id);	
 	}
+	
+	//我的下载
+	public List<Record> myDownload(Page page ,int user_id,int type){
+		
+		return (List<Record>)userDAO.findResources(page, user_id, type);
+		
+	}
+	//我的上传
+	public List<Record> myUpload(Page page ,int user_id,int type){
+		return (List<Record>)userDAO.findResources(page, user_id, type);
+	}
+	
 }

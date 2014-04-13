@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crsp.dao.ResourceDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.dao.UserDAO;
+import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.School;
 import com.crsp.entity.User;
@@ -29,6 +30,8 @@ public class UsertTest {
 	private ResourceDAO resourceDAO;
 	@Autowired 
 	private SchoolDAO schoolDAO;
+	@Autowired
+	private UserService userService;
 
 
 	@Test
@@ -36,12 +39,17 @@ public class UsertTest {
 		
 
 		Page page = new Page();
-		@SuppressWarnings("unchecked")
+/*		@SuppressWarnings("unchecked")
 
 		List<School> ss = (List<School>) schoolDAO.findByPage(page);
 		for(School s : ss){
 			
 			System.out.println(s.toString());
+		}*/
+		
+		List<Record> list=userService.myDownload(page, 1, 0);
+		for(Record r:list){
+			System.out.println(r.toString());
 		}
 	}
 	
