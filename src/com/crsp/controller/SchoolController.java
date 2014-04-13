@@ -60,8 +60,8 @@ public class SchoolController {
 		return schoolList;
 	}
 
-	// 按学校找院系
-	@RequestMapping(value = "/department/list/{schoolid}", method = RequestMethod.GET)
+	//获取学校详细信息(学校省份，资源数，院系列表等)
+	@RequestMapping(value = "/profile/{schoolid}", method = RequestMethod.GET)
 	public String getDepartmentBySchoolId(@PathVariable int schoolid, Map<String, Object> model) {
 		//学院列表
 		//学校信息

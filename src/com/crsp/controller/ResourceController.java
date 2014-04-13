@@ -1,7 +1,12 @@
 package com.crsp.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -53,15 +59,37 @@ public class ResourceController {
 
 	@RequestMapping(value = "/download/{resourceid}", method = RequestMethod.GET)
 	@ResponseBody
-	public Map getDownloadURL(@PathVariable int resourceid, HttpSession session) {
+	public Map getDownloadURL(HttpServletRequest request, HttpServletResponse response, @PathVariable int resourceid, HttpSession session) {
 		// 判断是否登录
 		Map msgMap = new HashMap();
 		if (session.getAttribute("user_name") == null) {
 			msgMap.put("isLogined", false);
 			return msgMap;
 		} else {
-			msgMap.put("isLogined", true);
-			msgMap.put("rUrl", resourceid);
+			String fileName = "point.txt";
+			
+			//从数据库获取资源路径
+			String resourcePath = request.getSession().getServletContext()
+					.getRealPath("/")
+					+ File.separator
+					+ "resource"
+					+ File.separator + "2014" + File.separator + "4" + File.separator  + fileName;
+			File file = new File(resourcePath);
+			response.reset();
+			response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+			response.addHeader("Content-Length", "" + file.length());
+			try {
+				InputStream fis = new BufferedInputStream(new FileInputStream(resourcePath));
+				byte[] buffer = new byte[fis.available()];
+				fis.read(buffer);
+				fis.close();
+				OutputStream os = new BufferedOutputStream(response.getOutputStream());
+				os.write(buffer); 
+				os.flush(); 
+				os.close(); 
+			} catch (Exception e) {
+				e.printStackTrace(); 
+			}
 			return msgMap;
 		}
 	}
@@ -101,6 +129,7 @@ public class ResourceController {
 			}
 		}
 	}
+	
 
 	@RequestMapping(value = "/upfile/progress", method = RequestMethod.GET)
 	@ResponseBody

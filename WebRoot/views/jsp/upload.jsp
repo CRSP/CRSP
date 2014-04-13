@@ -108,10 +108,13 @@
 			var d1 = d0 % 10;
 			var result;
 			if(d1 >= 5) {
-				result = d0 / 10 + 0.1;
+				result = d0 / 10;
 			} else {
 				result = d0 / 10;
 			}
+			console.log(d0);
+			console.log(d1);
+			console.log(3.7+0.1);
 			return result;
 		}
 		var progress_width;
@@ -141,8 +144,11 @@
 								progress_contentlength = parseFloat(toFloat1(obj.contentLength / (1024 * 1024))) + 'MB';
 								progress_bytesread = parseFloat(toFloat1(obj.bytesRead / (1024 * 1024))) + 'MB';
 							} else if (obj.contentLength <= 1024 * 1024 - 1 && obj.contentLength >= 1024) {
-								progress_contentlength = parseFloat(toFloat(obj.contentLength / 1024)) + 'KB';
+								progress_contentlength = parseFloat(toFloat1(obj.contentLength / 1024)) + 'KB';
 								progress_bytesread = parseFloat(toFloat1(obj.bytesRead / 1024)) + 'KB';
+							} else if (obj.contentLength <= 1024 - 1 && obj.contentLength >= 0) {
+								progress_contentlength = parseFloat(toFloat1(obj.contentLength)) + 'B';
+								progress_bytesread = parseFloat(toFloat1(obj.bytesRead)) + 'B';
 							}
 							
 							progress_velocity = parseInt(obj.velocity);
