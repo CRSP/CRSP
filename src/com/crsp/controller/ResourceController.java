@@ -81,7 +81,7 @@ public class ResourceController {
 			// 按月分配文件夹存储用户上传资源
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH);
+			int month = cal.get(Calendar.MONTH) + 1;
 			String resourcePath = request.getSession().getServletContext()
 					.getRealPath("/")
 					+ File.separator
