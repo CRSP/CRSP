@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crsp.dao.ResourceDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.dao.UserDAO;
+import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.School;
 import com.crsp.entity.User;
@@ -29,75 +30,26 @@ public class UsertTest {
 	private ResourceDAO resourceDAO;
 	@Autowired 
 	private SchoolDAO schoolDAO;
-	//@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
+
 
 	@Test
 	public void testSave() {
 		
-/*		User user=userService.UserLogin("1", "123456");
-		if(user!=null){
-			System.out.println(user.toString());
-		}
-		else{
-			System.out.println("输入有误！");
-		}*/
-		/*User user = new User();
-		user.setId(5);
-		user.setUser_id("123");
-		user.setSchool_id(1);
-		user.setDepartment_id(1);
-		user.setEmail("123");
-		user.setUser_name("123");
-		user.setUser_pwd("123456");*/
-		
-/*		user = userService.userSignUp(user);
-		if(user!=null)
-		System.out.println(user.toString());
-		else{
-			System.out.println("用户存在!");
-		}*/
-		
-/*		boolean flag=userService.updateInformation(user);
-		if(flag==true){
-			System.out.println("保存成功！");
-		}
-		else{
-			System.out.println("插入错误！");
-		}*/
-		
-	/*	user=userService.seeInformation(user.getUser_id());
-		if(user!=null){
-			System.out.println(user.toString());
-		}
-		else{
-			System.out.println("查看错误");
-		}*/
-		/*
-		 * User user = new User(); user.setId(69);
-		 * user.setUser_name("周五了");
-		 */
-		// save(user);
-		// update(user);
-		// delete(user);
-		// findById(1);
-		// userDAO.findAll();
-		// findByProperty("user_name","河");
+
 		Page page = new Page();
-		@SuppressWarnings("unchecked")
-		/*List<User> users = (List<User>) userDAO.findByPage(page);
-		for(User u : users){
-			System.out.println(u.toString());
-		}*/
-		/*List<Resource> resources = (List<Resource>) resourceDAO.findByPage(page);
-		for(Resource u : resources){
-			u.setUser_name(userDAO.findUserName(u.getUser_id()));
-			System.out.println(u.toString());
-		}*/
+/*		@SuppressWarnings("unchecked")
+
 		List<School> ss = (List<School>) schoolDAO.findByPage(page);
 		for(School s : ss){
 			
 			System.out.println(s.toString());
+		}*/
+		
+		List<Record> list=userService.myDownload(page, 1, 0);
+		for(Record r:list){
+			System.out.println(r.toString());
 		}
 	}
 	

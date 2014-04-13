@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.crsp.entity.Department;
 import com.crsp.entity.School;
 import com.crsp.service.SchoolService;
+import com.crsp.utils.Page;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={ "classpath:config/spring-config.xml" })
@@ -19,7 +21,7 @@ public class SchoolServiceTest {
 	
 	@Test
 	public void schoolTest(){
-		School school=new School();
+/*		School school=new School();
 		//school.setId(100);
 		school.setDescription("1");
 		school.setProvince_id(2);
@@ -32,7 +34,7 @@ public class SchoolServiceTest {
 		}
 		else{
 			System.out.println("插入错误");
-		}
+		}*/
 		
 /*		if(schoolService.updateInformation(school)){
 			System.out.println("保存成功");
@@ -60,6 +62,18 @@ public class SchoolServiceTest {
 			System.out.println("没有院系");
 		
 		}*/
+		Page page=new Page();
+/*		List<Department> list=schoolService.findDepartment(page, 1);
+		for(Department d:list){
+			System.out.println(d.toString());
+		}*/
+		
+		List<School> list=schoolService.findSchools(page, 1);
+		for(School s: list){
+			System.out.println(s.toString());
+		}
+		
+		
 	}
 	
 

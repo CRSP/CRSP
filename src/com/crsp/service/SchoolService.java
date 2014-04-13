@@ -5,14 +5,19 @@ package com.crsp.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.crsp.dao.ProvinceDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.entity.School;
 import com.crsp.entity.Department;
+import com.crsp.utils.Page;
 
 @Service
 public class SchoolService {
 	@Autowired
 	private SchoolDAO schoolDAO;
+	@Autowired
+	private ProvinceDAO provinceDAO;
 
 	
 	
@@ -33,17 +38,17 @@ public class SchoolService {
 		return schoolDAO.findById(school_id);
 	}
 	
-    //查找所开设的院系
-	public List<Department> findDepartment(int school_id){
+    //查找所开设的院系(没通过测试)
+	public List<Department> findDepartment(Page page,int school_id){
 
-		return 	(List<Department>)schoolDAO.findDepartments(school_id);
+		return 	(List<Department>)schoolDAO.findDepartments(page,school_id);
 		
 	}	
 	
 	//查找各地区的学校
-	public List<School> findSchool(int province_id){
+	public List<School> findSchools(Page page,int province_id){
 	
-		return (List<School>)schoolDAO.findByProvince(province_id);
+		return (List<School>)provinceDAO.findSchools(page, province_id);
 	
 		
 	}

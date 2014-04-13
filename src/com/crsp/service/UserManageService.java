@@ -15,9 +15,9 @@ public class UserManageService {
 
 	
 	//查找所有用户
-	@SuppressWarnings("unchecked")
+
 	public List<User> findAllUser(Page page){
-		return (List<User>)userDAO.findAll(page);
+		return (List<User>)userDAO.findByPage(page);
 		
 	}
 	//根据记录ID查找用户
