@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -25,13 +23,11 @@ public class User implements Serializable {
 	@Column(name = "id")
 	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
 	@GeneratedValue(generator = "paymentableGenerator")
-	private int id;// Id,主键
-	@ManyToOne(targetEntity = School.class)
-	@JoinColumn(referencedColumnName = "id", name = "school_id")
-	private School school;// 学校
-	@ManyToOne(targetEntity = Department.class)
-	@JoinColumn(referencedColumnName = "id", name = "department_id")
-	private Department department;// 院系
+	private Integer id;// Id,主键
+	@Column
+	private Integer school_id;// 外键,校园Id
+	@Column
+	private Integer department_id;// 外键,部门Id
 	@Column
 	private String user_id;// 用户Id
 	@Column
@@ -45,28 +41,46 @@ public class User implements Serializable {
 	@Column
 	private String email;// 邮箱
 
-	public int getId() {
+	public User() {
+	}
+	
+	public User(Integer id, Integer school_id, Integer department_id, String user_id,
+			String user_pwd, String user_name, String avatar, Integer points,
+			String email) {
+		super();
+		this.id = id;
+		this.school_id = school_id;
+		this.department_id = department_id;
+		this.user_id = user_id;
+		this.user_pwd = user_pwd;
+		this.user_name = user_name;
+		this.avatar = avatar;
+		this.points = points;
+		this.email = email;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public School getSchool() {
-		return school;
+	public Integer getSchool_id() {
+		return school_id;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
+	public void setSchool_id(Integer school_id) {
+		this.school_id = school_id;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public Integer getDepartment_id() {
+		return department_id;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartment_id(Integer department_id) {
+		this.department_id = department_id;
 	}
 
 	public String getUser_id() {
@@ -101,6 +115,14 @@ public class User implements Serializable {
 		this.avatar = avatar;
 	}
 
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -109,17 +131,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", school=" + school.toString()
-				+ ", department=" + department.toString() + ", user_id="
-				+ user_id + ", user_pwd=" + user_pwd + ", user_name="
-				+ user_name + ", avatar=" + avatar + ", points=" + points
-				+ ", email=" + email + "]";
+		return "User [id=" + id + ", school_id=" + school_id
+				+ ", department_id=" + department_id + ", user_id=" + user_id
+				+ ", user_pwd=" + user_pwd + ", user_name=" + user_name
+				+ ", avatar=" + avatar + ", points=" + points + ", email="
+				+ email + "]";
 	}
-
 }

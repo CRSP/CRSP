@@ -25,8 +25,13 @@
 		<property name="exceptionMappings">
 			<props>
 				<prop key="com.crsp.utils.AuthorizationException">redirect:/index</prop>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">redirect:/resource/upload</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean id="multipartResolver" class="com.crsp.utils.CustomMultipartResolver">
+		<property name="maxUploadSize" value="52428800" />
 	</bean>
 
 	<bean
@@ -69,6 +74,7 @@
 	<mvc:resources location="/views/css/" mapping="/views/css/**" />
 	<mvc:resources location="/views/avatars/" mapping="/views/avatars/**" />
 	<mvc:resources location="/views/images/" mapping="/views/images/**"/>
+	<mvc:resources location="/views/js/" mapping="/views/js/**"/>
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*" />

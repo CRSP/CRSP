@@ -25,6 +25,9 @@ public interface ResourceDAO {
 
 	// 分页查询资源
 	public List<?> findByPage(Page page);
+	
+	// 分页查询资源
+	public List<?> findByPage(Page page,int status);
 
 	// 分页查找该资源的记录
 	public List<?> findRecords(Page page, int resource_id);

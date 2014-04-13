@@ -26,11 +26,11 @@ public class Record implements Serializable {
 	@Column
 	private int resource_id;// 外键,资源Id
 	@Column
-	private int user_id;// 外键,用户Id
+	private int upload_user_id;// 外键,用户Id
+	@Column
+	private int download_user_id;// 外键,用户Id
 	@Column
 	private int delta;// 积分
-	@Column
-	private int type;// 类型,0为上传资源的记录,1为下载资源的记录
 	@Column
 	private String time;// 时间
 
@@ -50,12 +50,20 @@ public class Record implements Serializable {
 		this.resource_id = resource_id;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getUpload_user_id() {
+		return upload_user_id;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUpload_user_id(int upload_user_id) {
+		this.upload_user_id = upload_user_id;
+	}
+
+	public int getDownload_user_id() {
+		return download_user_id;
+	}
+
+	public void setDownload_user_id(int download_user_id) {
+		this.download_user_id = download_user_id;
 	}
 
 	public int getDelta() {
@@ -66,14 +74,6 @@ public class Record implements Serializable {
 		this.delta = delta;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public String getTime() {
 		return time;
 	}
@@ -81,5 +81,4 @@ public class Record implements Serializable {
 	public void setTime(String time) {
 		this.time = time;
 	}
-
 }
