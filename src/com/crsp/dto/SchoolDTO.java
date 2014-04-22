@@ -3,7 +3,7 @@ package com.crsp.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class SchoolDTO  extends BaseDTO implements Serializable {
+public class SchoolDTO extends BaseDTO implements Serializable {
 	/**
 	 * 
 	 */
@@ -70,5 +70,14 @@ public class SchoolDTO  extends BaseDTO implements Serializable {
 
 	public void setDepartment_list(List<DepartmentDTO> department_list) {
 		this.department_list = department_list;
+	}
+
+	@Override
+	public String toString() {
+		return "[id: " + id + ", school_name: " + school_name
+				+ ", school_description: " + school_description
+				+ ", school_avatar: " + school_avatar + ", province_name: "
+				+ province_name + ", resource_quanities: " + resource_quanities
+				+ "]";
 	}
 }

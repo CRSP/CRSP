@@ -1,7 +1,8 @@
 package com.crsp.dto;
 
 import java.io.Serializable;
-public class UserDTO  extends BaseDTO implements Serializable {
+
+public class UserDTO extends BaseDTO implements Serializable {
 	/**
 	 * 
 	 */
@@ -41,5 +42,11 @@ public class UserDTO  extends BaseDTO implements Serializable {
 
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
+	}
+
+	@Override
+	public String toString() {
+		return "[id: " + id + ", user_name: " + user_name + ", school_name: "
+				+ school_name + ", department_name: " + department_name + "]";
 	}
 }

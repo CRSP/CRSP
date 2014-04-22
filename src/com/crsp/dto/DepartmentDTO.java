@@ -1,6 +1,7 @@
 package com.crsp.dto;
 
 import java.io.Serializable;
+
 public class DepartmentDTO extends BaseDTO implements Serializable {
 	/**
 	 * 
@@ -32,5 +33,11 @@ public class DepartmentDTO extends BaseDTO implements Serializable {
 
 	public void setResource_quantities(int resource_quantities) {
 		this.resource_quantities = resource_quantities;
+	}
+
+	@Override
+	public String toString() {
+		return "[id: " + id + ", department_name: " + department_name
+				+ ", resource_quantities: " + resource_quantities + "]";
 	}
 }
