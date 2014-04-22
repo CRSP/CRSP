@@ -3,14 +3,16 @@ package com.crsp.entity;
 import java.io.Serializable;
 /*省份表的实体类*/
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
+/**
+ * 省份表实体类
+ * @author Administrator
+ *
+ */
 @Entity
 @Table(name = "province")
 public class Province implements Serializable {
@@ -21,20 +23,18 @@ public class Province implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	@GeneratedValue(generator = "paymentableGenerator")
-	private Integer id;// 主键,自增
-	@Column
-	private String type;// 类型
-	@Column
-	private String name;// 名称
+	@GeneratedValue
+	private int id;// 主键,自增
+	
+	private String type;// 省份的类型
+	
+	private String name;// 省份的名称
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

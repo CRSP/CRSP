@@ -2,15 +2,14 @@ package com.crsp.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-/*用户表实体类*/
+/**
+ * 用户表实体类
+ */
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -20,66 +19,46 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "id")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	@GeneratedValue(generator = "paymentableGenerator")
-	private Integer id;// Id,主键
-	@Column
-	private Integer school_id;// 外键,校园Id
-	@Column
-	private Integer department_id;// 外键,部门Id
-	@Column
+	@GeneratedValue
+	private int id;// Id,主键
+
+	private int school_id;// 外键,校园Id
+
+	private int department_id;// 外键,部门Id
+
 	private String user_id;// 用户Id
-	@Column
+
 	private String user_pwd;// 用户密码
-	@Column
+
 	private String user_name;// 用户名
-	@Column
+
 	private String avatar;// 用户头像
-	@Column
-	private Integer points;// 积分
-	@Column
+
+	private int points;// 积分
+
 	private String email;// 邮箱
 
-	public User() {
-	}
-	
-	public User(Integer id, Integer school_id, Integer department_id, String user_id,
-			String user_pwd, String user_name, String avatar, Integer points,
-			String email) {
-		super();
-		this.id = id;
-		this.school_id = school_id;
-		this.department_id = department_id;
-		this.user_id = user_id;
-		this.user_pwd = user_pwd;
-		this.user_name = user_name;
-		this.avatar = avatar;
-		this.points = points;
-		this.email = email;
-	}
-
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getSchool_id() {
+	public int getSchool_id() {
 		return school_id;
 	}
 
-	public void setSchool_id(Integer school_id) {
+	public void setSchool_id(int school_id) {
 		this.school_id = school_id;
 	}
 
-	public Integer getDepartment_id() {
+	public int getDepartment_id() {
 		return department_id;
 	}
 
-	public void setDepartment_id(Integer department_id) {
+	public void setDepartment_id(int department_id) {
 		this.department_id = department_id;
 	}
 
@@ -115,11 +94,11 @@ public class User implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public Integer getPoints() {
+	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(int points) {
 		this.points = points;
 	}
 

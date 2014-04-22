@@ -2,15 +2,17 @@ package com.crsp.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-/*资源记录表实体类*/
+/**
+ * 资源记录表实体类
+ * 
+ * @author Administrator
+ * 
+ */
 @Entity
 @Table(name = "record")
 public class Record implements Serializable {
@@ -19,20 +21,18 @@ public class Record implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "id")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	@GeneratedValue(generator = "paymentableGenerator")
+	@GeneratedValue
 	private int id;// 主键
-	@Column
+
 	private int resource_id;// 外键,资源Id
-	@Column
-	private int upload_user_id;// 外键,用户Id
-	@Column
-	private int download_user_id;// 外键,用户Id
-	@Column
+
+	private int upload_user_id;// 外键,上传用户Id
+
+	private int download_user_id;// 外键,下载用户Id
+
 	private int delta;// 积分
-	@Column
-	private String time;// 时间
+
+	private String time;// 记录的时间
 
 	public int getId() {
 		return id;
@@ -80,5 +80,13 @@ public class Record implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	@Override
+	public String toString() {
+		return "Record [id=" + id + ", resource_id=" + resource_id
+				+ ", upload_user_id=" + upload_user_id + ", download_user_id="
+				+ download_user_id + ", delta=" + delta + ", time=" + time
+				+ "]";
 	}
 }
