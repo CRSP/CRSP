@@ -12,5 +12,5 @@ public class BaseDTO {
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	
+
 }

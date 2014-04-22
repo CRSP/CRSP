@@ -3,10 +3,12 @@ package com.crsp.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.crsp.utils.Page;
 import com.crsp.utils.PageUtil;
@@ -17,7 +19,9 @@ import com.crsp.utils.PageUtil;
 @SuppressWarnings("unchecked")
 public class BaseDAOImpl<T> implements BaseDAO<T> {
 	@Autowired
+	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
+
 	private Class<?> clz;
 
 	/**
@@ -118,7 +122,9 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	 */
 	@Override
 	public T findById(int id) {
-		return (T) getSession().load(getClz(), id);
+		T t = (T)getSession().load(getClz(), id);
+		Hibernate.initialize(t);
+		return t;
 	}
 
 	/**
