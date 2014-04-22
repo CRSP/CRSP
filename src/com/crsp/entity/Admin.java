@@ -2,14 +2,17 @@ package com.crsp.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
+/**
+ * 管理员表实体类
+ * 
+ * @author Administrator
+ * 
+ */
 @Entity
 @Table(name = "admin")
 public class Admin implements Serializable {
@@ -18,22 +21,20 @@ public class Admin implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "id")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	@GeneratedValue(generator = "paymentableGenerator")
-	private Integer id;// 主键,自增
-	@Column
-	private String user_name;// 用户名
-	@Column
-	private String user_pwd;// 密码
-	@Column
-	private Integer type;// 类型
+	@GeneratedValue
+	private int id;// 主键,自增
 
-	public Integer getId() {
+	private String user_name;// 用户名
+
+	private String user_pwd;// 密码
+
+	private int type;// 类型
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -53,11 +54,11 @@ public class Admin implements Serializable {
 		this.user_pwd = user_pwd;
 	}
 
-	public Integer getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 }

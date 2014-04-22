@@ -1,6 +1,11 @@
 ﻿package com.crsp.utils;
 
-/*记录分页信息*/
+/**
+ * 记录分页信息的对象
+ * 
+ * @author Administrator
+ * 
+ */
 public class Page {
 	private int pageSize; // 每页的大小
 	private int pageNow; // 当前页数
@@ -14,14 +19,15 @@ public class Page {
 	public Page() {
 	};
 
-	public Page(int beginIndex,int pageSize) {
+	public Page(int beginIndex, int pageSize) {
 		super();
 		this.pageSize = pageSize;
 		this.beginIndex = beginIndex;
 	}
 
-	public void initPage(int pageSize, int pageNow, int pageCount, int beginIndex,
-			int totalCount, boolean hasPrePage, boolean hasNextPage) {
+	public void initPage(int pageSize, int pageNow, int pageCount,
+			int beginIndex, int totalCount, boolean hasPrePage,
+			boolean hasNextPage) {
 		this.pageSize = pageSize;
 		this.pageNow = pageNow;
 		this.pageCount = pageCount;

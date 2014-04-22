@@ -2,14 +2,20 @@ package com.crsp.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 学校和院系的对应关系表
+ * 
+ * @author Administrator
+ * 
+ */
 @Entity
 @Table(name = "school_department")
 public class School_Department implements Serializable {
@@ -20,36 +26,42 @@ public class School_Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
-	@GeneratedValue(generator = "paymentableGenerator")
+	@GeneratedValue
 	private int id;// 主键,自增
-	@Column
-	private int school_id;// 外键,学校的Id
-	@Column
-	private int department_id;// 外键,院系的Id
+	@ManyToOne
+	@JoinColumn(name = "school_id")
+	private School school;// 学校对象
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;// 部门对象
 
 	public int getId() {
 		return id;
+	}
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getSchool_id() {
-		return school_id;
-	}
-
-	public void setSchool_id(int school_id) {
-		this.school_id = school_id;
-	}
-
-	public int getDepartment_id() {
-		return department_id;
-	}
-
-	public void setDepartment_id(int department_id) {
-		this.department_id = department_id;
+	@Override
+	public String toString() {
+		return "School_Department [id=" + id + ", school=" + school.toString()
+				+ ", department=" + department.toString() + "]";
 	}
 }

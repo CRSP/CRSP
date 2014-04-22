@@ -4,10 +4,9 @@
 package com.crsp.dao;
 
 /**
- * @author Administrator
- * DAO的接口基类
+ * @author Administrator DAO的接口基类
  */
-public interface BaseDAO<T>  {
+public interface BaseDAO<T> {
 	/**
 	 * 添加对象
 	 * 
@@ -18,6 +17,7 @@ public interface BaseDAO<T>  {
 
 	/**
 	 * 更新对象
+	 * 
 	 * @param t
 	 */
 	public void update(T t);
