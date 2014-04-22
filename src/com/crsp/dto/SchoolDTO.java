@@ -3,7 +3,11 @@ package com.crsp.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class SchoolDTO extends BaseDTO implements Serializable{
+public class SchoolDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String school_name;
 	private String school_description;

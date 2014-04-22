@@ -2,7 +2,11 @@ package com.crsp.dto;
 
 import java.io.Serializable;
 
-public class ResourceDTO extends BaseDTO implements Serializable {
+public class ResourceDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String resource_name;
 	private String status_name;
@@ -38,5 +42,11 @@ public class ResourceDTO extends BaseDTO implements Serializable {
 	}
 	public void setStatus_name(String status_name) {
 		this.status_name = status_name;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 }

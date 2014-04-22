@@ -2,7 +2,11 @@ package com.crsp.dto;
 
 import java.io.Serializable;
 
-public class UserDTO extends BaseDTO implements Serializable {
+public class UserDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String user_name;
 	private String school_name;

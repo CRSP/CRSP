@@ -2,7 +2,11 @@ package com.crsp.dto;
 
 import java.io.Serializable;
 
-public class DepartmentDTO extends BaseDTO implements Serializable {
+public class DepartmentDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String department_name;
 	private int resource_quantities;
