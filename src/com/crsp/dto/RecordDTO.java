@@ -1,6 +1,8 @@
 package com.crsp.dto;
 
-public class RecordDTO {
+import java.io.Serializable;
+
+public class RecordDTO  extends BaseDTO implements Serializable {
 	private int id;
 	private int delta;
 	private String time;
