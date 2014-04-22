@@ -1,9 +1,8 @@
 package com.crsp.service;
 
-import java.util.List;
-
 import com.crsp.entity.Province;
+import com.crsp.utils.Pages;
 
 public interface ProvinceServiceI {
-	public List<Province> getProvinces();
+	public Pages<Province> getProvinces();
 }

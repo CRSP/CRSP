@@ -3,7 +3,7 @@ package com.crsp.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class SchoolDTO extends BaseDTO implements Serializable {
+public class SchoolDTO implements Serializable{
 	/**
 	 * 
 	 */

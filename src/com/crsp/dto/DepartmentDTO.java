@@ -1,8 +1,7 @@
 package com.crsp.dto;
 
 import java.io.Serializable;
-
-public class DepartmentDTO extends BaseDTO implements Serializable {
+public class DepartmentDTO implements Serializable {
 	/**
 	 * 
 	 */
