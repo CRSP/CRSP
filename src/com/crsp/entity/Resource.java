@@ -30,6 +30,8 @@ public class Resource implements Serializable {
 	private Resource_Type resource_type;// 外键,类型编号
 
 	private int user_id;// 外键,用户的Id
+	
+	private String user_name;// 上传人的名称 
 
 	private String name;// 资源名
 
@@ -61,6 +63,14 @@ public class Resource implements Serializable {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 	public String getName() {
@@ -97,8 +107,9 @@ public class Resource implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Resource [id=" + id + ", resource_type=" + resource_type.toString()
-				+ ", user_id=" + user_id + ", name=" + name + ", status="
-				+ status + ", time=" + time + ", price=" + price + "]";
+		return "Resource [id=" + id + ", resource_type=" + resource_type
+				+ ", user_id=" + user_id + ", user_name=" + user_name
+				+ ", name=" + name + ", status=" + status + ", time=" + time
+				+ ", price=" + price + "]";
 	}
 }

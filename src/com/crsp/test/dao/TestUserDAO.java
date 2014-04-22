@@ -5,6 +5,7 @@ package com.crsp.test.dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.IDataSet;
@@ -51,9 +52,44 @@ public class TestUserDAO extends AbstractDbUnitTestCase {
 		DatabaseOperation.CLEAN_INSERT.execute(dbunitCon, ds);
 	}
 
+	public void queryAllUsers() {
+		List<User> users = userDAO.queryAllUsers();
+		for (User u : users) {
+			System.out.println(u.toString());
+		}
+	}
+
 	@Test
 	public void testGet() {
-		User user = userDAO.findById(1);
+		System.out.println(userDAO.findById(1).toString());
+	}
+
+	@Test
+	public void testAdd() {
+		User user = new User(5, 5, 5, "11080704", "123456", "波风水门", "4.jpg", 1,
+				"123456@163.com");
+		userDAO.add(user);
+		System.out.println(user.toString());
+		queryAllUsers();
+	}
+
+	@Test
+	public void testDelete() {
+		userDAO.delete(1);
+	}
+
+	@Test
+	public void testUpdate() {
+		User user = new User(1, 5, 5, "11080704", "123456", "波风水门", "4.jpg", 1,
+				"123456@163.com");
+		userDAO.update(user);
+		System.out.println(user.toString());
+		queryAllUsers();
+	}
+	
+	@Test
+	public void testGetByUserId() {
+		User user = userDAO.findByUserId("11080701");
 		System.out.println(user.toString());
 	}
 
@@ -65,6 +101,6 @@ public class TestUserDAO extends AbstractDbUnitTestCase {
 		Session s = holder.getSession();
 		s.flush();
 		TransactionSynchronizationManager.unbindResource(sessionFactory);
-		//this.resumeTable();
+		this.resumeTable();
 	}
 }

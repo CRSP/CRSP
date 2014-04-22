@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-04-12 21:02:13
+Date: 2014-04-22 22:02:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,16 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', '管理员1', '123456', '1');
+INSERT INTO `admin` VALUES ('2', '管理员2', '123456', '1');
+INSERT INTO `admin` VALUES ('3', '管理员3', '123456', '1');
+INSERT INTO `admin` VALUES ('4', '管理员4', '123456', '1');
+INSERT INTO `admin` VALUES ('5', '管理员5', '123456', '1');
+INSERT INTO `admin` VALUES ('6', '管理员6', '123456', '1');
+INSERT INTO `admin` VALUES ('7', '管理员7', '123456', '1');
+INSERT INTO `admin` VALUES ('8', '管理员8', '123456', '1');
+INSERT INTO `admin` VALUES ('9', '管理员9', '123456', '1');
+INSERT INTO `admin` VALUES ('10', '管理员10', '123456', '1');
 
 -- ----------------------------
 -- Table structure for `department`
@@ -133,6 +143,106 @@ CREATE TABLE `record` (
 -- ----------------------------
 -- Records of record
 -- ----------------------------
+INSERT INTO `record` VALUES ('1', '1', '1', '1', '1', '\"2014-01-01\"');
+INSERT INTO `record` VALUES ('2', '1', '1', '2', '2', '\"2014-01-02\"');
+INSERT INTO `record` VALUES ('3', '1', '1', '3', '3', '\"2014-01-03\"');
+INSERT INTO `record` VALUES ('4', '1', '1', '4', '4', '\"2014-01-04\"');
+INSERT INTO `record` VALUES ('5', '1', '1', '5', '5', '\"2014-01-05\"');
+INSERT INTO `record` VALUES ('6', '1', '1', '6', '6', '\"2014-01-06\"');
+INSERT INTO `record` VALUES ('7', '1', '1', '7', '7', '\"2014-01-07\"');
+INSERT INTO `record` VALUES ('8', '1', '1', '8', '8', '\"2014-01-08\"');
+INSERT INTO `record` VALUES ('9', '1', '1', '9', '9', '\"2014-01-09\"');
+INSERT INTO `record` VALUES ('10', '1', '1', '10', '10', '\"2014-01-10\"');
+INSERT INTO `record` VALUES ('11', '2', '2', '1', '11', '\"2014-01-11\"');
+INSERT INTO `record` VALUES ('12', '2', '2', '2', '12', '\"2014-01-12\"');
+INSERT INTO `record` VALUES ('13', '2', '2', '3', '13', '\"2014-01-13\"');
+INSERT INTO `record` VALUES ('14', '2', '2', '4', '14', '\"2014-01-14\"');
+INSERT INTO `record` VALUES ('15', '2', '2', '5', '15', '\"2014-01-15\"');
+INSERT INTO `record` VALUES ('16', '2', '2', '6', '16', '\"2014-01-16\"');
+INSERT INTO `record` VALUES ('17', '2', '2', '7', '17', '\"2014-01-17\"');
+INSERT INTO `record` VALUES ('18', '2', '2', '8', '18', '\"2014-01-18\"');
+INSERT INTO `record` VALUES ('19', '2', '2', '9', '19', '\"2014-01-19\"');
+INSERT INTO `record` VALUES ('20', '2', '2', '10', '20', '\"2014-01-20\"');
+INSERT INTO `record` VALUES ('21', '3', '3', '1', '21', '\"2014-01-21\"');
+INSERT INTO `record` VALUES ('22', '3', '3', '2', '22', '\"2014-01-22\"');
+INSERT INTO `record` VALUES ('23', '3', '3', '3', '23', '\"2014-01-23\"');
+INSERT INTO `record` VALUES ('24', '3', '3', '4', '24', '\"2014-01-24\"');
+INSERT INTO `record` VALUES ('25', '3', '3', '5', '25', '\"2014-01-25\"');
+INSERT INTO `record` VALUES ('26', '3', '3', '6', '26', '\"2014-01-26\"');
+INSERT INTO `record` VALUES ('27', '3', '3', '7', '27', '\"2014-01-27\"');
+INSERT INTO `record` VALUES ('28', '3', '3', '8', '28', '\"2014-01-28\"');
+INSERT INTO `record` VALUES ('29', '3', '3', '9', '29', '\"2014-01-29\"');
+INSERT INTO `record` VALUES ('30', '3', '3', '10', '30', '\"2014-01-30\"');
+INSERT INTO `record` VALUES ('31', '4', '4', '1', '31', '\"2014-01-31\"');
+INSERT INTO `record` VALUES ('32', '4', '4', '2', '32', '\"2014-02-01\"');
+INSERT INTO `record` VALUES ('33', '4', '4', '3', '33', '\"2014-02-02\"');
+INSERT INTO `record` VALUES ('34', '4', '4', '4', '34', '\"2014-02-03\"');
+INSERT INTO `record` VALUES ('35', '4', '4', '5', '35', '\"2014-02-04\"');
+INSERT INTO `record` VALUES ('36', '4', '4', '6', '36', '\"2014-02-05\"');
+INSERT INTO `record` VALUES ('37', '4', '4', '7', '37', '\"2014-02-06\"');
+INSERT INTO `record` VALUES ('38', '4', '4', '8', '38', '\"2014-02-07\"');
+INSERT INTO `record` VALUES ('39', '4', '4', '9', '39', '\"2014-02-08\"');
+INSERT INTO `record` VALUES ('40', '4', '4', '10', '40', '\"2014-02-09\"');
+INSERT INTO `record` VALUES ('41', '5', '5', '1', '41', '\"2014-02-10\"');
+INSERT INTO `record` VALUES ('42', '5', '5', '2', '42', '\"2014-02-11\"');
+INSERT INTO `record` VALUES ('43', '5', '5', '3', '43', '\"2014-02-12\"');
+INSERT INTO `record` VALUES ('44', '5', '5', '4', '44', '\"2014-02-13\"');
+INSERT INTO `record` VALUES ('45', '5', '5', '5', '45', '\"2014-02-14\"');
+INSERT INTO `record` VALUES ('46', '5', '5', '6', '46', '\"2014-02-15\"');
+INSERT INTO `record` VALUES ('47', '5', '5', '7', '47', '\"2014-02-16\"');
+INSERT INTO `record` VALUES ('48', '5', '5', '8', '48', '\"2014-02-17\"');
+INSERT INTO `record` VALUES ('49', '5', '5', '9', '49', '\"2014-02-18\"');
+INSERT INTO `record` VALUES ('50', '5', '5', '10', '50', '\"2014-02-19\"');
+INSERT INTO `record` VALUES ('51', '6', '6', '1', '51', '\"2014-02-20\"');
+INSERT INTO `record` VALUES ('52', '6', '6', '2', '52', '\"2014-02-21\"');
+INSERT INTO `record` VALUES ('53', '6', '6', '3', '53', '\"2014-02-22\"');
+INSERT INTO `record` VALUES ('54', '6', '6', '4', '54', '\"2014-02-23\"');
+INSERT INTO `record` VALUES ('55', '6', '6', '5', '55', '\"2014-02-24\"');
+INSERT INTO `record` VALUES ('56', '6', '6', '6', '56', '\"2014-02-25\"');
+INSERT INTO `record` VALUES ('57', '6', '6', '7', '57', '\"2014-02-26\"');
+INSERT INTO `record` VALUES ('58', '6', '6', '8', '58', '\"2014-02-27\"');
+INSERT INTO `record` VALUES ('59', '6', '6', '9', '59', '\"2014-02-28\"');
+INSERT INTO `record` VALUES ('60', '6', '6', '10', '60', '\"2014-02-29\"');
+INSERT INTO `record` VALUES ('61', '7', '7', '1', '61', '\"2014-03-01\"');
+INSERT INTO `record` VALUES ('62', '7', '7', '2', '62', '\"2014-03-02\"');
+INSERT INTO `record` VALUES ('63', '7', '7', '3', '63', '\"2014-03-03\"');
+INSERT INTO `record` VALUES ('64', '7', '7', '4', '64', '\"2014-03-04\"');
+INSERT INTO `record` VALUES ('65', '7', '7', '5', '65', '\"2014-03-05\"');
+INSERT INTO `record` VALUES ('66', '7', '7', '6', '66', '\"2014-03-06\"');
+INSERT INTO `record` VALUES ('67', '7', '7', '7', '67', '\"2014-03-07\"');
+INSERT INTO `record` VALUES ('68', '7', '7', '8', '68', '\"2014-03-08\"');
+INSERT INTO `record` VALUES ('69', '7', '7', '9', '69', '\"2014-03-09\"');
+INSERT INTO `record` VALUES ('70', '7', '7', '10', '70', '\"2014-03-10\"');
+INSERT INTO `record` VALUES ('71', '8', '8', '1', '71', '\"2014-03-11\"');
+INSERT INTO `record` VALUES ('72', '8', '8', '2', '72', '\"2014-03-12\"');
+INSERT INTO `record` VALUES ('73', '8', '8', '3', '73', '\"2014-03-13\"');
+INSERT INTO `record` VALUES ('74', '8', '8', '4', '74', '\"2014-03-14\"');
+INSERT INTO `record` VALUES ('75', '8', '8', '5', '75', '\"2014-03-15\"');
+INSERT INTO `record` VALUES ('76', '8', '8', '6', '76', '\"2014-03-16\"');
+INSERT INTO `record` VALUES ('77', '8', '8', '7', '77', '\"2014-03-17\"');
+INSERT INTO `record` VALUES ('78', '8', '8', '8', '78', '\"2014-03-18\"');
+INSERT INTO `record` VALUES ('79', '8', '8', '9', '79', '\"2014-03-19\"');
+INSERT INTO `record` VALUES ('80', '8', '8', '10', '80', '\"2014-03-20\"');
+INSERT INTO `record` VALUES ('81', '9', '9', '1', '81', '\"2014-03-21\"');
+INSERT INTO `record` VALUES ('82', '9', '9', '2', '82', '\"2014-03-22\"');
+INSERT INTO `record` VALUES ('83', '9', '9', '3', '83', '\"2014-03-23\"');
+INSERT INTO `record` VALUES ('84', '9', '9', '4', '84', '\"2014-03-24\"');
+INSERT INTO `record` VALUES ('85', '9', '9', '5', '85', '\"2014-03-25\"');
+INSERT INTO `record` VALUES ('86', '9', '9', '6', '86', '\"2014-03-26\"');
+INSERT INTO `record` VALUES ('87', '9', '9', '7', '87', '\"2014-03-27\"');
+INSERT INTO `record` VALUES ('88', '9', '9', '8', '88', '\"2014-03-28\"');
+INSERT INTO `record` VALUES ('89', '9', '9', '9', '89', '\"2014-03-29\"');
+INSERT INTO `record` VALUES ('90', '9', '9', '10', '90', '\"2014-03-30\"');
+INSERT INTO `record` VALUES ('91', '10', '10', '1', '91', '\"2014-03-31\"');
+INSERT INTO `record` VALUES ('92', '10', '10', '2', '92', '\"2014-04-01\"');
+INSERT INTO `record` VALUES ('93', '10', '10', '3', '93', '\"2014-04-02\"');
+INSERT INTO `record` VALUES ('94', '10', '10', '4', '94', '\"2014-04-03\"');
+INSERT INTO `record` VALUES ('95', '10', '10', '5', '95', '\"2014-04-04\"');
+INSERT INTO `record` VALUES ('96', '10', '10', '6', '96', '\"2014-04-05\"');
+INSERT INTO `record` VALUES ('97', '10', '10', '7', '97', '\"2014-04-06\"');
+INSERT INTO `record` VALUES ('98', '10', '10', '8', '98', '\"2014-04-07\"');
+INSERT INTO `record` VALUES ('99', '10', '10', '9', '99', '\"2014-04-08\"');
+INSERT INTO `record` VALUES ('100', '10', '10', '10', '100', '\"2014-04-09\"');
 
 -- ----------------------------
 -- Table structure for `resource`
@@ -146,6 +256,7 @@ CREATE TABLE `resource` (
   `status` int(11) NOT NULL,
   `time` varchar(45) NOT NULL,
   `price` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_resource_resource_type1_idx` (`type_id`),
   KEY `fk_resource_user1_idx` (`user_id`),
@@ -156,6 +267,16 @@ CREATE TABLE `resource` (
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
+INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人');
+INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助');
+INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱');
+INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克');
+INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次');
+INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田');
+INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间');
+INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间');
+INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩');
+INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门');
 
 -- ----------------------------
 -- Table structure for `resource_type`
@@ -171,6 +292,16 @@ CREATE TABLE `resource_type` (
 -- ----------------------------
 -- Records of resource_type
 -- ----------------------------
+INSERT INTO `resource_type` VALUES ('6', 'Excel文件');
+INSERT INTO `resource_type` VALUES ('7', 'PhotoShop文件');
+INSERT INTO `resource_type` VALUES ('4', 'PPT文件');
+INSERT INTO `resource_type` VALUES ('5', 'Word文件');
+INSERT INTO `resource_type` VALUES ('10', '其它');
+INSERT INTO `resource_type` VALUES ('1', '程序代码');
+INSERT INTO `resource_type` VALUES ('2', '编程文档');
+INSERT INTO `resource_type` VALUES ('3', '视频资源');
+INSERT INTO `resource_type` VALUES ('9', '论文资源');
+INSERT INTO `resource_type` VALUES ('8', '音乐资源');
 
 -- ----------------------------
 -- Table structure for `school`
@@ -270,8 +401,8 @@ CREATE TABLE `school_department` (
   PRIMARY KEY  (`id`),
   KEY `fk_school_department_school1_idx` (`school_id`),
   KEY `fk_school_department_department1_idx` (`department_id`),
-  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1242,16 +1373,26 @@ CREATE TABLE `user` (
   `user_pwd` varchar(45) NOT NULL,
   `user_name` varchar(45) NOT NULL,
   `avatar` varchar(100) default NULL,
-  `points` int(11) default NULL,
+  `points` int(11) default '0',
   `email` varchar(45) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_school1_idx` (`school_id`),
   KEY `fk_user_department1_idx` (`department_id`),
-  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', null, '0', '123456@163.com');
+INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', null, '0', '123456@164.com');
+INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', null, '0', '123456@165.com');
+INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', null, '0', '123456@166.com');
+INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', null, '0', '123456@167.com');
+INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', null, '0', '123456@168.com');
+INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', null, '0', '123456@169.com');
+INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', null, '0', '123456@170.com');
+INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', null, '0', '123456@171.com');
+INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', null, '0', '123456@172.com');

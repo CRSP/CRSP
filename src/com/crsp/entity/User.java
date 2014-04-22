@@ -37,6 +37,26 @@ public class User implements Serializable {
 	private int points;// 积分
 
 	private String email;// 邮箱
+	
+	
+
+	public User() {
+
+	}
+	
+	public User(int id,int school_id, int department_id, String user_id,
+			String user_pwd, String user_name, String avatar, int points,
+			String email) {
+		this.id = id;
+		this.school_id = school_id;
+		this.department_id = department_id;
+		this.user_id = user_id;
+		this.user_pwd = user_pwd;
+		this.user_name = user_name;
+		this.avatar = avatar;
+		this.points = points;
+		this.email = email;
+	}
 
 	public int getId() {
 		return id;
