@@ -2,17 +2,17 @@ package com.crsp.dto;
 
 public class BaseDTO {
 	private boolean isErr;
-	private int errNum;
+	private String errMsg;
 	public boolean isErr() {
 		return isErr;
 	}
 	public void setErr(boolean isErr) {
 		this.isErr = isErr;
 	}
-	public int getErrNum() {
-		return errNum;
+	public String getErrMsg() {
+		return errMsg;
 	}
-	public void setErrNum(int errNum) {
-		this.errNum = errNum;
+	public void setErrMsg(String errMsg) {
+		this.errMsg = errMsg;
 	}
 }
