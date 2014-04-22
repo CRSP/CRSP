@@ -1,25 +1,16 @@
 package com.crsp.dto;
 
+import com.crsp.utils.Page;
+
 public class BaseDTO {
-	private int pageNow;	//当前页号
-	private int pageSize;	//每页大小
-	private int pageNo;		//共多少页
-	public int getPageNow() {
-		return pageNow;
+	private Page page;
+
+	public Page getPage() {
+		return page;
 	}
-	public void setPageNow(int pageNow) {
-		this.pageNow = pageNow;
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	public int getPageNo() {
-		return pageNo;
-	}
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
+	
 }
