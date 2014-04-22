@@ -3,11 +3,7 @@ package com.crsp.dto;
 import java.io.Serializable;
 import java.util.List;
 
-<<<<<<< HEAD
 public class SchoolDTO implements Serializable{
-=======
-public class SchoolDTO extends BaseDTO implements Serializable {
->>>>>>> 0bad5360b8fc5b835d88d9e2bc20afb72f81c4d1
 	/**
 	 * 
 	 */
