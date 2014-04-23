@@ -8,28 +8,28 @@ public class SchoolDTO extends BaseDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private int id;
 	private String school_name;
 	private String school_description;
 	private String school_avatar;
 	private String province_name;
-	private String resource_quanities; // 资源数量
+	private int resource_quanities; // 资源数量
 	private List<DepartmentDTO> department_list;
 
-	public String getResource_quanities() {
-		return resource_quanities;
-	}
-
-	public void setResource_quanities(String resource_quanities) {
-		this.resource_quanities = resource_quanities;
-	}
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getResource_quanities() {
+		return resource_quanities;
+	}
+
+	public void setResource_quanities(int resource_quanities) {
+		this.resource_quanities = resource_quanities;
 	}
 
 	public String getProvince_name() {
