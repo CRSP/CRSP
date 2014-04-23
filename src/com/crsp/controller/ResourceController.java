@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +128,19 @@ public class ResourceController {
 				}
 				f.transferTo(targetFile);// 写入目标文件
 			}
+			//写入资源记录
 		}
+	}
+	
+	@RequestMapping(value="/upfile/existence", method = RequestMethod.POST)
+	@ResponseBody
+	public Map checkExistence() {
+		Map msgMap = new HashMap();
+		
+		//判断是否存在相同资源
+		
+		msgMap.put("isExisted", false);
+		return msgMap;
 	}
 	
 

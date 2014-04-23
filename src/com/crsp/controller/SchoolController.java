@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crsp.entity.Department;
 import com.crsp.entity.School;
-import com.crsp.service.SchoolService;
+import com.crsp.service.SchoolServiceI;
 
 @Controller
 @RequestMapping(value = "/school")
 public class SchoolController {
-	@Autowired
-	private SchoolService schoolService;
+	/*@Autowired
+	private SchoolServiceI schoolService;
 
-	public SchoolService getSchoolService() {
+	public SchoolServiceI getSchoolService() {
 		return schoolService;
 	}
 
-	public void setSchoolService(SchoolService schoolService) {
+	public void setSchoolService(SchoolServiceI schoolService) {
 		this.schoolService = schoolService;
-	}
+	}*/
 
 	@RequestMapping(value = "/list/school/{schoolid}", method = RequestMethod.GET)
 	@ResponseBody
@@ -56,8 +56,8 @@ public class SchoolController {
 	@RequestMapping(value = "/list/province/{provinceid}", method = RequestMethod.GET)
 	@ResponseBody
 	public List getSchoolsByProvinceId(@PathVariable int provinceid) {
-		List schoolList = schoolService.findSchool(provinceid);
-		return schoolList;
+		
+		return null;
 	}
 
 	//获取学校详细信息(学校省份，资源数，院系列表等)

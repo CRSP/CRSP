@@ -61,9 +61,9 @@
 		</div>
 
 		<!-- /hot-list begin -->
-		<div class="span3">
+		<div class="span5">
 			<table class="table table-striped table-condensed">
-				<caption style="font-size: 20px;">最新资源</caption>
+				<caption style="font-size: 20px;">最热资源</caption>
 				<thead>
 					<tr>
 

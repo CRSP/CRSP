@@ -14,7 +14,7 @@
 	<%@ include file="header.jsp"%>
 	<div class="container-fluid">
 		<form class="form-horizontal" method="post"
-		action="${requestScope.basePath}/resource/create"
+			action="${requestScope.basePath}/resource/create"
 			enctype="multipart/form-data" id="upload_form">
 			<div class="modal"
 				style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
@@ -86,11 +86,21 @@
 			<div class="progress progress-striped active" id="progress_width">
 				<div class="bar" id="progress_bar" style="width:0%"></div>
 			</div>
-			<p>上传速度:<span id="progress_velocity"></span><span>KB/s</span></p>
-			<p>已用时:<span id="progress_pasttime"></span><span>s</span></p>
-			<p>预计剩余时间:<span id="progress_predicttime"></span><span>s</span></p>
-			<p>上传文件大小:<span id="progress_contentlength"></span></p>
-			<p>已上传大小:<span id="progress_bytesread"></span></p>
+			<p>
+				上传速度:<span id="progress_velocity"></span><span>KB/s</span>
+			</p>
+			<p>
+				已用时:<span id="progress_pasttime"></span><span>s</span>
+			</p>
+			<p>
+				预计剩余时间:<span id="progress_predicttime"></span><span>s</span>
+			</p>
+			<p>
+				上传文件大小:<span id="progress_contentlength"></span>
+			</p>
+			<p>
+				已上传大小:<span id="progress_bytesread"></span>
+			</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-success" data-dismiss="modal"
@@ -189,14 +199,23 @@
 		var ajax_options = {
 			url: '${requestScope.basePath}/resource/create',
 			success : function(data) {
-				alert(1);
+				console.log('upload success');
 			}
 		};
 		$('#upload_form').submit(function(e) {
 			e.preventDefault();
+			//ajax后台以确定是否可以秒传
 			$('#progress_modal').modal('show');
-			GetProgress(); 
-			$('#upload_form').ajaxSubmit(ajax_options);
+			$.post('${requestScope.basePath}/resource/upfile/existence',function(data) {
+				if(!data.isExisted) {
+					//如果不可以
+					GetProgress();  
+					$('#upload_form').ajaxSubmit(ajax_options);
+				} else {
+					//如果可以
+					//进度条马上变100，其他依次填好
+				}
+			})
 		}); 
 	</script>
 </body>

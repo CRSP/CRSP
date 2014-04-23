@@ -16,6 +16,4 @@ public interface SchoolServiceI {
 
 	// 装入id, school_name, province_name, resource_quantities, department_list
 	public SchoolDTO getProfile(int schoolId); // 获取学校详细信息(学校省份，资源数，院系列表等)
-	
-	
 }

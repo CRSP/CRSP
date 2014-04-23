@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crsp.dto.UserDTO;
 import com.crsp.entity.User;
-import com.crsp.service.UserService;
+import com.crsp.service.UserServiceI;
 import com.crsp.utils.JsonUtil;
 import com.crsp.utils.RegValidator;
 
@@ -31,16 +32,16 @@ import com.crsp.utils.RegValidator;
 public class UserController {
 	//userService
 	@Autowired
-	private UserService userService;
+	private UserServiceI userService;
 	
     @Resource  
     private RegValidator regValidator;  
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceI userService) {
 		this.userService = userService;
 	}
 
-	public UserService getUserService() {
+	public UserServiceI getUserService() {
 		return userService;
 	}
 	
@@ -58,7 +59,7 @@ public class UserController {
 		String userId = request.getParameter("user_id").toString();
 		String userPwd = request.getParameter("user_pwd").toString();
 		
-		User u = userService.userLogin(userId, userPwd);
+		UserDTO u = userService.login(userId, userPwd);
 		
 		if(u == null) {
 			msgMap.put("err", "账号或密码出错");
@@ -87,6 +88,7 @@ public class UserController {
 		return "register";
 	}
 	
+	//*
 	@RequestMapping(value="/register/save", method=RequestMethod.POST)
 	public String addUserFromForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Map<String, Object> model, HttpSession session, HttpServletRequest request) {
 		//基本信息验证
@@ -108,7 +110,7 @@ public class UserController {
 		//保存用户
 		user.setPoints(20);//初始点数20
 		user.setAvatar("default.jsp");
-		User u = userService.userSignUp(user);
+		UserDTO u = userService.register(user);
 		if(u == null) {
 			model.put("message", "用户已存在");
 			System.out.println("用户已存在");
