@@ -14,7 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crsp.dto.RecordDTO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.dto.UserDTO;
+import com.crsp.entity.Department;
+import com.crsp.entity.Province;
+import com.crsp.entity.School;
 import com.crsp.entity.User;
+import com.crsp.service.ProvinceServiceI;
 import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
@@ -28,7 +32,8 @@ import com.crsp.utils.Pages;
 public class TestUserService {
 	@Autowired
 	private UserServiceI userService;
-
+	@Autowired
+	private ProvinceServiceI provinceService;
 	@Test
 	public void testLogin() {
 		String user_id = "11080701";
@@ -41,8 +46,17 @@ public class TestUserService {
 
 	@Test
 	public void testRegister() {
-		User user = new User(11, 15, 52, "110807098", "123456", "波风水门",
-				"4.jpg", 1, "123456@163.com");
+		User user = new User();
+		user.setUser_id("321asdsa");
+		user.setUser_name("321");
+		user.setUser_pwd("123213213");
+		user.setEmail("123333");
+		School school = new School();
+		school.setId(2);
+		user.setSchool(school);
+		Department department = new Department();
+		department.setId(2);
+		user.setDepartment(department);
 		UserDTO udto = userService.register(user);
 		System.out.println(udto.isErr());
 		System.out.println(udto.getErrMsg());
@@ -91,6 +105,15 @@ public class TestUserService {
 		System.out.println(page2.toString());
 		for(RecordDTO rdto : rDtos){
 			System.out.println(rdto.toString());
+		}
+	}
+	
+	@Test
+	public void testProvince(){
+		Pages<Province> pages = provinceService.getProvinces();
+		List<Province> list = pages.getPageList();
+		for(Province p : list){
+			System.out.println(p.toString());
 		}
 	}
 }

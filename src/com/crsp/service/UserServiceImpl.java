@@ -66,11 +66,8 @@ public class UserServiceImpl implements UserServiceI {
 			} else {
 				udto.setId(user.getId());
 				udto.setUser_name(user.getUser_name());
-				School school = schoolDAO.findById(user.getSchool_id());
-				udto.setSchool_name(school.getName());
-				Department department = departmentDAO.findById(user
-						.getDepartment_id());
-				udto.setDepartment_name(department.getName());
+				udto.setSchool_name(user.getSchool().getName());
+				udto.setDepartment_name(user.getDepartment().getName());
 				return udto;
 			}
 		}
@@ -93,19 +90,19 @@ public class UserServiceImpl implements UserServiceI {
 			// 将新的用户信息封装成dto
 			udto.setId(user.getId());
 			udto.setUser_name(user.getUser_name());
-			School school = schoolDAO.findById(user.getSchool_id());
-			try{
+			School school = schoolDAO.findById(user.getSchool().getId());
+			try {
 				udto.setSchool_name(school.getName());
-			}catch(Exception e){
+			} catch (Exception e) {
 				udto.setErr(true);
 				udto.setErrMsg("学校不存在!");
 				return udto;
 			}
-			Department department = departmentDAO.findById(user
-					.getDepartment_id());
-			try{
+			Department department = departmentDAO.findById(user.getDepartment()
+					.getId());
+			try {
 				udto.setDepartment_name(department.getName());
-			}catch(Exception e){
+			} catch (Exception e) {
 				udto.setErr(true);
 				udto.setErrMsg("院系不存在!");
 				return udto;
@@ -193,11 +190,11 @@ public class UserServiceImpl implements UserServiceI {
 		for (Record r : records) {
 			RecordDTO rdto = new RecordDTO();
 			rdto.setId(r.getId());
-			if(id == r.getUpload_user_id() && id == r.getDownload_user_id()){
+			if (id == r.getUpload_user_id() && id == r.getDownload_user_id()) {
 				rdto.setDelta(0);
-			}else if(id == r.getDownload_user_id()){
+			} else if (id == r.getDownload_user_id()) {
 				rdto.setDelta(-r.getDelta());
-			}else{
+			} else {
 				rdto.setDelta(r.getDelta());
 			}
 			rdto.setTime(r.getTime());

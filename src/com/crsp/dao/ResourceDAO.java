@@ -16,4 +16,10 @@ import com.crsp.utils.Page;
 public interface ResourceDAO extends BaseDAO<Resource>{
 	// 分页获取某个用户上传的资源
 	public List<Resource> queryResourcesByUser(Page page,int user_id);
+	
+	// 获取最新的50个资源
+	public List<Resource> queryNewResources();
+	
+	// 获取下载量最多的10个资源
+	public List<Resource> queryMostDownload();
 }

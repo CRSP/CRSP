@@ -30,6 +30,8 @@ public class Department implements Serializable {
 	private String description;// 部门的描述
 
 	private String avatar;// 部门的头像
+	
+	private int resource_count;// 该部门拥有的资源数量
 
 	public String getAvatar() {
 		return avatar;
@@ -62,10 +64,19 @@ public class Department implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public int getResource_count() {
+		return resource_count;
+	}
+
+	public void setResource_count(int resource_count) {
+		this.resource_count = resource_count;
+	}
 
 	@Override
 	public String toString() {
 		return "Department [id=" + id + ", name=" + name + ", description="
-				+ description + ", avatar=" + avatar + "]";
+				+ description + ", avatar=" + avatar + ", resource_id="
+				+ resource_count + "]";
 	}
 }

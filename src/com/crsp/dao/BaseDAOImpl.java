@@ -121,7 +121,9 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	 */
 	@Override
 	public T findById(int id) {
-		return (T)getSession().load(getClz(), id);
+		T t = (T)getSession().load(getClz(), id);	
+		//Hibernate.initialize(t);
+		return t;
 	}
 
 	/**
@@ -149,7 +151,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	}
 
 	/**
-	 * 通过查询对象列表
+	 * 查询对象列表
 	 * 
 	 * @param hql
 	 * @param arg
@@ -229,7 +231,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	}
 
 	/**
-	 * 通过查询对象
+	 * 查询对象
 	 * 
 	 * @param hql
 	 * @param arg
@@ -238,4 +240,5 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	public Object queryObject(String hql) {
 		return queryObject(hql, null);
 	}
+
 }

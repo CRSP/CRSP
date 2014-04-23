@@ -4,8 +4,11 @@ import java.io.Serializable;
 /*学校表实体类*/
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -27,15 +30,29 @@ public class School implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;// 主键,自增
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="province_id")
+	private Province province;// 外键,省份Id
 
-	private int province_id;// 外键,省份Id
+	private String name;// 校园的名称
 
-	private String name;// 名称
+	private String description;// 校园的描述
 
-	private String description;// 描述
-
-	private String avatar; // 头像
-
+	private String avatar; // 校园的头像 
+	
+	private int resource_count;// 校园拥有资源的数量
+	
+	public School() {
+	}
+	
+	public School(int id, String name, int resource_count, Province province) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.resource_count = resource_count;
+		this.province = province;
+	}
+	
 	public String getAvatar() {
 		return avatar;
 	}
@@ -67,19 +84,27 @@ public class School implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public int getProvince_id() {
-		return province_id;
+	
+	public int getResource_count() {
+		return resource_count;
 	}
 
-	public void setProvince_id(int province_id) {
-		this.province_id = province_id;
+	public void setResource_count(int resource_count) {
+		this.resource_count = resource_count;
+	}
+	
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 	@Override
 	public String toString() {
-		return "School [id=" + id + ", province_id=" + province_id + ", name="
-				+ name + ", description=" + description + ", avatar=" + avatar
-				+ "]";
+		return "School [id=" + id + ", province=" + province + ", name=" + name
+				+ ", description=" + description + ", avatar=" + avatar
+				+ ", resource_count=" + resource_count + "]";
 	}
 }

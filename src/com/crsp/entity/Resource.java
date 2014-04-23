@@ -39,7 +39,9 @@ public class Resource implements Serializable {
 
 	private String time;// 上传时间
 
-	private int price;// 资源积分
+	private int price;// 资源积分 
+	
+	private int download_count;// 被下载的次数
 
 	public int getId() {
 		return id;
@@ -104,12 +106,21 @@ public class Resource implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public int getDownload_count() {
+		return download_count;
+	}
+
+	public void setDownload_count(int download_count) {
+		this.download_count = download_count;
+	}
 
 	@Override
 	public String toString() {
 		return "Resource [id=" + id + ", resource_type=" + resource_type
 				+ ", user_id=" + user_id + ", user_name=" + user_name
 				+ ", name=" + name + ", status=" + status + ", time=" + time
-				+ ", price=" + price + "]";
+				+ ", price=" + price + ", download_count=" + download_count
+				+ "]";
 	}
 }

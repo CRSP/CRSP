@@ -3,8 +3,11 @@ package com.crsp.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,10 +24,12 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;// Id,主键
-
-	private int school_id;// 外键,校园Id
-
-	private int department_id;// 外键,部门Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "school_id")
+	private School school;// 校园对象
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department_id")
+	private Department department;// 部门对象
 
 	private String user_id;// 用户Id
 
@@ -37,25 +42,9 @@ public class User implements Serializable {
 	private int points;// 积分
 
 	private String email;// 邮箱
-	
-	
 
 	public User() {
 
-	}
-	
-	public User(int id,int school_id, int department_id, String user_id,
-			String user_pwd, String user_name, String avatar, int points,
-			String email) {
-		this.id = id;
-		this.school_id = school_id;
-		this.department_id = department_id;
-		this.user_id = user_id;
-		this.user_pwd = user_pwd;
-		this.user_name = user_name;
-		this.avatar = avatar;
-		this.points = points;
-		this.email = email;
 	}
 
 	public int getId() {
@@ -66,20 +55,20 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public int getSchool_id() {
-		return school_id;
+	public School getSchool() {
+		return school;
 	}
 
-	public void setSchool_id(int school_id) {
-		this.school_id = school_id;
+	public void setSchool(School school) {
+		this.school = school;
 	}
 
-	public int getDepartment_id() {
-		return department_id;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartment_id(int department_id) {
-		this.department_id = department_id;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public String getUser_id() {
@@ -132,10 +121,9 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", school_id=" + school_id
-				+ ", department_id=" + department_id + ", user_id=" + user_id
-				+ ", user_pwd=" + user_pwd + ", user_name=" + user_name
-				+ ", avatar=" + avatar + ", points=" + points + ", email="
-				+ email + "]";
+		return "User [id=" + id + ", school=" + school + ", department="
+				+ department + ", user_id=" + user_id + ", user_pwd="
+				+ user_pwd + ", user_name=" + user_name + ", avatar=" + avatar
+				+ ", points=" + points + ", email=" + email + "]";
 	}
 }
