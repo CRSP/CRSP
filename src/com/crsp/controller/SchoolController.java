@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crsp.entity.Department;
+import com.crsp.entity.Province;
 import com.crsp.entity.School;
 import com.crsp.service.SchoolServiceI;
+import com.crsp.utils.Page;
+import com.crsp.utils.Pages;
 
 @Controller
 @RequestMapping(value = "/school")
 public class SchoolController {
-	/*@Autowired
+	@Autowired
 	private SchoolServiceI schoolService;
 
 	public SchoolServiceI getSchoolService() {
@@ -27,42 +30,52 @@ public class SchoolController {
 
 	public void setSchoolService(SchoolServiceI schoolService) {
 		this.schoolService = schoolService;
-	}*/
-
-	@RequestMapping(value = "/list/school/{schoolid}", method = RequestMethod.GET)
-	@ResponseBody
-	public School getSchoolBySchoolId(@PathVariable int schoolid) {
-		return null;
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getAllSchools(Map<String, Object> model) {
-		// *假数据
-		List schoolsList = new LinkedList();
-		for (int i = 0; i < 10; i++) {
-			School s = new School();
-			s.setAvatar("");
-			s.setDescription("    五邑大学在培养高素质创新型人才、取得突破性科研进展,以及为国民经济发展和社会进步提供智力支持等方面都发挥着极其重要的作用。五邑大学在培养高素质创新型人才、取得突破性科研进展,以及为国民经济发展和社会进步提供智力支持等方面都发挥着极其重要的作用。");
-			s.setId(i);
-			s.setName("五邑大学");
-			s.setProvince_id(2);
-			schoolsList.add(s);
-		}
+	@RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
+	public String getPagesSchools(@PathVariable int page, Map<String, Object> model) {
+		Page p  = new Page();
+		p.setPageNow(page);
+		Pages schoolProfile = schoolService.getSchools(p);
+		List schoolsList = schoolProfile.getPageList();
 		model.put("schools", schoolsList);
+		model.put("page", p);
 		return "schools_list";
 	}
+	
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String getDefualtSchools(Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(1);
+		Pages schoolProfile = schoolService.getSchools(page);
+		List schoolsList = schoolProfile.getPageList();
+		model.put("schools", schoolsList);
+		model.put("page", schoolProfile.getPage());
+		return "schools_list";
+	}
+	
+	
 
 	// 按省份找学校
 	@RequestMapping(value = "/list/province/{provinceid}", method = RequestMethod.GET)
 	@ResponseBody
 	public List getSchoolsByProvinceId(@PathVariable int provinceid) {
-		
-		return null;
+		Page page = new Page();
+		page.setPageSize(999);
+		return schoolService.getSchoolsByProvinceId(provinceid, page).getPageList();
 	}
 
+	//按学校找院系
+	@RequestMapping(value="/list/department/school/{schoolid}", method = RequestMethod.GET)
+	@ResponseBody
+	public List getDepartmentsBySchoolId(@PathVariable int schoolid) {
+		return schoolService.getProfile(schoolid).getDepartment_list();
+	}
+	
 	//获取学校详细信息(学校省份，资源数，院系列表等)
 	@RequestMapping(value = "/profile/{schoolid}", method = RequestMethod.GET)
-	public String getDepartmentBySchoolId(@PathVariable int schoolid, Map<String, Object> model) {
+	public String getDepartmentsBySchoolId(@PathVariable int schoolid, Map<String, Object> model) {
 		//学院列表
 		//学校信息
 

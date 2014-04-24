@@ -12,6 +12,7 @@ public class ResourceDTO extends BaseDTO implements Serializable {
 	private String status_name;
 	private String uploader_name; // 上传人姓名
 	private String time; // 上传时间
+	private String school_name;
 	private int type; // 0:上传, 1:下载
 
 	public int getId() {
@@ -60,6 +61,14 @@ public class ResourceDTO extends BaseDTO implements Serializable {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getSchool_name() {
+		return school_name;
+	}
+
+	public void setSchool_name(String school_name) {
+		this.school_name = school_name;
 	}
 
 	@Override

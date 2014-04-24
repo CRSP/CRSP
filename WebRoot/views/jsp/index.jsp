@@ -22,7 +22,7 @@
 					supporting pieces of content. Use it as a starting point to create
 					something more unique.</p>
 				<p>
-					<a href="#" class="btn btn-success btn-large">我要分享 »</a>
+					<a href="${requestScope.basePath}/resource/upload" class="btn btn-success btn-large">我要分享 »</a>
 				</p>
 			</div>
 		</div>
@@ -33,10 +33,15 @@
 					begin="0" end="2">
 					<div class="span4">
 						<div class="span12">
-							<div class="span12 schoolname">${school.name}</div>
-							<img src="${school.avatar}" class="img-polaroid span4" />
+							<div class="span12 schoolname">${school.school_name}</div>
+							<c:if test="${empty school.school_avatar}">
+								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
+							</c:if>
+							<c:if test="${not empty school.school_avatar}">
+								<img src="${school.school_avatar}" class="img-polaroid span4" />
+							</c:if>
 							<div>
-								<p>${school.description}</p>
+								<p>${school.school_description}</p>
 							</div>
 						</div>
 						<div class="btn">去看看</div>
@@ -48,10 +53,55 @@
 					begin="3" end="5">
 					<div class="span4">
 						<div class="span12">
-							<div class="span12 schoolname">${school.name}</div>
-							<img src="${school.avatar}" class="img-polaroid span4" />
+							<div class="span12 schoolname">${school.school_name}</div>
+							<c:if test="${empty school.school_avatar}">
+								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
+							</c:if>
+							<c:if test="${not empty school.school_avatar}">
+								<img src="${school.school_avatar}" class="img-polaroid span4" />
+							</c:if>
 							<div>
-								<p>${school.description}</p>
+								<p>${school.school_description}</p>
+							</div>
+						</div>
+						<div class="btn">去看看</div>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="row-fluid">
+				<c:forEach var="school" items="${schools}" varStatus="status"
+					begin="6" end="8">
+					<div class="span4">
+						<div class="span12">
+							<div class="span12 schoolname">${school.school_name}</div>
+							<c:if test="${empty school.school_avatar}">
+								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
+							</c:if>
+							<c:if test="${not empty school.school_avatar}">
+								<img src="${school.school_avatar}" class="img-polaroid span4" />
+							</c:if>
+							<div>
+								<p>${school.school_description}</p>
+							</div>
+						</div>
+						<div class="btn">去看看</div>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="row-fluid">
+				<c:forEach var="school" items="${schools}" varStatus="status"
+					begin="9" end="11">
+					<div class="span4">
+						<div class="span12">
+							<div class="span12 schoolname">${school.school_name}</div>
+							<c:if test="${empty school.school_avatar}">
+								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
+							</c:if>
+							<c:if test="${not empty school.school_avatar}">
+								<img src="${school.school_avatar}" class="img-polaroid span4" />
+							</c:if>
+							<div>
+								<p>${school.school_description}</p>
 							</div>
 						</div>
 						<div class="btn">去看看</div>
@@ -73,70 +123,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-
-						<td>
-							<div class="autocut">
-								MarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdf
-							</div></td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-
-						<td>Larry</td>
-						<td>the Bird</td>
-						<td>@twitter</td>
-					</tr>
-					<tr>
-
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-
-						<td>Larry</td>
-						<td>the Bird</td>
-						<td>@twitter</td>
-					</tr>
-					<tr>
-
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-
-						<td>Larry</td>
-						<td>the Bird</td>
-						<td>@twitter</td>
-					</tr>
-					<tr>
-
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-
+					<c:forEach  var="resource" items="${resource}">
+						<tr>
+							<td>
+								<div class="autocut">
+									${resource.resource_name}
+								</div></td>
+							<td>${resource.school_name}</td>
+							<td>${resource.uploader_name}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

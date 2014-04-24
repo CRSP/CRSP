@@ -14,7 +14,7 @@ import com.crsp.service.ProvinceServiceI;
 @Controller
 @RequestMapping(value="/province")
 public class ProvinceController {
-	/*@Autowired
+	@Autowired
 	private ProvinceServiceI provinceService;
 	
 	public ProvinceServiceI getProvinceService() {
@@ -29,6 +29,6 @@ public class ProvinceController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	@ResponseBody
 	public List getAllProvince() {
-		return null;
-	}*/
+		return provinceService.getProvinces().getPageList();
+	}
 }

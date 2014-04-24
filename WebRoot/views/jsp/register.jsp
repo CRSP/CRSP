@@ -54,15 +54,15 @@
 				</div>
 				<!-- 随后要补上区域，学校，学院的约束 -->
 				<div class="control-group">
-					<sf:label path="school_id" class="control-label">学校</sf:label>
+					<sf:label path="school.id" class="control-label">学校</sf:label>
 					<div class="controls">
-						<sf:select path="school_id" id="reg_schools"></sf:select>
+						<sf:select path="school.id" id="reg_schools"></sf:select>
 					</div>
 				</div>
 				<div class="control-group">
-					<sf:label path="department_id" class="control-label">院系</sf:label>
+					<sf:label path="department.id" class="control-label">院系</sf:label>
 					<div class="controls">
-						<sf:select path="department_id" id="reg_departments"></sf:select>
+						<sf:select path="department.id" id="reg_departments"></sf:select>
 					</div>
 				</div>
 				<div class="control-group">
@@ -112,20 +112,20 @@
 			for ( var i = 0; i < data.length; i++) {
 				var opt = data[i];
 				$('#reg_schools').append(
-						[ '<option value="', opt.id, '">', opt.name,
+						[ '<option value="', opt.id, '">', opt.school_name,
 								'</option>' ].join(''));
 			}
 		});
 	}
 
 	function getDepartments() {
-		$.get('${requestScope.basePath}/school/department/list/' + $('#reg_schools option:selected').val(), function(data) {
+		$.get('${requestScope.basePath}/school/list/department/school/' + $('#reg_schools option:selected').val(), function(data) {
 			//获取学院
 			$('#reg_departments').empty();
 			for(var i = 0; i < data.length; i++) {
 				var opt = data[i];
 				$('#reg_departments').append(
-						[ '<option value="', opt.id, '">', opt.name,
+						[ '<option value="', opt.id, '">', opt.department_name,
 								'</option>' ].join(''));
 			}
 		});

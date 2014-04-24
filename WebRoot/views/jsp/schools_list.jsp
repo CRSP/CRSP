@@ -22,13 +22,19 @@
 			<div class="modal"
 				style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
 				<div class="modal-header">
-					<h4>五邑大学</h4>
+					<h4>${school.school_name}</h4>
 				</div>
 				<div class="modal-body">
-					<img src="${requestScope.basePath}/views/avatars/default.jpg"
-						class="img-polaroid" style="float: left;">
+					<c:if test="${empty school.school_avatar}">
+						<img src="${requestScope.basePath}/views/avatars/default.jpg"
+							class="img-polaroid" style="float: left;">
+					</c:if>
+					<c:if test="${not empty school.school_avatar}">
+						<img src="${school.school_avatar}"
+							class="img-polaroid" style="float: left;">
+					</c:if>
 					<div>
-						<p class="autocut_school_description" style="margin-left:150px">&nbsp;&nbsp;&nbsp;&nbsp;五邑大学在培养高素质创新型人才、取得突破性科研进展,以及为国民经济发展和社会进步提供智力支持等方面都发挥着极其重要的作用。五邑大学在培养高素质创新型人才、取得突破性科研进展,以及为国民经济发展和社会进步提供智力支持等方面都发挥着极其重要的作用。</p>
+						<p class="autocut_school_description" style="margin-left:150px">&nbsp;&nbsp;&nbsp;&nbsp;${school.school_description}</p>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -39,13 +45,13 @@
 		</c:forEach>
 		<div class="span4 offset3">
 			<span><a
-				href="${ requestScope.path }modules/super_ctl.jsp?action=check">首页</a>
+				href="${ requestScope.basePath }/school/list">首页</a>
 			</span><span><a
-				href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow - 1 }">上一页</a>
-			</span><span>当前页${ requestScope.pageNow }/${ requestScope.pageCount }</span><span><a
-				href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow + 1 }">下一页</a>
+				href="${ requestScope.basePath }/school/list/${page.pageNow - 1}">上一页</a>
+			</span><span>当前页&nbsp;&nbsp;${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+				href="${ requestScope.basePath }/school/list/${page.pageNow + 1}">下一页</a>
 			</span><span><a
-				href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageCount }">尾页</a>
+				href="${ requestScope.basePath }/school/list/${page.pageCount}">尾页</a>
 			</span>
 		</div>
 	</div>
