@@ -20,24 +20,23 @@
 						class="img-polaroid"> </a>
 				</li>
 				<li class="divider"></li>
-				<li><a href="#">学校:五邑大学</a>
+				<li><a>学校:${school_profile.school_name}</a>
 				</li>
 				<li class="divider"></li>
-				<li><a href="#">省份:广东省</a>
+				<li><a>省份:${school_profile.province_name}</a>
 				</li>
 				<li class="divider"></li>
-				<li><a href="#">资源数:50</a>
+				<li><a>资源数:${school_profile.resource_quanities}</a>
 				</li>
 			</ul>
 		</div>
 		<!-- my resources begin -->
 		<div class="span6">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="${requestScope.basePath}/my/upload">学院列表</a>
+				<li class="active"><a>学院列表</a>
 				</li>
 			</ul>
-			<!-- upload begin -->
-			<div class="tab-pane active" id="my_upload">
+			<div class="tab-pane active">
 				<table class="table table-striped table-condensed">
 					<caption style="font-size: 20px;">学院列表</caption>
 					<thead>
@@ -51,9 +50,9 @@
 					<tbody>
 					<c:forEach items="${departments}" var="department">
 						<tr>
-							<td>1</td>
-							<td>${department.name}</td>
-							<td>50</td>
+							<td>${department.id}</td>
+							<td>${department.department_name}</td>
+							<td>${department.resource_quantities}</td>
 							<td><a href="${requestScope.basePath}/resource/list" class="btn btn-primary">进入</a>
 							</td>
 						</tr>
@@ -61,7 +60,6 @@
 					</tbody>
 				</table>
 			</div>
-			<!-- upload end -->
 		</div>
 	</div>
 	<!-- my resources end -->

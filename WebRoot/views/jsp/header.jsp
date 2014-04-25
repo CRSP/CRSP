@@ -50,7 +50,7 @@
 				<ul class="nav">
 					<li><a href="${requestScope.basePath}/index">首页</a></li>
 					<li><a href="${requestScope.basePath}/school/list">各大高校</a></li>
-					<li><a href="${requestScope.basePath}/resource/list">最新资源</a>
+					<li><a href="${requestScope.basePath}/resource/newest">最新资源</a>
 					</li>
 					<li><a href="${requestScope.basePath}/resource/upload">上传资源</a></li>
 					<li><a href="#contact">购买积分</a></li>

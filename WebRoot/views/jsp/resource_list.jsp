@@ -23,30 +23,28 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${resourceList}" var="resource">
-				<tr>
-					<td>${resource.id}</td>
-					<td>${resource.name}</td>
-					<td>${resource.user_id}</td>
-					<td><a href="${requestScope.basePath}/resource/list/1" class="btn btn-primary"><i
-							class="icon-download-alt icon-white"></i>进入下载页</a>
-					</td>
-				</tr>
-			</c:forEach>
+				<c:forEach items="${resourceList}" var="resource">
+					<tr>
+						<td>${resource.id}</td>
+						<td>${resource.resource_name}</td>
+						<td>${resource.uploader_name}</td>
+						<td><a href="${requestScope.basePath}/resource/list/1"
+							class="btn btn-primary"><i
+								class="icon-download-alt icon-white"></i>进入下载页</a>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="8">
 						<div class="pagination">
-							<span><a
-								href="${ requestScope.path }modules/super_ctl.jsp?action=check">首页</a>
+							<span><a href="${requestScope.basePath}/newest/1">首页</a> </span><span><a
+								href="${requestScope.basePath}/newest/${page.pageNow - 1}">上一页</a>
+							</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+								href="${requestScope.basePath}newest/${page.pageNow + 1}">下一页</a>
 							</span><span><a
-								href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow - 1 }">上一页</a>
-							</span><span>当前页${ requestScope.pageNow }/${
-								requestScope.pageCount }</span><span><a
-								href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow + 1 }">下一页</a>
-							</span><span><a
-								href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageCount }">尾页</a>
+								href="${requestScope.basePath}/newest/${page.pageCount}">尾页</a>
 							</span>
 						</div>
 					</td>

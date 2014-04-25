@@ -12,6 +12,6 @@ public interface ResourceServiceI {
 	public Pages<ResourceDTO> getHottestResource();	//获取下载量最多的10个资源
 	
 	//每个ResourceDTO装入id, name, uploader_name
-	//public Pages<ResourceDTO> getResourceByDepartmentAndSchoolId(int schoolId, int departmentId, Page page);		//获取学校院系的资源
+	public Pages<ResourceDTO> getResourceByDepartmentAndSchoolId(int schoolId, int departmentId, Page page);		//获取学校院系的资源
 }
 

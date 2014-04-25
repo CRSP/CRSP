@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,12 +29,25 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.crsp.entity.Progress;
 import com.crsp.entity.Resource;
+import com.crsp.service.ResourceServiceI;
+import com.crsp.utils.Page;
+import com.crsp.utils.Pages;
 
 @Controller
 @SessionAttributes("status")
 @RequestMapping(value = "/resource")
 public class ResourceController {
 	// resourceService
+	@Autowired
+	private ResourceServiceI resourceService;
+	
+	public ResourceServiceI getResourceService() {
+		return resourceService;
+	}
+
+	public void setResourceService(ResourceServiceI resourceService) {
+		this.resourceService = resourceService;
+	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getResourceList(Map<String, Object> model) {
@@ -52,10 +65,22 @@ public class ResourceController {
 		return "resource_list";
 	}
 
-	@RequestMapping(value = "/list/{resourceid}", method = RequestMethod.GET)
-	public String getResourceByID(@PathVariable int resourceid,
+	@RequestMapping(value = "/{schoolid}/{resourceid}", method = RequestMethod.GET)
+	public String getResourceByID(@PathVariable int schoolid, @PathVariable int resourceid,
 			Map<String, Object> model) {
 		return "download";
+	}
+	
+	@RequestMapping(value="/newest")
+	public String getNewestResource(Map<String, Object> model) {
+		Pages resourcePages = resourceService.getNewestResource();
+		List resourceList = resourcePages.getPageList();
+		Page page = resourcePages.getPage();
+		model.put("page", page);
+		model.put("resourceList", resourceList);
+		System.out.println(page.getPageNow());
+		System.out.println(page.getPageSize());
+		return "resource_list";
 	}
 
 	@RequestMapping(value = "/download/{resourceid}", method = RequestMethod.GET)
