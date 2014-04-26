@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-04-23 12:31:27
+Date: 2014-04-26 12:08:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -259,6 +259,8 @@ CREATE TABLE `resource` (
   `price` int(11) NOT NULL,
   `user_name` varchar(20) NOT NULL,
   `download_count` int(11) NOT NULL default '0',
+  `school_id` int(11) NOT NULL default '0',
+  `department_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `fk_resource_resource_type1_idx` (`type_id`),
   KEY `fk_resource_user1_idx` (`user_id`),
@@ -269,16 +271,16 @@ CREATE TABLE `resource` (
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1');
-INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2');
-INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3');
-INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4');
-INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5');
-INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6');
-INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7');
-INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8');
-INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9');
-INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10');
+INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1');
+INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2');
+INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3');
+INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4');
+INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5');
+INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6');
+INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7');
+INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8');
+INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9');
+INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10');
 
 -- ----------------------------
 -- Table structure for `resource_type`
@@ -1399,4 +1401,3 @@ INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', 
 INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', null, '0', '123456@170.com');
 INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', null, '0', '123456@171.com');
 INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', null, '0', '123456@172.com');
-INSERT INTO `user` VALUES ('11', '15', '5', '110807099', '123456', '波风水门', '4.jpg', '1', '123456@163.com');

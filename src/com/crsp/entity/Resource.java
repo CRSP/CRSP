@@ -30,8 +30,8 @@ public class Resource implements Serializable {
 	private Resource_Type resource_type;// 外键,类型编号
 
 	private int user_id;// 外键,用户的Id
-	
-	private String user_name;// 上传人的名称 
+
+	private String user_name;// 上传人的名称
 
 	private String name;// 资源名
 
@@ -39,9 +39,12 @@ public class Resource implements Serializable {
 
 	private String time;// 上传时间
 
-	private int price;// 资源积分 
-	
+	private int price;// 资源积分
+
 	private int download_count;// 被下载的次数
+
+	private int school_id; // 学校Id
+	private int department_id;// 院系ID
 
 	public int getId() {
 		return id;
@@ -66,7 +69,7 @@ public class Resource implements Serializable {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	
+
 	public String getUser_name() {
 		return user_name;
 	}
@@ -106,7 +109,7 @@ public class Resource implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
 	public int getDownload_count() {
 		return download_count;
 	}
@@ -115,12 +118,29 @@ public class Resource implements Serializable {
 		this.download_count = download_count;
 	}
 
+	public int getSchool_id() {
+		return school_id;
+	}
+
+	public void setSchool_id(int school_id) {
+		this.school_id = school_id;
+	}
+
+	public int getDepartment_id() {
+		return department_id;
+	}
+
+	public void setDepartment_id(int department_id) {
+		this.department_id = department_id;
+	}
+
 	@Override
 	public String toString() {
 		return "Resource [id=" + id + ", resource_type=" + resource_type
 				+ ", user_id=" + user_id + ", user_name=" + user_name
 				+ ", name=" + name + ", status=" + status + ", time=" + time
 				+ ", price=" + price + ", download_count=" + download_count
-				+ "]";
+				+ ", school_id=" + school_id + ", department_id="
+				+ department_id + "]";
 	}
 }

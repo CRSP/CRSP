@@ -37,7 +37,8 @@ public class TestResourceDAO {
 	
 	@Test
 	public void testQueryNewResources(){
-		List<Resource> list = resourceDAO.queryNewResources();
+		Page page = new Page();
+		List<Resource> list = resourceDAO.queryNewResources(page);
 		for(Resource r:list){
 			System.out.println(r.toString());
 		}

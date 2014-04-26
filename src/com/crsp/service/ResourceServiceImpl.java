@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crsp.dao.ResourceDAO;
-import com.crsp.dao.UserDAO;
+import com.crsp.dao.SchoolDAO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Resource;
-import com.crsp.entity.User;
+import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
 /**
@@ -25,7 +25,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	@Autowired
 	private ResourceDAO resourceDAO;
 	@Autowired
-	private UserDAO userDAO;
+	private SchoolDAO schoolDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -33,11 +33,11 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	 * @see com.crsp.service.ResourceServiceI#getNewestResource()
 	 */
 	@Override
-	public Pages<ResourceDTO> getNewestResource() {
+	public Pages<ResourceDTO> getNewestResource(Page page) {
 		Pages<ResourceDTO> pages = new Pages<ResourceDTO>();
 		List<ResourceDTO> rDtos = new ArrayList<ResourceDTO>();
 		// 获取相应数量的资源信息
-		List<Resource> list = resourceDAO.queryNewResources();
+		List<Resource> list = resourceDAO.queryNewResources(page);
 		for (Resource r : list) {
 			ResourceDTO rDto = new ResourceDTO();
 			rDto.setId(r.getId());
@@ -46,6 +46,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 			rDtos.add(rDto);
 		}
 		pages.setPageList(rDtos);
+		pages.setPage(page);
 		return pages;
 	}
 
@@ -62,13 +63,38 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		List<Resource> list = resourceDAO.queryMostDownload();
 		for (Resource r : list) {
 			ResourceDTO rDto = new ResourceDTO();
-			rDto.setId(r.getId());
-			User user = userDAO.findById(r.getUser_id());
-			rDto.setSchool_name(user.getSchool().getName());
+			rDto.setSchool_name(schoolDAO.findById(r.getSchool_id()).getName());
 			rDto.setUploader_name(r.getUser_name());
 			rDtos.add(rDto);
 		}
 		pages.setPageList(rDtos);
+		return pages;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.crsp.service.ResourceServiceI#getResourceByDepartmentAndSchoolId(int,
+	 * int, com.crsp.utils.Page)
+	 */
+	@Override
+	public Pages<ResourceDTO> getResourceByDepartmentAndSchoolId(int schoolId,
+			int departmentId, Page page) {
+		Pages<ResourceDTO> pages = new Pages<ResourceDTO>();
+		List<ResourceDTO> rDtos = new ArrayList<ResourceDTO>();
+		// 获取相应数量的资源信息
+		List<Resource> list = resourceDAO.queryResourcesBySchDpm(page,
+				schoolId, departmentId);
+		for (Resource r : list) {
+			ResourceDTO rDto = new ResourceDTO();
+			rDto.setId(r.getId());
+			rDto.setResource_name(r.getName());
+			rDto.setUploader_name(r.getUser_name());
+			rDtos.add(rDto);
+		}
+		pages.setPageList(rDtos);
+		pages.setPage(page);
 		return pages;
 	}
 
