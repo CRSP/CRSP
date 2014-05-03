@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,14 +18,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crsp.dto.UserDTO;
 import com.crsp.entity.User;
+import com.crsp.service.SchoolServiceI;
 import com.crsp.service.UserServiceI;
 import com.crsp.utils.JsonUtil;
+import com.crsp.utils.Page;
 import com.crsp.utils.RegValidator;
 
 @Controller
@@ -45,6 +49,18 @@ public class UserController {
 		return userService;
 	}
 	
+	//schoolService
+	@Autowired
+	private SchoolServiceI schoolService;
+	
+	public SchoolServiceI getSchoolService() {
+		return schoolService;
+	}
+
+	public void setSchoolService(SchoolServiceI schoolService) {
+		this.schoolService = schoolService;
+	}
+
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	@ResponseBody
 	public Map userLogin(HttpSession session, HttpServletRequest request) {
@@ -122,5 +138,21 @@ public class UserController {
 		session.setAttribute("user_name", u.getUser_name());
 		
 		return "redirect:/index";
+	}
+	
+	// 按省份找学校
+	@RequestMapping(value = "/register/school/{provinceid}", method = RequestMethod.GET)
+	@ResponseBody
+	public List getSchoolsByProvinceId(@PathVariable int provinceid) {
+		Page page = new Page();
+		page.setPageSize(999);
+		return schoolService.getSchoolsByProvinceId(provinceid, page).getPageList();
+	}
+
+	//按学校找院系
+	@RequestMapping(value="/register/department/{schoolid}", method = RequestMethod.GET)
+	@ResponseBody
+	public List getDepartmentsBySchoolId(@PathVariable int schoolid) {
+		return schoolService.getProfile(schoolid).getDepartment_list();
 	}
 }

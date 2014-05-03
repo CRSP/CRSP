@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.crsp.entity.Department;
 import com.crsp.entity.Progress;
 import com.crsp.entity.Resource;
 import com.crsp.service.ResourceServiceI;
@@ -40,7 +41,7 @@ public class ResourceController {
 	// resourceService
 	@Autowired
 	private ResourceServiceI resourceService;
-	
+
 	public ResourceServiceI getResourceService() {
 		return resourceService;
 	}
@@ -65,27 +66,70 @@ public class ResourceController {
 		return "resource_list";
 	}
 
-	@RequestMapping(value = "/{schoolid}/{resourceid}", method = RequestMethod.GET)
-	public String getResourceByID(@PathVariable int schoolid, @PathVariable int resourceid,
-			Map<String, Object> model) {
-		return "download";
-	}
-	
-	@RequestMapping(value="/newest")
-	public String getNewestResource(Map<String, Object> model) {
-		Pages resourcePages = resourceService.getNewestResource();
+	@RequestMapping(value = "/{schoolid}/{departmentid}", method = RequestMethod.GET)
+	public String getResourceByID(@PathVariable int schoolid,
+			@PathVariable int departmentid, Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(1);
+		Pages resourcePages = resourceService
+				.getResourceByDepartmentAndSchoolId(schoolid, departmentid, page);
 		List resourceList = resourcePages.getPageList();
-		Page page = resourcePages.getPage();
+		model.put("resourceList", resourceList);
+		model.put("page", page);
+		model.put("from", "school");
+		return "resource_list";
+	}
+
+	@RequestMapping(value = "/{schoolid}/{departmentid}/{p}", method = RequestMethod.GET)
+	public String getResourceByID(@PathVariable int schoolid,
+			@PathVariable int departmentid, @PathVariable int p,
+			Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(p);
+		Pages resourcePages = resourceService
+				.getResourceByDepartmentAndSchoolId(schoolid, departmentid, page);
+		List resourceList = resourcePages.getPageList();
+		Department department = new Department();
+		model.put("resourceList", resourceList);
+		model.put("page", page);
+		model.put("from", "school");
+		model.put("schoolid", schoolid);
+		model.put("departmentid", departmentid);
+		return "resource_list";
+	}
+
+	@RequestMapping(value = "/newest")
+	public String getNewestResource(Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(1);
+		Pages resourcePages = resourceService.getNewestResource(page);
+		List resourceList = resourcePages.getPageList();
+		page = resourcePages.getPage();
 		model.put("page", page);
 		model.put("resourceList", resourceList);
-		System.out.println(page.getPageNow());
-		System.out.println(page.getPageSize());
+		model.put("from", "newest");
+		return "resource_list";
+	}
+
+	@RequestMapping(value = "/newest/{p}")
+	public String getNewestResourceByPage(@PathVariable int p,
+			Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(p);
+		Pages resourcePages = resourceService.getNewestResource(page);
+		List resourceList = resourcePages.getPageList();
+		page = resourcePages.getPage();
+		model.put("page", page);
+		model.put("resourceList", resourceList);
+		model.put("from", "newest");
 		return "resource_list";
 	}
 
 	@RequestMapping(value = "/download/{resourceid}", method = RequestMethod.GET)
 	@ResponseBody
-	public Map getDownloadURL(HttpServletRequest request, HttpServletResponse response, @PathVariable int resourceid, HttpSession session) {
+	public Map getDownloadURL(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable int resourceid,
+			HttpSession session) {
 		// 判断是否登录
 		Map msgMap = new HashMap();
 		if (session.getAttribute("user_name") == null) {
@@ -93,28 +137,33 @@ public class ResourceController {
 			return msgMap;
 		} else {
 			String fileName = "point.txt";
-			
-			//从数据库获取资源路径
+
+			// 从数据库获取资源路径
 			String resourcePath = request.getSession().getServletContext()
 					.getRealPath("/")
 					+ File.separator
 					+ "resource"
-					+ File.separator + "2014" + File.separator + "4" + File.separator  + fileName;
+					+ File.separator
+					+ "2014"
+					+ File.separator + "4" + File.separator + fileName;
 			File file = new File(resourcePath);
 			response.reset();
-			response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+			response.addHeader("Content-Disposition", "attachment;filename="
+					+ fileName);
 			response.addHeader("Content-Length", "" + file.length());
 			try {
-				InputStream fis = new BufferedInputStream(new FileInputStream(resourcePath));
+				InputStream fis = new BufferedInputStream(new FileInputStream(
+						resourcePath));
 				byte[] buffer = new byte[fis.available()];
 				fis.read(buffer);
 				fis.close();
-				OutputStream os = new BufferedOutputStream(response.getOutputStream());
-				os.write(buffer); 
-				os.flush(); 
-				os.close(); 
+				OutputStream os = new BufferedOutputStream(
+						response.getOutputStream());
+				os.write(buffer);
+				os.flush();
+				os.close();
 			} catch (Exception e) {
-				e.printStackTrace(); 
+				e.printStackTrace();
 			}
 			return msgMap;
 		}
@@ -141,7 +190,8 @@ public class ResourceController {
 					+ File.separator
 					+ "resource"
 					+ File.separator
-					+ year + File.separator + month + File.separator;
+					+ year
+					+ File.separator + month + File.separator;
 
 			if (f.getSize() > 0) {
 				File dr = new File(resourcePath);
@@ -153,21 +203,20 @@ public class ResourceController {
 				}
 				f.transferTo(targetFile);// 写入目标文件
 			}
-			//写入资源记录
+			// 写入资源记录
 		}
 	}
-	
-	@RequestMapping(value="/upfile/existence", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/upfile/existence", method = RequestMethod.POST)
 	@ResponseBody
 	public Map checkExistence() {
 		Map msgMap = new HashMap();
-		
-		//判断是否存在相同资源
-		
+
+		// 判断是否存在相同资源
+
 		msgMap.put("isExisted", false);
 		return msgMap;
 	}
-	
 
 	@RequestMapping(value = "/upfile/progress", method = RequestMethod.GET)
 	@ResponseBody

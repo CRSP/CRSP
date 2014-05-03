@@ -53,7 +53,7 @@
 							<td>${department.id}</td>
 							<td>${department.department_name}</td>
 							<td>${department.resource_quantities}</td>
-							<td><a href="${requestScope.basePath}/resource/list" class="btn btn-primary">进入</a>
+							<td><a href="${requestScope.basePath}/resource/${school_profile.id}/${department.id}" class="btn btn-primary">进入</a>
 							</td>
 						</tr>
 					</c:forEach>

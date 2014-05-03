@@ -41,6 +41,7 @@ public class SchoolController {
 		List schoolsList = schoolProfile.getPageList();
 		model.put("schools", schoolsList);
 		model.put("page", p);
+		model.put("from", "all");
 		return "schools_list";
 	}
 	
@@ -53,27 +54,27 @@ public class SchoolController {
 		List schoolsList = schoolProfile.getPageList();
 		model.put("schools", schoolsList);
 		model.put("page", schoolProfile.getPage());
+		model.put("from", "all");
 		return "schools_list";
 	}
 	
-	
-
 	// 按省份找学校
 	@RequestMapping(value = "/list/province/{provinceid}", method = RequestMethod.GET)
-	@ResponseBody
-	public List getSchoolsByProvinceId(@PathVariable int provinceid) {
+	public String getSchoolsByProvinceId(@PathVariable int provinceid, Map<String, Object> model) {
 		Page page = new Page();
 		page.setPageSize(999);
-		return schoolService.getSchoolsByProvinceId(provinceid, page).getPageList();
-	}
-
-	//按学校找院系
-	@RequestMapping(value="/list/department/school/{schoolid}", method = RequestMethod.GET)
-	@ResponseBody
-	public List getDepartmentsBySchoolId(@PathVariable int schoolid) {
-		return schoolService.getProfile(schoolid).getDepartment_list();
+		model.put("schools", schoolService.getSchoolsByProvinceId(provinceid, page).getPageList());
+		return "schools_list";
 	}
 	
+	@RequestMapping(value = "/list/province/", method = RequestMethod.GET)
+	public String getSchoolsByDefaultProvinceId(Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageSize(999);
+		model.put("schools", schoolService.getSchoolsByProvinceId(1, page).getPageList());
+		return "schools_list";
+	}
+
 	//获取学校详细信息(学校省份，资源数，院系列表等)
 	@RequestMapping(value = "/profile/{schoolid}", method = RequestMethod.GET)
 	public String getDepartmentsBySchoolId(@PathVariable int schoolid, Map<String, Object> model) {

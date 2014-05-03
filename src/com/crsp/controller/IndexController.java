@@ -42,12 +42,12 @@ public class IndexController {
 	}
 
 	//需要资源最多的12间学校
-	//需要最新10个资源
+	//需要最热10个资源
 	//Autowired
 	@RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
 	public String showIndexPage(Map<String, Object> model) {
 		List schools = schoolService.getHottestSchools().getPageList();
-		List resource = resouceService.getNewestResource().getPageList();
+		List resource = resouceService.getHottestResource().getPageList();
 		model.put("schools", schools);
 		model.put("resource", resource);
 		return "index";

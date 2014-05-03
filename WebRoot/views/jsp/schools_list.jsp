@@ -43,17 +43,19 @@
 				</div>
 			</div>
 		</c:forEach>
-		<div class="span4 offset3">
-			<span><a
-				href="${ requestScope.basePath }/school/list">首页</a>
-			</span><span><a
-				href="${ requestScope.basePath }/school/list/${page.pageNow - 1}">上一页</a>
-			</span><span>当前页&nbsp;&nbsp;${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
-				href="${ requestScope.basePath }/school/list/${page.pageNow + 1}">下一页</a>
-			</span><span><a
-				href="${ requestScope.basePath }/school/list/${page.pageCount}">尾页</a>
-			</span>
-		</div>
+		<c:if test="${from == 'all'}">
+			<div class="span4 offset3">
+				<span><a
+					href="${ requestScope.basePath }/school/list">首页</a>
+				</span><span><a
+					href="${ requestScope.basePath }/school/list/${page.pageNow - 1}">上一页</a>
+				</span><span>当前页&nbsp;&nbsp;${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+					href="${ requestScope.basePath }/school/list/${page.pageNow + 1}">下一页</a>
+				</span><span><a
+					href="${ requestScope.basePath }/school/list/${page.pageCount}">尾页</a>
+				</span>
+			</div>
+		</c:if>
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>

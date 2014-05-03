@@ -105,7 +105,7 @@
 	}
 
 	function getSchools() {
-		$.get('${requestScope.basePath}/school/list/province/'
+		$.get('${requestScope.basePath}/user/register/school/'
 				+ $('#reg_provinces option:selected').val(), function(data) {
 			//获取学校
 			$('#reg_schools').empty();
@@ -119,7 +119,7 @@
 	}
 
 	function getDepartments() {
-		$.get('${requestScope.basePath}/school/list/department/school/' + $('#reg_schools option:selected').val(), function(data) {
+		$.get('${requestScope.basePath}/user/register/department/' + $('#reg_schools option:selected').val(), function(data) {
 			//获取学院
 			$('#reg_departments').empty();
 			for(var i = 0; i < data.length; i++) {

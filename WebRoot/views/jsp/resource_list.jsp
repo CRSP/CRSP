@@ -23,6 +23,12 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${fn:length(resourceList) == 0}">
+					<tr>
+						<td><p>没有资源!</p>
+						</td>
+					</tr>
+				</c:if>
 				<c:forEach items="${resourceList}" var="resource">
 					<tr>
 						<td>${resource.id}</td>
@@ -30,24 +36,36 @@
 						<td>${resource.uploader_name}</td>
 						<td><a href="${requestScope.basePath}/resource/list/1"
 							class="btn btn-primary"><i
-								class="icon-download-alt icon-white"></i>进入下载页</a>
-						</td>
+								class="icon-download-alt icon-white"></i>进入下载页</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="8">
-						<div class="pagination">
-							<span><a href="${requestScope.basePath}/newest/1">首页</a> </span><span><a
-								href="${requestScope.basePath}/newest/${page.pageNow - 1}">上一页</a>
-							</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
-								href="${requestScope.basePath}newest/${page.pageNow + 1}">下一页</a>
-							</span><span><a
-								href="${requestScope.basePath}/newest/${page.pageCount}">尾页</a>
-							</span>
-						</div>
-					</td>
+					<td colspan="8"><c:if test="${from == 'newest'}">
+							<div class="pagination">
+								<span><a href="${requestScope.basePath}/resource/newest/">首页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/newest/${page.pageNow - 1}">上一页</a>
+								</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+									href="${requestScope.basePath}/resource/newest/${page.pageNow + 1}">下一页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/newest/${page.pageCount}">尾页</a>
+								</span>
+							</div>
+						</c:if> <c:if test="${from == 'school'}">
+							<div class="pagination">
+								<span><a
+									href="${requestScope.basePath}/resource/${schoolid}/${departmentid}">首页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/${schoolid}/${departmentid}/${page.pageNow - 1}">上一页</a>
+								</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+									href="${requestScope.basePath}/resource/${schoolid}/${departmentid}/${page.pageNow + 1}">下一页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/${schoolid}/${departmentid}/${page.pageCount}">尾页</a>
+								</span>
+							</div>
+						</c:if></td>
 				</tr>
 			</tfoot>
 		</table>

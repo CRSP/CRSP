@@ -14,6 +14,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <link
 	href="${ requestScope.viewPath }/plugins/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
@@ -60,64 +61,64 @@
 						<ul class="dropdown-menu">
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【华 北】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="${requestScope.basePath}/school/list">北京市</a></li>
-									<li><a tabindex="-1" href="${requestScope.basePath}/school/list">天津市</a></li>
-									<li><a tabindex="-1" href="${requestScope.basePath}/school/list">河北省</a></li>
-									<li><a tabindex="-1" href="${requestScope.basePath}/school/list">山西省</a></li>
-									<li><a tabindex="-1" href="${requestScope.basePath}/school/list">内蒙古自治区 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/1">北京市</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/4">天津市</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/5">河北省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/6">山西省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/28">内蒙古自治区 </a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【东 北】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">辽宁省</a></li>
-									<li><a tabindex="-1" href="#">吉林省</a></li>
-									<li><a tabindex="-1" href="#">黑龙江省 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/7">辽宁省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/8">吉林省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/9">黑龙江省 </a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【华 东】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">上海市</a></li>
-									<li><a tabindex="-1" href="#">江苏省</a></li>
-									<li><a tabindex="-1" href="#">浙江省</a></li>
-									<li><a tabindex="-1" href="#">安徽省</a></li>
-									<li><a tabindex="-1" href="#">福建省</a></li>
-									<li><a tabindex="-1" href="#">江西省</a></li>
-									<li><a tabindex="-1" href="#">山东省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/2">上海市</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/10">江苏省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/11">浙江省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/12">安徽省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/13">福建省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/14">江西省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/15">山东省</a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【中 南】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">河南省</a></li>
-									<li><a tabindex="-1" href="#">湖北省</a></li>
-									<li><a tabindex="-1" href="#">湖南省</a></li>
-									<li><a tabindex="-1" href="#">广东省</a></li>
-									<li><a tabindex="-1" href="#">广西壮族自治区 </a></li>
-									<li><a tabindex="-1" href="#">海南省 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/16">河南省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/17">湖北省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/18">湖南省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/19">广东省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/29">广西壮族自治区 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/20">海南省 </a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【西 南】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">重庆市</a></li>
-									<li><a tabindex="-1" href="#">四川省</a></li>
-									<li><a tabindex="-1" href="#">贵州省</a></li>
-									<li><a tabindex="-1" href="#">云南省</a></li>
-									<li><a tabindex="-1" href="#">西藏自治区 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/3">重庆市</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/21">四川省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/22">贵州省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/23">云南省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/30">西藏自治区 </a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【西 北】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">陕西省</a></li>
-									<li><a tabindex="-1" href="#">甘肃省</a></li>
-									<li><a tabindex="-1" href="#">青海省</a></li>
-									<li><a tabindex="-1" href="#">宁夏回族自治区</a></li>
-									<li><a tabindex="-1" href="#">新疆维吾尔自治区 </a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/24">陕西省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/25">甘肃省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/26">青海省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/31">宁夏回族自治区</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/32">新疆维吾尔自治区 </a></li>
 								</ul>
 							</li>
 							<li class="dropdown-submenu"><a tabindex="-1" href="#">【港澳台】</a>
 								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">香港特别行政区</a></li>
-									<li><a tabindex="-1" href="#">澳门特别行政区</a></li>
-									<li><a tabindex="-1" href="#">台湾省</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/33">香港特别行政区</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/34">澳门特别行政区</a></li>
+									<li><a tabindex="-1" href="${requestScope.basePath}/school/list/province/27">台湾省</a></li>
 								</ul>
 							</li>
 						</ul>
