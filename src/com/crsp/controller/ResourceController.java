@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +26,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.crsp.dto.UserDTO;
 import com.crsp.entity.Department;
 import com.crsp.entity.Progress;
 import com.crsp.entity.Resource;
 import com.crsp.service.ResourceServiceI;
+import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -49,21 +50,17 @@ public class ResourceController {
 	public void setResourceService(ResourceServiceI resourceService) {
 		this.resourceService = resourceService;
 	}
+	
+	//userService
+	@Autowired
+	private UserServiceI userService;
+	
+	public UserServiceI getUserService() {
+		return userService;
+	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getResourceList(Map<String, Object> model) {
-		List resourceList = new LinkedList();
-		for (int i = 0; i < 10; i++) {
-			Resource r = new Resource();
-			r.setId(i);
-			r.setName("cocos2d x跑酷源码 C++版");
-			r.setPrice(2);
-			r.setStatus(1);
-			r.setTime("2014-03-28");
-			resourceList.add(r);
-		}
-		model.put("resourceList", resourceList);
-		return "resource_list";
+	public void setUserService(UserServiceI userService) {
+		this.userService = userService;
 	}
 
 	@RequestMapping(value = "/{schoolid}/{departmentid}", method = RequestMethod.GET)
@@ -177,7 +174,7 @@ public class ResourceController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public void createResource(HttpServletRequest request,
+	public void createResource(HttpSession session, HttpServletRequest request,
 			@RequestParam(value = "resource_file") MultipartFile... files)
 			throws IllegalStateException, IOException {
 		for (MultipartFile f : files) {
@@ -204,6 +201,10 @@ public class ResourceController {
 				f.transferTo(targetFile);// 写入目标文件
 			}
 			// 写入资源记录
+			int userId = Integer.parseInt(session.getAttribute("ID").toString());
+			Resource resource = new Resource();
+			UserDTO userDTO = userService.getUserProfile(userId);
+			resourceService.AddResource(resource);
 		}
 	}
 

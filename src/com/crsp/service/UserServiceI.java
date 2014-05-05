@@ -25,4 +25,6 @@ public interface UserServiceI {
 	
 	//每个UserDTO装入id, user_name, school_name, department_name
 	public UserDTO getUserProfile(int userId);
+	
+	public User getUser(int userId);
 }

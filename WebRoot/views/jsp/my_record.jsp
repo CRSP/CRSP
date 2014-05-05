@@ -17,9 +17,9 @@
 		<!-- my resources begin -->
 		<div class="span6">
 			<ul class="nav nav-tabs">
-				<li><a href="${requestScope.basePath}/my/upload">上传资源</a></li>
-				<li><a href="${requestScope.basePath}/my/download">下载资源</a>
+				<li><a href="${requestScope.basePath}/my/upload">上传资源</a>
 				</li>
+				<li><a href="${requestScope.basePath}/my/download">下载资源</a></li>
 				<li class="active"><a href="${requestScope.basePath}/my/record">得分记录</a>
 				</li>
 			</ul>
@@ -36,76 +36,41 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-
-							<td>-2</td>
-							<td>2014-03-30</td>
-							<td><a href="#">5038400</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-
-							<td>+1</td>
-							<td>2014-03-30</td>
-							<td><a href="#">4238022</a>-评分奖励积分</td>
-						</tr>
-						<tr>
-
-							<td>+1</td>
-							<td>2014-03-30</td>
-							<td><a href="#">4973613</a>-评分奖励积分</td>
-						</tr>
-						<tr>
-							<td>+1</td>
-							<td>2014-03-30</td>
-							<td><a href="#">4423291</a>-评分奖励积分</td>
-						</tr>
-						<tr>
-
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">4034189</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">3042188</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">3042188</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">3042188</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">3042188</a>-下载资源扣除积分</td>
-						</tr>
-						<tr>
-							<td>-3</td>
-							<td>2013-07-06</td>
-							<td><a href="#">3042188</a>-下载资源扣除积分</td>
-						</tr>
+						<c:forEach var="record" items="${records}">
+							<tr>
+								<td>${record.delta}</td>
+								<td>${record.time}</td>
+								<td><a href="#">${record.id}</a> <c:if
+										test="${record.delta < 0}">
+									-下载资源扣除积分
+								</c:if> <c:if test="${record.delta > 0}">
+									-上传资源得到下载,奖励积分
+								</c:if></td>
+							</tr>
+						</c:forEach>
+						<c:if test="${fn:length(records) == 0}">
+							<tr>
+								<td>没有记录!</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</c:if>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="8">
 								<div class="pagination">
 									<span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check">首页</a>
+										href="${requestScope.basePath}/my/record/">首页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow - 1 }">上一页</a>
-									</span><span>当前页${ requestScope.pageNow }/${
-										requestScope.pageCount }</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow + 1 }">下一页</a>
+										href="${requestScope.basePath}/my/record/${page.pageNow - 1}">上一页</a>
+									</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+										href="${requestScope.basePath}/my/record/${page.pageNow + 1}">下一页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageCount }">尾页</a>
+										href="${requestScope.basePath}/my/record/${page.pageCount}">尾页</a>
 									</span>
-								</div></td>
+								</div>
+							</td>
 						</tr>
 					</tfoot>
 				</table>

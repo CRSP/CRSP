@@ -3,9 +3,6 @@ package com.crsp.dto;
 import java.io.Serializable;
 
 public class RecordDTO extends BaseDTO implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int delta;

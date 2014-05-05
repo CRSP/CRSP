@@ -125,7 +125,7 @@ public class UserController {
 		
 		//保存用户
 		user.setPoints(20);//初始点数20
-		user.setAvatar("default.jsp");
+		user.setAvatar("");//头像初始为空
 		UserDTO u = userService.register(user);
 		if(u == null) {
 			model.put("message", "用户已存在");

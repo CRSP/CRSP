@@ -18,108 +18,59 @@
 		<div class="span6">
 			<ul class="nav nav-tabs">
 				<li><a href="${requestScope.basePath}/my/upload">上传资源</a></li>
-				<li class="active"><a href="${requestScope.basePath}/my/download">下载资源</a></li>
+				<li class="active"><a
+					href="${requestScope.basePath}/my/download">下载资源</a></li>
 				<li><a href="${requestScope.basePath}/my/record">得分记录</a></li>
 			</ul>
-				<!-- download begin -->
-				<div class="tab-pane" id="my_download">
-					<table class="table table-striped table-condensed">
-						<caption style="font-size: 20px;">下载资源</caption>
-						<thead>
-							<tr>
-
-								<th>资源名</th>
-								<th>学校</th>
-								<th>上传人</th>
-							</tr>
-						</thead>
-						<tbody>
+			<!-- download begin -->
+			<div class="tab-pane" id="my_download">
+				<table class="table table-striped table-condensed">
+					<caption style="font-size: 20px;">下载资源</caption>
+					<thead>
+						<tr>
+							<th>资源名</th>
+							<th>学校</th>
+							<th>上传人</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="download" items="${downalods}">
 							<tr>
 								<td>
-									<div class="autocut">
-										MarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdf
-									</div>
+									<div class="autocut">${download.resource_name}</div>
 								</td>
-								<td>Otto</td>
-								<td>2013-10-25</td>
+								<td>${download.school_name}</td>
+								<td>${download.uploader_name}</td>
 							</tr>
+						</c:forEach>
+						<c:if test="${fn:length(downloads) == 0}">
 							<tr>
-
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>2013-10-25</td>
+								<td>没有下载!</td>
+								<td></td>
+								<td></td>
 							</tr>
-							<tr>
-
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>2013-10-25</td>
-							</tr>
-							<tr>
-
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>2013-10-25</td>
-							</tr>
-						</tbody>
-					</table>
+						</c:if>
+					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="8">
 								<div class="pagination">
-									<span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check">首页</a>
+									<span><a href="${requestScope.basePath}/my/download/">首页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow - 1 }">上一页</a>
-									</span><span>当前页${ requestScope.pageNow }/${
-										requestScope.pageCount }</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow + 1 }">下一页</a>
+										href="${requestScope.basePath}/my/download/${page.pageNow - 1}">上一页</a>
+									</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+										href="${requestScope.basePath}/my/download/${page.pageNow + 1}">下一页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageCount }">尾页</a>
+										href="${requestScope.basePath}/my/download/${page.pageCount}">尾页</a>
 									</span>
 								</div></td>
 						</tr>
 					</tfoot>
-				</div>
-				<!-- download end -->
+				</table>
 			</div>
+			<!-- download end -->
 		</div>
+	</div>
 	<!-- my resources end -->
 	<%@ include file="footer.jsp"%>
 </body>

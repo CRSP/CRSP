@@ -34,82 +34,37 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<div class="autocut">
-									MarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdfMarkafdfasdfasfasdfasdfasdf
-								</div>
-							</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Jacob</td>
-							<td>审核中</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Larry</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Mark</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Jacob</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Larry</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Mark</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Jacob</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-							<td>Larry</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
-						<tr>
-
-							<td>Mark</td>
-							<td>已审核</td>
-							<td>2013-10-25</td>
-						</tr>
+						<c:forEach var="upload" items="${uploads}">
+							<tr>
+								<td>
+									<div class="autocut">
+										${upload.resource_name}
+									</div>
+								</td>
+								<td>${upload.status_name}</td>
+								<td>${upload.time}</td>
+							</tr>
+						</c:forEach>
+						<c:if test="${fn:length(uploads) == 0}">
+							<tr>
+								<td>没有上传!</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</c:if>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="8">
 								<div class="pagination">
 									<span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check">首页</a>
+										href="${requestScope.basePath}/my/upload/">首页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow - 1 }">上一页</a>
-									</span><span>当前页${ requestScope.pageNow }/${
-										requestScope.pageCount }</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageNow + 1 }">下一页</a>
+										href="${requestScope.basePath}/my/upload/${page.pageNow - 1}">上一页</a>
+									</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+										href="${requestScope.basePath}/my/upload/${page.pageNow + 1}">下一页</a>
 									</span><span><a
-										href="${ requestScope.path }modules/super_ctl.jsp?action=check&page=${ requestScope.pageCount }">尾页</a>
+										href="${requestScope.basePath}/my/upload/${page.pageCount}">尾页</a>
 									</span>
 								</div>
 							</td>

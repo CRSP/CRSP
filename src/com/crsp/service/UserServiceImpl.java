@@ -216,6 +216,9 @@ public class UserServiceImpl implements UserServiceI {
 		uDto.setUser_name(user.getUser_name());
 		uDto.setSchool_name(user.getSchool().getName());
 		uDto.setDepartment_name(user.getDepartment().getName());
+		uDto.setPoints(user.getPoints());
+		uDto.setEmail(user.getEmail());
+		uDto.setAvatar(user.getAvatar());
 		return uDto;
 	}
 }

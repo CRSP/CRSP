@@ -3,15 +3,14 @@ package com.crsp.dto;
 import java.io.Serializable;
 
 public class UserDTO extends BaseDTO implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private String user_name;
 	private String school_name;
 	private String department_name;
-
+	private int points;
+	private String email;
+	private String avatar;
 	public long getId() {
 		return id;
 	}
@@ -42,6 +41,30 @@ public class UserDTO extends BaseDTO implements Serializable {
 
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
+	}
+	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	@Override

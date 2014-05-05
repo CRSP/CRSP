@@ -79,6 +79,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/*" />
 			<mvc:mapping path="/my/*" />
+			<mvc:mapping path="/my/*/*" />
 			<bean class="com.crsp.filter.SecurityInterceptor">
 				<property name="excludedUrls">
 					<list>

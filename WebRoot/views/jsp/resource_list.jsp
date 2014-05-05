@@ -19,14 +19,14 @@
 					<th>资源编号</th>
 					<th>资源名</th>
 					<th>上传人</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${fn:length(resourceList) == 0}">
 					<tr>
-						<td><p>没有资源!</p>
-						</td>
+						<td>没有资源!</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</c:if>
 				<c:forEach items="${resourceList}" var="resource">
