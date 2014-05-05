@@ -204,4 +204,18 @@ public class UserServiceImpl implements UserServiceI {
 		pages.setPage(page);
 		return pages;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.UserServiceI#getUserProfile(int)
+	 */
+	@Override
+	public UserDTO getUserProfile(int userId) {
+		UserDTO uDto = new UserDTO();
+		User user = userDAO.findById(userId);
+		uDto.setId(user.getId());
+		uDto.setUser_name(user.getUser_name());
+		uDto.setSchool_name(user.getSchool().getName());
+		uDto.setDepartment_name(user.getDepartment().getName());
+		return uDto;
+	}
 }

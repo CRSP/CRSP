@@ -116,4 +116,10 @@ public class TestUserService {
 			System.out.println(p.toString());
 		}
 	}
+	
+	@Test
+	public void getUserProfile(){
+		UserDTO uDto = userService.getUserProfile(1);
+		System.out.println(uDto.toString());
+	}
 }
