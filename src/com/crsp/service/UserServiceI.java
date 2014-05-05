@@ -22,4 +22,7 @@ public interface UserServiceI {
 	
 	//每个RecordDTO装入id, delta, time, 
 	public Pages<RecordDTO> getMyRecord(int userId, Page page);
+	
+	//每个UserDTO装入id, user_name, school_name, department_name
+	public UserDTO getUserProfile(int userId);
 }
