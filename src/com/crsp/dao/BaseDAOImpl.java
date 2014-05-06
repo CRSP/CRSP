@@ -3,6 +3,7 @@ package com.crsp.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -121,8 +122,8 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	 */
 	@Override
 	public T findById(int id) {
-		T t = (T)getSession().load(getClz(), id);	
-		//Hibernate.initialize(t);
+		T t = (T) getSession().load(getClz(), id);
+		Hibernate.initialize(t);
 		return t;
 	}
 
