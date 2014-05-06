@@ -229,4 +229,12 @@ public class UserServiceImpl implements UserServiceI {
 	public User getUser(int userId) {
 		return userDAO.findById(userId);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.UserServiceI#saveUser(com.crsp.entity.User)
+	 */
+	@Override
+	public void saveUser(User user) {
+		userDAO.update(user);
+	}
 }
