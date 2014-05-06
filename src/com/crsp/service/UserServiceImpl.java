@@ -221,4 +221,12 @@ public class UserServiceImpl implements UserServiceI {
 		uDto.setAvatar(user.getAvatar());
 		return uDto;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.UserServiceI#getUser(int)
+	 */
+	@Override
+	public User getUser(int userId) {
+		return userDAO.findById(userId);
+	}
 }

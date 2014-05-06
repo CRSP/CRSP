@@ -98,4 +98,11 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		return pages;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#AddResource(com.crsp.entity.Resource)
+	 */
+	@Override
+	public void AddResource(Resource resource) {
+		resourceDAO.add(resource);
+	}
 }
