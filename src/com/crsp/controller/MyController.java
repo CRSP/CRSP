@@ -2,22 +2,29 @@ package com.crsp.controller;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crsp.dto.UserDTO;
+import com.crsp.entity.User;
 import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
+import com.crsp.utils.RegValidator;
 
 @Controller
 @RequestMapping(value="/my")
 public class MyController {
+	
 	@Autowired
 	private UserServiceI userService;
 	
@@ -28,6 +35,9 @@ public class MyController {
 	public void setUserService(UserServiceI userService) {
 		this.userService = userService;
 	}
+	
+	@Resource
+	private RegValidator regValidator;
 
 	@RequestMapping(value={"/", "/upload"}, method=RequestMethod.GET)
 	public String getMyUpload(HttpSession session, Map<String, Object> model) {
@@ -117,11 +127,20 @@ public class MyController {
 		int userId = Integer.parseInt(session.getAttribute("ID").toString());
 		UserDTO userDTO = userService.getUserProfile(userId);
 		model.put("profile", userDTO);
+		model.put("user", new User());
 		return "updateprofile";
 	}
 	
 	@RequestMapping(value="/profile/update", method=RequestMethod.POST)
-	public String updateProfile() {
+	public String updateProfile(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, HttpSession session, Map<String, Object> model) {
+		this.regValidator.validateForUpdate(user, bindingResult);
+		int userId = Integer.parseInt(session.getAttribute("ID").toString());
+		UserDTO userDTO = userService.getUserProfile(userId);
+		model.put("profile", userDTO);
+		if(bindingResult.hasErrors()) {
+			return "updateprofile";
+		}
+		session.setAttribute("user_name", user.getUser_name());
 		
 		return "redirect:/my/upload";
 	}

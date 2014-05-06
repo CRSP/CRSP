@@ -66,7 +66,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputEmail">邮箱</label>
+					<sf:label path="email" class="control-label" for="inputEmail">邮箱</sf:label>
 					<div class="controls">
 						<sf:input path="email" id="email" placeholder="邮箱" />
 						<sf:errors path="email" cssClass="error"></sf:errors>

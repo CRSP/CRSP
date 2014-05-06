@@ -27,4 +27,6 @@ public interface UserServiceI {
 	public UserDTO getUserProfile(int userId);
 	
 	public User getUser(int userId);
+	
+	public void saveUser(User user);
 }

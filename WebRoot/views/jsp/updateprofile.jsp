@@ -13,17 +13,21 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<div class="container-fluid">
-		<form class="form-horizontal span5 offset3">
+		<sf:form class="form-horizontal span6 offset3" modelAttribute="user"
+			action="${requestScope.basePath}/my/profile/update" method="POST">
 			<div class="control-group">
-				<label class="control-label">用户名:</label>
+				<sf:label path="user_name" class="control-label">用户名:</sf:label>
 				<div class="controls">
-					<input type="text" name="user_name" value="${profile.user_name}">
+					<sf:input path="user_name" value="${profile.user_name}" />
+					<sf:errors path="user_name" cssClass="error"></sf:errors>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label">邮箱:</label>
 				<div class="controls">
-					<input type="text" name="email" value="${profile.email}">
+					<sf:input path="email" id="email" placeholder="邮箱"
+						value="${profile.email}" />
+					<sf:errors path="email" cssClass="error"></sf:errors>
 				</div>
 			</div>
 			<div class="control-group">
@@ -49,7 +53,7 @@
 					<a class="btn btn-primary" onclick="readAsDataURL()">预览</a>
 				</div>
 			</div>
-		</form>
+		</sf:form>
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>
