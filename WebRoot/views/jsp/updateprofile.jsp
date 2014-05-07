@@ -14,11 +14,13 @@
 	<%@ include file="header.jsp"%>
 	<div class="container-fluid">
 		<sf:form class="form-horizontal span6 offset3" modelAttribute="user"
-			action="${requestScope.basePath}/my/profile/update" method="POST">
+			action="${requestScope.basePath}/my/profile/update" method="POST"
+			enctype="multipart/form-data">
 			<div class="control-group">
 				<sf:label path="user_name" class="control-label">用户名:</sf:label>
 				<div class="controls">
 					<sf:input path="user_name" value="${profile.user_name}" />
+					<br />
 					<sf:errors path="user_name" cssClass="error"></sf:errors>
 				</div>
 			</div>
@@ -27,6 +29,7 @@
 				<div class="controls">
 					<sf:input path="email" id="email" placeholder="邮箱"
 						value="${profile.email}" />
+					<br />
 					<sf:errors path="email" cssClass="error"></sf:errors>
 				</div>
 			</div>
@@ -40,17 +43,19 @@
 						</c:if>
 						<c:if test="${profile.avatar != ''}">
 							<img class="img-polaroid"
-								src="${requestScope.basePath}/views/avatars/${profile.avatar}">
+								src="${requestScope.basePath}/views/avatars/${profile.avatar}"
+								width="120">
 						</c:if>
 					</div>
-					<input type="file" name="avatar" id="avatar">
+					<input type="file" name="image" id="avatar"><br />
+					<sf:errors path="avatar" cssClass="error"></sf:errors>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn btn-success">确认修改</button>
-					<button type="submit" class="btn">重置</button>
-					<a class="btn btn-primary" onclick="readAsDataURL()">预览</a>
+					<input type="submit" class="btn btn-success" value="确认修改" /> <input
+						type="reset" class="btn" value="重置" /> <a class="btn btn-primary"
+						onclick="readAsDataURL()">预览</a>
 				</div>
 			</div>
 		</sf:form>
@@ -73,7 +78,7 @@
 		reader.onload = function(e) {
 			var result = document.getElementById("result");
 			//在页面上显示文件
-			result.innerHTML = '<img class="img-polaroid"  width="120" height="120"  src="' + this.result + '" alt="" />';
+			result.innerHTML = '<img class="img-polaroid"  width="120" src="' + this.result + '" alt="" />';
 		}
 	}
 </script>

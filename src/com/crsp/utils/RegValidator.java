@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.crsp.entity.User;
 
@@ -95,6 +96,14 @@ public class RegValidator implements Validator {
 					errors.rejectValue("user_id", "user.user_id.too_long",
 							"账号太长，不能长于{20}个字符");
 				}
+			}
+		}
+	}
+	
+	public void avatarValid(MultipartFile avatar, Errors errors) {
+		if(!avatar.isEmpty()) {
+			if(!avatar.getContentType().equals("image/jpeg")) {
+				errors.rejectValue("avatar", "avatar.invalid", "只能上传图片");
 			}
 		}
 	}

@@ -167,8 +167,11 @@ public class ResourceController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public String initUpload() {
+	public String initUpload(Map<String, Object> model) {
 		// 初始化类型，积分等选项
+		//List typeList = resourceService.getTypes();
+		model.put("resource", new Resource());
+		
 		return "upload";
 	}
 

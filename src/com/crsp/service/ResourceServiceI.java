@@ -1,7 +1,10 @@
 package com.crsp.service;
 
+import java.util.List;
+
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Resource;
+import com.crsp.entity.Resource_Type;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -16,6 +19,7 @@ public interface ResourceServiceI {
 	public Pages<ResourceDTO> getResourceByDepartmentAndSchoolId(int schoolId, int departmentId, Page page);		//获取学校院系的资源
 	
 	public void AddResource(Resource resource);
-	
+
+	public List<Resource_Type> getTypes();
 }
 
