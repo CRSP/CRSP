@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Resource_Type;
 import com.crsp.service.ResourceServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
@@ -54,6 +56,14 @@ public class TestResourceService {
 		List<ResourceDTO> list = pages.getPageList();
 		for(ResourceDTO r:list){
 			System.out.println(r.toString());
+		}
+	}
+	
+	@Test
+	public void listResource_type(){
+		List<Resource_Type> list = resourceService.getTypes();
+		for(Resource_Type t:list){
+			System.out.println(t.toString());
 		}
 	}
 }

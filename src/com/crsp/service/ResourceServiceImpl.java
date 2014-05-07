@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crsp.dao.ResourceDAO;
+import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Resource;
+import com.crsp.entity.Resource_Type;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -26,6 +28,8 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	private ResourceDAO resourceDAO;
 	@Autowired
 	private SchoolDAO schoolDAO;
+	@Autowired
+	private Resource_TypeDAO resource_typeDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -98,11 +102,24 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		return pages;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.crsp.service.ResourceServiceI#AddResource(com.crsp.entity.Resource)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.crsp.service.ResourceServiceI#AddResource(com.crsp.entity.Resource)
 	 */
 	@Override
 	public void AddResource(Resource resource) {
 		resourceDAO.add(resource);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.crsp.service.ResourceServiceI#getTypes()
+	 */
+	@Override
+	public List<Resource_Type> getTypes() {
+		return resource_typeDAO.list();
 	}
 }
