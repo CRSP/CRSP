@@ -1,5 +1,6 @@
 package com.crsp.utils;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.crsp.entity.Resource_Type;
 import com.crsp.entity.User;
 
 @Component
@@ -27,13 +29,13 @@ public class RegValidator implements Validator {
 		userNameValid(user.getUser_name(), errors);
 		emailValid(user.getEmail(), errors);
 	}
-	
+
 	public void validateForUpdate(Object object, Errors errors) {
 		User user = (User) object;
 		userNameValid(user.getUser_name(), errors);
 		emailValid(user.getEmail(), errors);
 	}
-	
+
 	public void emailValid(String email, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "email", "user.email.required",
 				"邮箱不能为空");
@@ -43,11 +45,10 @@ public class RegValidator implements Validator {
 					.compile("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 			Matcher m = p.matcher(email);
 			if (!m.matches())
-				errors.rejectValue("email", "user.email.invalid",
-						"邮箱格式不正确");
+				errors.rejectValue("email", "user.email.invalid", "邮箱格式不正确");
 		}
 	}
-	
+
 	public void userNameValid(String username, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "user_name",
 				"user.user_name.required", "用户名不能为空");
@@ -62,7 +63,7 @@ public class RegValidator implements Validator {
 			}
 		}
 	}
-	
+
 	public void passwordValid(String password, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "user_pwd",
 				"user.user_pwd.required", "密码不能为空");
@@ -77,7 +78,7 @@ public class RegValidator implements Validator {
 			}
 		}
 	}
-	
+
 	public void userIdValid(String userid, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "user_id",
 				"user.user_id.required", "账号不能为空");
@@ -99,12 +100,60 @@ public class RegValidator implements Validator {
 			}
 		}
 	}
-	
+
 	public void avatarValid(MultipartFile avatar, Errors errors) {
-		if(!avatar.isEmpty()) {
-			if(!avatar.getContentType().equals("image/jpeg")) {
+		if (!avatar.isEmpty()) {
+			if (!avatar.getContentType().equals("image/jpeg")) {
 				errors.rejectValue("avatar", "avatar.invalid", "只能上传图片");
 			}
 		}
+	}
+
+	public String resourceNameValid(String resourceName) {
+		if (resourceName.equals("")) {
+			return "资源名不能为空";
+		}
+		int length = resourceName.length();
+		if (length > 0) {
+
+			if (length < 6) {
+				return "账号太短，不能少于{6}个字符";
+			} else if (length > 20) {
+				return "账号太长，不能长于{20}个字符";
+			}
+		}
+		return "";
+	}
+
+	public String resourceTypeValid(String resourceType,
+			List<Resource_Type> typeList) {
+		if (resourceType.equals("")) {
+			return "资源类型不能为空";
+		}
+		boolean isfounded = false;
+		if (resourceType != null) {
+			for (Resource_Type rt : typeList) {
+				if (rt.getId() == Integer.parseInt(resourceType))
+					isfounded = true;
+			}
+		}
+		if (!isfounded)
+			return "资源类型不存在";
+		return "";
+	}
+
+	public String resourcePriceValid(String resourcePrice) {
+		if (resourcePrice.equals("")) {
+			return "资源类型不能为空";
+		}
+		if (resourcePrice != null) {
+			int price = Integer.parseInt(resourcePrice);
+			if (price > 10) {
+				return "资源分过大";
+			} else if (price < 0) {
+				return "资源分不能为负数";
+			}
+		}
+		return "";
 	}
 }

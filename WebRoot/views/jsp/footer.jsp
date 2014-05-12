@@ -19,6 +19,7 @@
 			url: '${requestScope.basePath}/user/login',
 			success: function (data) {
 				//spring返回的是对象，不是json文本，简直不能再屌
+				console.log(data);
 				if(data['err']) alert(data['err']);
 				if(data['ok']) location.reload();
 			}

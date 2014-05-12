@@ -31,34 +31,26 @@
 					<div class="control-group">
 						<label class="control-label">资源名称</label>
 						<div class="controls">
-							<input type="text" placeholder="资源名称" name="resource_name" />
+							<input type="text" placeholder="资源名称" name="resource_name" id="resource_name" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">资源类型</label>
 						<div class="controls">
-							<select name="resource_type">
-								<option>java</option>
-								<option>C#</option>
-								<option>C++</option>
-								<option>ASP.NET</option>
-								<option>PHP</option>
-								<option>Ruby</option>
-								<option>Python</option>
+							<select name="resource_type" id="resource_type">
+								<c:forEach var="type" items="${type_list}">
+									<option value="${type.id}">${type.name}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">资源分</label>
 						<div class="controls">
-							<select name="resource_price">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-								<option>6</option>
-								<option>7</option>
+							<select name="resource_price" id="resource_price">
+								<c:forEach var="price" items="${price_list}">
+									<option value="${price}">${price}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -199,11 +191,44 @@
 		var ajax_options = {
 			url: '${requestScope.basePath}/resource/create',
 			success : function(data) {
-				console.log('upload success');
+				console.log(data);
+				console.log(data['rnMsg']);
+				console.log(data['rtMsg']);
+				console.log(data['rpMsg']);
 			}
 		};
 		$('#upload_form').submit(function(e) {
 			e.preventDefault();
+			
+			//是否已登陆
+			var islogined = false;
+			$.post('${requestScope.basePath}/user/islogined', function(data) {
+				islogined = data['islogined'];
+				if(!islogined) {
+					alert("请先登陆!");
+				}
+			});
+			if(!islogined) return ;
+			
+			//验证信息是否完整
+			var resource_name = $('#resource_name').val();
+			var resource_type = $('#resource_type').val();
+			var resource_price = $('#resource_price').val();
+			var file = $('#resource_file').val();
+			
+			if(resource_name == '' || resource_type == '' || resource_price == '') {
+				alert("请完善资源信息");
+				return ;
+			}
+			if(resource_name.length < 6 || resource_name.length >  20) {
+				alert("资源名长度为6-20个字符");
+				return ;
+			}
+			if(file == '') {
+				alert("请选择要上传的文件");
+				return ;
+			}
+			
 			//ajax后台以确定是否可以秒传
 			$('#progress_modal').modal('show');
 			$.post('${requestScope.basePath}/resource/upfile/existence',function(data) {

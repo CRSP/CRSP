@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,10 +31,14 @@ import com.crsp.dto.UserDTO;
 import com.crsp.entity.Department;
 import com.crsp.entity.Progress;
 import com.crsp.entity.Resource;
+import com.crsp.entity.Resource_Type;
+import com.crsp.entity.User;
 import com.crsp.service.ResourceServiceI;
 import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
+import com.crsp.utils.RegValidator;
+import com.crsp.utils.TimeUtil;
 
 @Controller
 @SessionAttributes("status")
@@ -43,6 +48,8 @@ public class ResourceController {
 	@Autowired
 	private ResourceServiceI resourceService;
 
+	private RegValidator regValidator = new RegValidator();
+
 	public ResourceServiceI getResourceService() {
 		return resourceService;
 	}
@@ -50,11 +57,11 @@ public class ResourceController {
 	public void setResourceService(ResourceServiceI resourceService) {
 		this.resourceService = resourceService;
 	}
-	
-	//userService
+
+	// userService
 	@Autowired
 	private UserServiceI userService;
-	
+
 	public UserServiceI getUserService() {
 		return userService;
 	}
@@ -69,7 +76,8 @@ public class ResourceController {
 		Page page = new Page();
 		page.setPageNow(1);
 		Pages resourcePages = resourceService
-				.getResourceByDepartmentAndSchoolId(schoolid, departmentid, page);
+				.getResourceByDepartmentAndSchoolId(schoolid, departmentid,
+						page);
 		List resourceList = resourcePages.getPageList();
 		model.put("resourceList", resourceList);
 		model.put("page", page);
@@ -84,7 +92,8 @@ public class ResourceController {
 		Page page = new Page();
 		page.setPageNow(p);
 		Pages resourcePages = resourceService
-				.getResourceByDepartmentAndSchoolId(schoolid, departmentid, page);
+				.getResourceByDepartmentAndSchoolId(schoolid, departmentid,
+						page);
 		List resourceList = resourcePages.getPageList();
 		Department department = new Department();
 		model.put("resourceList", resourceList);
@@ -169,9 +178,13 @@ public class ResourceController {
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String initUpload(Map<String, Object> model) {
 		// 初始化类型，积分等选项
-		//List typeList = resourceService.getTypes();
-		model.put("resource", new Resource());
-		
+		List typeList = resourceService.getTypes();
+		model.put("type_list", typeList);
+		List priceList = new LinkedList();
+		for (int i = 0; i < 10; i++) {
+			priceList.add(i + 1);
+		}
+		model.put("price_list", priceList);
 		return "upload";
 	}
 
@@ -180,34 +193,65 @@ public class ResourceController {
 	public void createResource(HttpSession session, HttpServletRequest request,
 			@RequestParam(value = "resource_file") MultipartFile... files)
 			throws IllegalStateException, IOException {
-		for (MultipartFile f : files) {
-			// 按月分配文件夹存储用户上传资源
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH) + 1;
-			String resourcePath = request.getSession().getServletContext()
-					.getRealPath("/")
-					+ File.separator
-					+ "resource"
-					+ File.separator
-					+ year
-					+ File.separator + month + File.separator;
 
-			if (f.getSize() > 0) {
-				File dr = new File(resourcePath);
-				File targetFile = new File(resourcePath
-						+ new String(f.getOriginalFilename().getBytes(
-								"ISO-8859-1"), "UTF-8"));
-				if (!dr.exists()) {
-					dr.mkdirs();
+		// 登陆验证
+		int userId = -1;
+		try {
+			userId = Integer.parseInt(session.getAttribute("ID").toString());
+		} catch (Exception e) {
+			return;
+		}
+
+		// 资源信息验证
+		String resourceName = request.getParameter("resource_name");
+		String resourceType = request.getParameter("resource_type");
+		String resourcePrice = request.getParameter("resource_price");
+
+		List<Resource_Type> typeList = resourceService.getTypes();
+		String rnMsg = this.regValidator.resourceNameValid(resourceName);
+		String rtMsg = this.regValidator.resourceTypeValid(resourceType,
+				typeList);
+		String rpMsg = this.regValidator.resourcePriceValid(resourcePrice);
+		Map msgMap = new HashMap();
+
+		if (rnMsg.equals("") && rtMsg.equals("") && rpMsg.equals("")
+				&& userId != -1) {
+			for (MultipartFile f : files) {
+				// 按月分配文件夹存储用户上传资源
+				Calendar cal = Calendar.getInstance();
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH) + 1;
+				String resourcePath = request.getSession().getServletContext()
+						.getRealPath("/")
+						+ File.separator
+						+ "resource"
+						+ File.separator
+						+ year
+						+ File.separator + month + File.separator;
+
+				if (f.getSize() > 0) {
+					File dr = new File(resourcePath);
+					File targetFile = new File(resourcePath
+							+ new String(f.getOriginalFilename().getBytes(
+									"ISO-8859-1"), "UTF-8"));
+					if (!dr.exists()) {
+						dr.mkdirs();
+					}
+					f.transferTo(targetFile);// 写入目标文件
 				}
-				f.transferTo(targetFile);// 写入目标文件
+				// 写入资源记录
+				Resource resource = new Resource();
+				User u = userService.getUser(userId);
+				resource.setDepartment_id(u.getDepartment().getId());
+				Resource_Type rt = new Resource_Type();
+				rt.setId(Integer.parseInt(resourceType));
+				resource.setResource_type(rt);
+				resource.setName(resourceName);
+				resource.setTime(TimeUtil.getStringDateShort());
+				resource.setUser_name(u.getUser_name());
+				resource.setUser_id(userId);
+				resourceService.AddResource(resource);
 			}
-			// 写入资源记录
-			int userId = Integer.parseInt(session.getAttribute("ID").toString());
-			Resource resource = new Resource();
-			UserDTO userDTO = userService.getUserProfile(userId);
-			resourceService.AddResource(resource);
 		}
 	}
 
