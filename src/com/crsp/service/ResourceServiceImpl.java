@@ -9,10 +9,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crsp.dao.FeatureDAO;
 import com.crsp.dao.ResourceDAO;
 import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Feature;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
 import com.crsp.utils.Page;
@@ -30,6 +32,8 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	private SchoolDAO schoolDAO;
 	@Autowired
 	private Resource_TypeDAO resource_typeDAO;
+	@Autowired
+	private FeatureDAO featureDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -121,5 +125,22 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	@Override
 	public List<Resource_Type> getTypes() {
 		return resource_typeDAO.list();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#getFeature(java.lang.String)
+	 */
+	@Override
+	public Feature getFeature(String code) {
+		Feature feature = featureDAO.findByCode(code);
+		return feature;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#addFeature(com.crsp.entity.Feature)
+	 */
+	@Override
+	public void addFeature(Feature feature) {
+		featureDAO.add(feature);
 	}
 }

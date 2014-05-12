@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-04-26 12:08:33
+Date: 2014-05-12 18:08:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,27 +50,53 @@ CREATE TABLE `department` (
   `name` varchar(45) NOT NULL,
   `description` varchar(255) default NULL,
   `avatar` varchar(100) default NULL,
-  `resource_count` int(11) NOT NULL default '0',
+  `resource_count` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO `department` VALUES ('1', '经济管理学院', null, null, '1');
-INSERT INTO `department` VALUES ('2', '政法学院', null, null, '2');
-INSERT INTO `department` VALUES ('3', '文学院', null, null, '3');
-INSERT INTO `department` VALUES ('4', '外国语学院', null, null, '4');
-INSERT INTO `department` VALUES ('5', '数学与计算科学学院', null, null, '5');
-INSERT INTO `department` VALUES ('6', '应用物理与材料学院', null, null, '6');
-INSERT INTO `department` VALUES ('7', '信息工程学院', null, null, '7');
-INSERT INTO `department` VALUES ('8', '机电工程学院', null, null, '8');
-INSERT INTO `department` VALUES ('9', '土木建筑学院', null, null, '9');
-INSERT INTO `department` VALUES ('10', '化学与环境工程学院', null, null, '10');
-INSERT INTO `department` VALUES ('11', '纺织服装学院', null, null, '11');
-INSERT INTO `department` VALUES ('12', '艺术设计系', null, null, '12');
-INSERT INTO `department` VALUES ('13', '思想政治理论教学部', null, null, '13');
-INSERT INTO `department` VALUES ('14', '体育部 ', null, null, '14');
+INSERT INTO `department` VALUES ('1', '经济管理学院', '', '', '1');
+INSERT INTO `department` VALUES ('2', '政法学院', '', '', '2');
+INSERT INTO `department` VALUES ('3', '文学院', '', '', '3');
+INSERT INTO `department` VALUES ('4', '外国语学院', '', '', '4');
+INSERT INTO `department` VALUES ('5', '数学与计算科学学院', '', '', '5');
+INSERT INTO `department` VALUES ('6', '应用物理与材料学院', '', '', '6');
+INSERT INTO `department` VALUES ('7', '信息工程学院', '', '', '7');
+INSERT INTO `department` VALUES ('8', '机电工程学院', '', '', '8');
+INSERT INTO `department` VALUES ('9', '土木建筑学院', '', '', '9');
+INSERT INTO `department` VALUES ('10', '化学与环境工程学院', '', '', '10');
+INSERT INTO `department` VALUES ('11', '纺织服装学院', '', '', '11');
+INSERT INTO `department` VALUES ('12', '艺术设计系', '', '', '12');
+INSERT INTO `department` VALUES ('13', '思想政治理论教学部', '', '', '13');
+INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
+
+-- ----------------------------
+-- Table structure for `feature`
+-- ----------------------------
+DROP TABLE IF EXISTS `feature`;
+CREATE TABLE `feature` (
+  `id` int(11) NOT NULL,
+  `path` varchar(45) NOT NULL,
+  `code` varchar(45) NOT NULL,
+  `amount` int(11) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of feature
+-- ----------------------------
+INSERT INTO `feature` VALUES ('1', '', '', '1');
+INSERT INTO `feature` VALUES ('2', '', '', '1');
+INSERT INTO `feature` VALUES ('3', '', '', '1');
+INSERT INTO `feature` VALUES ('4', '', '', '1');
+INSERT INTO `feature` VALUES ('5', '', '', '1');
+INSERT INTO `feature` VALUES ('6', '', '', '1');
+INSERT INTO `feature` VALUES ('7', '', '', '1');
+INSERT INTO `feature` VALUES ('8', '', '', '1');
+INSERT INTO `feature` VALUES ('9', '', '', '1');
+INSERT INTO `feature` VALUES ('10', '', '', '1');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -243,7 +269,7 @@ INSERT INTO `record` VALUES ('96', '10', '10', '6', '96', '\"2014-04-05\"');
 INSERT INTO `record` VALUES ('97', '10', '10', '7', '97', '\"2014-04-06\"');
 INSERT INTO `record` VALUES ('98', '10', '10', '8', '98', '\"2014-04-07\"');
 INSERT INTO `record` VALUES ('99', '10', '10', '9', '99', '\"2014-04-08\"');
-INSERT INTO `record` VALUES ('100', '10', '10', '10', '100', '\"2014-04-08\"');
+INSERT INTO `record` VALUES ('100', '10', '10', '10', '100', '\"2014-04-09\"');
 
 -- ----------------------------
 -- Table structure for `resource`
@@ -257,30 +283,33 @@ CREATE TABLE `resource` (
   `status` int(11) NOT NULL,
   `time` varchar(45) NOT NULL,
   `price` int(11) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `download_count` int(11) NOT NULL default '0',
-  `school_id` int(11) NOT NULL default '0',
-  `department_id` int(11) NOT NULL default '0',
+  `user_name` varchar(45) NOT NULL,
+  `download_count` varchar(45) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `feature_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_resource_resource_type1_idx` (`type_id`),
   KEY `fk_resource_user1_idx` (`user_id`),
+  KEY `fk_resource_feature1_idx` (`feature_id`),
   CONSTRAINT `fk_resource_resource_type1` FOREIGN KEY (`type_id`) REFERENCES `resource_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resource_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_resource_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_resource_feature1` FOREIGN KEY (`feature_id`) REFERENCES `feature` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1');
-INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2');
-INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3');
-INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4');
-INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5');
-INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6');
-INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7');
-INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8');
-INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9');
-INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10');
+INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1', '1');
+INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2', '2');
+INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3', '3');
+INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4', '4');
+INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5', '5');
+INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6', '6');
+INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7', '7');
+INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8', '8');
+INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9', '9');
+INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10', '10');
 
 -- ----------------------------
 -- Table structure for `resource_type`
@@ -317,7 +346,7 @@ CREATE TABLE `school` (
   `name` varchar(45) NOT NULL,
   `description` varchar(255) default NULL,
   `avatar` varchar(100) default NULL,
-  `resource_count` int(11) NOT NULL default '0',
+  `resource_count` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_school_province_idx` (`province_id`),
   CONSTRAINT `fk_school_province` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -326,74 +355,74 @@ CREATE TABLE `school` (
 -- ----------------------------
 -- Records of school
 -- ----------------------------
-INSERT INTO `school` VALUES ('1', '1', '清华大学', null, null, '1');
-INSERT INTO `school` VALUES ('2', '1', '北京大学', null, null, '2');
-INSERT INTO `school` VALUES ('3', '2', '复旦大学', null, null, '3');
-INSERT INTO `school` VALUES ('4', '2', '上海交通大学', null, null, '4');
-INSERT INTO `school` VALUES ('5', '3', '重庆大学', null, null, '5');
-INSERT INTO `school` VALUES ('6', '3', '重庆医科大学', null, null, '6');
-INSERT INTO `school` VALUES ('7', '4', '天津大学', null, null, '7');
-INSERT INTO `school` VALUES ('8', '4', '南开大学', null, null, '8');
-INSERT INTO `school` VALUES ('9', '5', '河北大学', null, null, '9');
-INSERT INTO `school` VALUES ('10', '5', '河北工业大学', null, null, '10');
-INSERT INTO `school` VALUES ('11', '6', '山西大学', null, null, '11');
-INSERT INTO `school` VALUES ('12', '6', '太原理工大学', null, null, '12');
-INSERT INTO `school` VALUES ('13', '7', '辽东学院', null, null, '13');
-INSERT INTO `school` VALUES ('14', '7', '沈阳音乐学院', null, null, '14');
-INSERT INTO `school` VALUES ('15', '8', '吉林艺术学院', null, null, '15');
-INSERT INTO `school` VALUES ('16', '8', '吉林工商学院', null, null, '16');
-INSERT INTO `school` VALUES ('17', '9', '黑龙江工业学院', null, null, '17');
-INSERT INTO `school` VALUES ('18', '9', '哈尔滨金融学院', null, null, '18');
-INSERT INTO `school` VALUES ('19', '10', '南京艺术学院', null, null, '19');
-INSERT INTO `school` VALUES ('20', '10', '常州大学', null, null, '20');
-INSERT INTO `school` VALUES ('21', '11', '浙江大学', null, null, '21');
-INSERT INTO `school` VALUES ('22', '11', '温州大学', null, null, '22');
-INSERT INTO `school` VALUES ('23', '12', '安徽大学', null, null, '23');
-INSERT INTO `school` VALUES ('24', '12', '合肥工业大学', null, null, '24');
-INSERT INTO `school` VALUES ('25', '13', '福建工程学院', null, null, '25');
-INSERT INTO `school` VALUES ('26', '13', '厦门大学', null, null, '26');
-INSERT INTO `school` VALUES ('27', '14', '江西中医药大学', null, null, '27');
-INSERT INTO `school` VALUES ('28', '14', '南昌工程学院', null, null, '28');
-INSERT INTO `school` VALUES ('29', '15', '山东农业工程学院', null, null, '29');
-INSERT INTO `school` VALUES ('30', '15', '泰山学院', null, null, '30');
-INSERT INTO `school` VALUES ('31', '16', '河南科技学院', null, null, '31');
-INSERT INTO `school` VALUES ('32', '16', '郑州大学', null, null, '32');
-INSERT INTO `school` VALUES ('33', '17', '湖北科技学院', null, null, '33');
-INSERT INTO `school` VALUES ('34', '17', '湖北理工学院', null, null, '34');
-INSERT INTO `school` VALUES ('35', '18', '湖南大学', null, null, '35');
-INSERT INTO `school` VALUES ('36', '18', '中南大学', null, null, '36');
-INSERT INTO `school` VALUES ('37', '19', '五邑大学', null, null, '37');
-INSERT INTO `school` VALUES ('38', '19', '广东工业大学', null, null, '38');
-INSERT INTO `school` VALUES ('39', '20', '海南大学', null, null, '39');
-INSERT INTO `school` VALUES ('40', '20', '三亚学院', null, null, '40');
-INSERT INTO `school` VALUES ('41', '21', '四川大学', null, null, '41');
-INSERT INTO `school` VALUES ('42', '21', '成都师范学院', null, null, '42');
-INSERT INTO `school` VALUES ('43', '22', '贵州理工学院', null, null, '43');
-INSERT INTO `school` VALUES ('44', '22', '贵阳学院', null, null, '44');
-INSERT INTO `school` VALUES ('45', '23', '云南艺术学院', null, null, '45');
-INSERT INTO `school` VALUES ('46', '23', '昆明学院', null, null, '46');
-INSERT INTO `school` VALUES ('47', '24', '陕西师范大学', null, null, '47');
-INSERT INTO `school` VALUES ('48', '24', '西北大学', null, null, '48');
-INSERT INTO `school` VALUES ('49', '25', '甘肃政法学院', null, null, '49');
-INSERT INTO `school` VALUES ('50', '25', '兰州城市学院', null, null, '50');
-INSERT INTO `school` VALUES ('51', '26', '青海大学', null, null, '51');
-INSERT INTO `school` VALUES ('52', '26', '青海师范大学', null, null, '52');
-INSERT INTO `school` VALUES ('53', '27', '国立交通大学 ', null, null, '53');
-INSERT INTO `school` VALUES ('54', '27', '国立中央大学 ', null, null, '54');
-INSERT INTO `school` VALUES ('55', '28', '内蒙古大学', null, null, '55');
-INSERT INTO `school` VALUES ('56', '28', '内蒙古农业大学', null, null, '56');
-INSERT INTO `school` VALUES ('57', '29', '广西艺术学院', null, null, '57');
-INSERT INTO `school` VALUES ('58', '29', '梧州学院', null, null, '58');
-INSERT INTO `school` VALUES ('59', '30', '西藏大学', null, null, '59');
-INSERT INTO `school` VALUES ('60', '30', '西藏藏医学院', null, null, '60');
-INSERT INTO `school` VALUES ('61', '31', '宁夏大学', null, null, '61');
-INSERT INTO `school` VALUES ('62', '31', '宁夏理工学院', null, null, '62');
-INSERT INTO `school` VALUES ('63', '32', '新疆大学', null, null, '63');
-INSERT INTO `school` VALUES ('64', '32', '塔里木大学', null, null, '64');
-INSERT INTO `school` VALUES ('65', '33', '香港大学', null, null, '65');
-INSERT INTO `school` VALUES ('66', '33', '香港浸会大学', null, null, '66');
-INSERT INTO `school` VALUES ('67', '34', '澳门大学', null, null, '67');
-INSERT INTO `school` VALUES ('68', '34', '澳门科技大学', null, null, '68');
+INSERT INTO `school` VALUES ('1', '1', '清华大学', '', '', '1');
+INSERT INTO `school` VALUES ('2', '1', '北京大学', '', '', '2');
+INSERT INTO `school` VALUES ('3', '2', '复旦大学', '', '', '3');
+INSERT INTO `school` VALUES ('4', '2', '上海交通大学', '', '', '4');
+INSERT INTO `school` VALUES ('5', '3', '重庆大学', '', '', '5');
+INSERT INTO `school` VALUES ('6', '3', '重庆医科大学', '', '', '6');
+INSERT INTO `school` VALUES ('7', '4', '天津大学', '', '', '7');
+INSERT INTO `school` VALUES ('8', '4', '南开大学', '', '', '8');
+INSERT INTO `school` VALUES ('9', '5', '河北大学', '', '', '9');
+INSERT INTO `school` VALUES ('10', '5', '河北工业大学', '', '', '10');
+INSERT INTO `school` VALUES ('11', '6', '山西大学', '', '', '11');
+INSERT INTO `school` VALUES ('12', '6', '太原理工大学', '', '', '12');
+INSERT INTO `school` VALUES ('13', '7', '辽东学院', '', '', '13');
+INSERT INTO `school` VALUES ('14', '7', '沈阳音乐学院', '', '', '14');
+INSERT INTO `school` VALUES ('15', '8', '吉林艺术学院', '', '', '15');
+INSERT INTO `school` VALUES ('16', '8', '吉林工商学院', '', '', '16');
+INSERT INTO `school` VALUES ('17', '9', '黑龙江工业学院', '', '', '17');
+INSERT INTO `school` VALUES ('18', '9', '哈尔滨金融学院', '', '', '18');
+INSERT INTO `school` VALUES ('19', '10', '南京艺术学院', '', '', '19');
+INSERT INTO `school` VALUES ('20', '10', '常州大学', '', '', '20');
+INSERT INTO `school` VALUES ('21', '11', '浙江大学', '', '', '21');
+INSERT INTO `school` VALUES ('22', '11', '温州大学', '', '', '22');
+INSERT INTO `school` VALUES ('23', '12', '安徽大学', '', '', '23');
+INSERT INTO `school` VALUES ('24', '12', '合肥工业大学', '', '', '24');
+INSERT INTO `school` VALUES ('25', '13', '福建工程学院', '', '', '25');
+INSERT INTO `school` VALUES ('26', '13', '厦门大学', '', '', '26');
+INSERT INTO `school` VALUES ('27', '14', '江西中医药大学', '', '', '27');
+INSERT INTO `school` VALUES ('28', '14', '南昌工程学院', '', '', '28');
+INSERT INTO `school` VALUES ('29', '15', '山东农业工程学院', '', '', '29');
+INSERT INTO `school` VALUES ('30', '15', '泰山学院', '', '', '30');
+INSERT INTO `school` VALUES ('31', '16', '河南科技学院', '', '', '31');
+INSERT INTO `school` VALUES ('32', '16', '郑州大学', '', '', '32');
+INSERT INTO `school` VALUES ('33', '17', '湖北科技学院', '', '', '33');
+INSERT INTO `school` VALUES ('34', '17', '湖北理工学院', '', '', '34');
+INSERT INTO `school` VALUES ('35', '18', '湖南大学', '', '', '35');
+INSERT INTO `school` VALUES ('36', '18', '中南大学', '', '', '36');
+INSERT INTO `school` VALUES ('37', '19', '五邑大学', '', '', '37');
+INSERT INTO `school` VALUES ('38', '19', '广东工业大学', '', '', '38');
+INSERT INTO `school` VALUES ('39', '20', '海南大学', '', '', '39');
+INSERT INTO `school` VALUES ('40', '20', '三亚学院', '', '', '40');
+INSERT INTO `school` VALUES ('41', '21', '四川大学', '', '', '41');
+INSERT INTO `school` VALUES ('42', '21', '成都师范学院', '', '', '42');
+INSERT INTO `school` VALUES ('43', '22', '贵州理工学院', '', '', '43');
+INSERT INTO `school` VALUES ('44', '22', '贵阳学院', '', '', '44');
+INSERT INTO `school` VALUES ('45', '23', '云南艺术学院', '', '', '45');
+INSERT INTO `school` VALUES ('46', '23', '昆明学院', '', '', '46');
+INSERT INTO `school` VALUES ('47', '24', '陕西师范大学', '', '', '47');
+INSERT INTO `school` VALUES ('48', '24', '西北大学', '', '', '48');
+INSERT INTO `school` VALUES ('49', '25', '甘肃政法学院', '', '', '49');
+INSERT INTO `school` VALUES ('50', '25', '兰州城市学院', '', '', '50');
+INSERT INTO `school` VALUES ('51', '26', '青海大学', '', '', '51');
+INSERT INTO `school` VALUES ('52', '26', '青海师范大学', '', '', '52');
+INSERT INTO `school` VALUES ('53', '27', '国立交通大学 ', '', '', '53');
+INSERT INTO `school` VALUES ('54', '27', '国立中央大学 ', '', '', '54');
+INSERT INTO `school` VALUES ('55', '28', '内蒙古大学', '', '', '55');
+INSERT INTO `school` VALUES ('56', '28', '内蒙古农业大学', '', '', '56');
+INSERT INTO `school` VALUES ('57', '29', '广西艺术学院', '', '', '57');
+INSERT INTO `school` VALUES ('58', '29', '梧州学院', '', '', '58');
+INSERT INTO `school` VALUES ('59', '30', '西藏大学', '', '', '59');
+INSERT INTO `school` VALUES ('60', '30', '西藏藏医学院', '', '', '60');
+INSERT INTO `school` VALUES ('61', '31', '宁夏大学', '', '', '61');
+INSERT INTO `school` VALUES ('62', '31', '宁夏理工学院', '', '', '62');
+INSERT INTO `school` VALUES ('63', '32', '新疆大学', '', '', '63');
+INSERT INTO `school` VALUES ('64', '32', '塔里木大学', '', '', '64');
+INSERT INTO `school` VALUES ('65', '33', '香港大学', '', '', '65');
+INSERT INTO `school` VALUES ('66', '33', '香港浸会大学', '', '', '66');
+INSERT INTO `school` VALUES ('67', '34', '澳门大学', '', '', '67');
+INSERT INTO `school` VALUES ('68', '34', '澳门科技大学', '', '', '68');
 
 -- ----------------------------
 -- Table structure for `school_department`
@@ -406,8 +435,8 @@ CREATE TABLE `school_department` (
   PRIMARY KEY  (`id`),
   KEY `fk_school_department_school1_idx` (`school_id`),
   KEY `fk_school_department_department1_idx` (`department_id`),
-  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1378,26 +1407,26 @@ CREATE TABLE `user` (
   `user_pwd` varchar(45) NOT NULL,
   `user_name` varchar(45) NOT NULL,
   `avatar` varchar(100) default NULL,
-  `points` int(11) default '0',
+  `points` int(11) default NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_school1_idx` (`school_id`),
   KEY `fk_user_department1_idx` (`department_id`),
-  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', null, '0', '123456@163.com');
-INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', null, '0', '123456@164.com');
-INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', null, '0', '123456@165.com');
-INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', null, '0', '123456@166.com');
-INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', null, '0', '123456@167.com');
-INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', null, '0', '123456@168.com');
-INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', null, '0', '123456@169.com');
-INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', null, '0', '123456@170.com');
-INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', null, '0', '123456@171.com');
-INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', null, '0', '123456@172.com');
+INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', '', null, '123456@163.com');
+INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', '', null, '123456@164.com');
+INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', '', null, '123456@165.com');
+INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', '', null, '123456@166.com');
+INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', '', null, '123456@167.com');
+INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', '', null, '123456@168.com');
+INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', '', null, '123456@169.com');
+INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', '', null, '123456@170.com');
+INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', '', null, '123456@171.com');
+INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', '', null, '123456@172.com');

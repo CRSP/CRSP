@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Feature;
 import com.crsp.entity.Resource_Type;
 import com.crsp.service.ResourceServiceI;
 import com.crsp.utils.Page;
@@ -65,5 +65,11 @@ public class TestResourceService {
 		for(Resource_Type t:list){
 			System.out.println(t.toString());
 		}
+	}
+	
+	@Test
+	public void getFeature(){
+		Feature feature = resourceService.getFeature("1");
+		System.out.println(feature.toString());
 	}
 }

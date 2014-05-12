@@ -28,21 +28,16 @@ public class Resource implements Serializable {
 	@ManyToOne(targetEntity = Resource_Type.class)
 	@JoinColumn(name = "type_id")
 	private Resource_Type resource_type;// 外键,类型编号
-
+	@ManyToOne(targetEntity = Feature.class)
+	@JoinColumn(name = "feature_id")
+	private Feature feature;// 特征码对象
 	private int user_id;// 外键,用户的Id
-
 	private String user_name;// 上传人的名称
-
 	private String name;// 资源名
-
 	private int status;// 资源状态,0为待审核状态,1为已审核状态
-
 	private String time;// 上传时间
-
 	private int price;// 资源积分
-
 	private int download_count;// 被下载的次数
-
 	private int school_id; // 学校Id
 	private int department_id;// 院系ID
 
@@ -132,6 +127,14 @@ public class Resource implements Serializable {
 
 	public void setDepartment_id(int department_id) {
 		this.department_id = department_id;
+	}
+
+	public Feature getFeature() {
+		return feature;
+	}
+
+	public void setFeature(Feature feature) {
+		this.feature = feature;
 	}
 
 	@Override
