@@ -31,7 +31,8 @@
 					<div class="control-group">
 						<label class="control-label">资源名称</label>
 						<div class="controls">
-							<input type="text" placeholder="资源名称" name="resource_name" id="resource_name" />
+							<input type="text" placeholder="资源名称" name="resource_name"
+								id="resource_name" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -176,18 +177,7 @@
 				
 			}, 1000);
 		}
-
-		$('#progress_modal').on('shown', function() {
-			progress_width = $('#progress_width').width();
-		});
-	</script>
-
-	<script>
-		$('#progress_button').click(function() {
-			$('#progress_modal').modal('show');
-			GetProgress();
-		});
-
+		
 		var ajax_options = {
 			url: '${requestScope.basePath}/resource/create',
 			success : function(data) {
@@ -197,9 +187,77 @@
 				console.log(data['rpMsg']);
 			}
 		};
+
+		$('#progress_modal').on('shown', function() {
+			progress_width = $('#progress_width').width();
+			
+			console.log(progress_width);
+			
+			
+			//验证信息是否完整
+			var resource_name = $('#resource_name').val();
+			var resource_type = $('#resource_type').val();
+			var resource_price = $('#resource_price').val();
+			var file = $('#resource_file').val();
+			/* 
+			if(resource_name == '' || resource_type == '' || resource_price == '') {
+				alert("请完善资源信息");
+				return ;
+			}
+			if(resource_name.length < 6 || resource_name.length >  20) {
+				alert("资源名长度为6-20个字符");
+				return ;
+			}
+			if(file == '') {
+				alert("请选择要上传的文件");
+				return ;
+			} */
+			
+			//ajax后台以确定是否可以秒传
+			$('#progress_modal').modal('show');
+			var file = document.getElementById("resource_file").files[0];
+				var reader = new FileReader();
+				
+				//文件以文本形式进行读入页面
+				reader.readAsText(file);
+				
+				reader.onload = function (f) {
+					//在页面上显示读入文本
+					var code = hex_sha1(this.result);
+				$.post('${requestScope.basePath}/resource/upfile/existence', {
+					code: code
+				}, function(data) {
+						
+					console.log('data:' + data);
+					if(!data.isExisted) {
+						//如果不可以
+						GetProgress();  
+						$('#upload_form').ajaxSubmit(ajax_options);
+					} else {
+						//如果可以
+						//进度条马上变100，其他依次填好
+						$.post('${requestScope.basePath}/resource/put', {
+							resource_type: $('#resource_type').val(),
+							resource_name: $('#resource_name').val(),
+							resource_price: $('#resource_price').val()
+						}, function (data) {
+							$('#progress_bar').width(progress_width);
+						});
+					}
+				});
+			}
+		});
+	</script>
+
+	<script>
+		$('#progress_button').click(function() {
+			$('#progress_modal').modal('show');
+			GetProgress();
+		});
+		
 		$('#upload_form').submit(function(e) {
 			e.preventDefault();
-			
+			//var pw = progress_width;
 			//是否已登陆
 			var islogined = false;
 			$.post('${requestScope.basePath}/user/islogined', function(data) {
@@ -209,8 +267,6 @@
 				}
 			});
 			if(!islogined) return ;
-			
-			//验证信息是否完整
 			var resource_name = $('#resource_name').val();
 			var resource_type = $('#resource_type').val();
 			var resource_price = $('#resource_price').val();
@@ -229,18 +285,7 @@
 				return ;
 			}
 			
-			//ajax后台以确定是否可以秒传
 			$('#progress_modal').modal('show');
-			$.post('${requestScope.basePath}/resource/upfile/existence',function(data) {
-				if(!data.isExisted) {
-					//如果不可以
-					GetProgress();  
-					$('#upload_form').ajaxSubmit(ajax_options);
-				} else {
-					//如果可以
-					//进度条马上变100，其他依次填好
-				}
-			})
 		}); 
 	</script>
 </body>

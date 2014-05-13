@@ -25,6 +25,7 @@
 				<p>下载次数：10</p>
 				<p>上 传 者：Howord_Elll</p>
 				<p>资源类型：文档</p>
+				<p>资源状态: 可下载</p>
 			</div>
 			<div class="modal-footer">
 				<button href="#" class="btn btn-primary" id="download_button">

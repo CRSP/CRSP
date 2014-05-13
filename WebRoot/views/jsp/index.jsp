@@ -44,7 +44,7 @@
 								<p>${school.school_description}</p>
 							</div>
 						</div>
-						<div class="btn">去看看</div>
+						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
 				</c:forEach>
 			</div>
@@ -64,7 +64,7 @@
 								<p>${school.school_description}</p>
 							</div>
 						</div>
-						<div class="btn">去看看</div>
+						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
 				</c:forEach>
 			</div>
@@ -84,7 +84,7 @@
 								<p>${school.school_description}</p>
 							</div>
 						</div>
-						<div class="btn">去看看</div>
+						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
 				</c:forEach>
 			</div>
@@ -104,7 +104,7 @@
 								<p>${school.school_description}</p>
 							</div>
 						</div>
-						<div class="btn">去看看</div>
+						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
 				</c:forEach>
 			</div>

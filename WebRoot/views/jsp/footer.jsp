@@ -10,7 +10,9 @@
 </footer>
 <script src="${ requestScope.viewPath }/plugins/jquery.js"></script>
 <script src="${ requestScope.viewPath }/plugins/jquery.form.js"></script>
+<script src="${ requestScope.viewPath }/plugins/sha1.js"></script>
 <script src="${ requestScope.viewPath }/js/my.js"></script>
+
 <script
 	src="${ requestScope.viewPath }/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script>

@@ -26,5 +26,9 @@ public interface ResourceServiceI {
 
 	public Feature getFeature(String code);// 按特征码查找，如果没有，则返回null
 
-	public void addFeature(Feature feature);// 增加特征文件
+	public int addFeature(Feature feature);// 增加特征文件
+	
+	public Resource getResource(int resourceId);
+	
+	public ResourceDTO getProfile(int resourceId);
 }
