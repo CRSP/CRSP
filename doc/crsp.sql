@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-05-14 09:37:54
+Date: 2014-05-14 10:23:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,22 +81,23 @@ CREATE TABLE `feature` (
   `path` varchar(45) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
+  `size` int(11) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feature
 -- ----------------------------
-INSERT INTO `feature` VALUES ('1', '', '1', '1');
-INSERT INTO `feature` VALUES ('2', '', '', '1');
-INSERT INTO `feature` VALUES ('3', '', '', '1');
-INSERT INTO `feature` VALUES ('4', '', '', '1');
-INSERT INTO `feature` VALUES ('5', '', '', '1');
-INSERT INTO `feature` VALUES ('6', '', '', '1');
-INSERT INTO `feature` VALUES ('7', '', '', '1');
-INSERT INTO `feature` VALUES ('8', '', '', '1');
-INSERT INTO `feature` VALUES ('9', '', '', '1');
-INSERT INTO `feature` VALUES ('10', '', '', '1');
+INSERT INTO `feature` VALUES ('1', '', '1', '1', null);
+INSERT INTO `feature` VALUES ('2', '', '', '1', null);
+INSERT INTO `feature` VALUES ('3', '', '', '1', null);
+INSERT INTO `feature` VALUES ('4', '', '', '1', null);
+INSERT INTO `feature` VALUES ('5', '', '', '1', null);
+INSERT INTO `feature` VALUES ('6', '', '', '1', null);
+INSERT INTO `feature` VALUES ('7', '', '', '1', null);
+INSERT INTO `feature` VALUES ('8', '', '', '1', null);
+INSERT INTO `feature` VALUES ('9', '', '', '1', null);
+INSERT INTO `feature` VALUES ('10', '', '', '1', null);
 
 -- ----------------------------
 -- Table structure for `province`
@@ -287,7 +288,6 @@ CREATE TABLE `resource` (
   `download_count` varchar(45) NOT NULL,
   `school_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `size` int(11) NOT NULL,
   `feature_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_resource_resource_type1_idx` (`type_id`),
@@ -301,16 +301,16 @@ CREATE TABLE `resource` (
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1', '20', '1');
-INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2', '20', '2');
-INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3', '20', '3');
-INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4', '20', '4');
-INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5', '20', '5');
-INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6', '20', '6');
-INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7', '20', '7');
-INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8', '20', '8');
-INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9', '20', '9');
-INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10', '20', '10');
+INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1', '1');
+INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2', '2');
+INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3', '3');
+INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4', '4');
+INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5', '5');
+INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6', '6');
+INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7', '7');
+INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8', '8');
+INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9', '9');
+INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10', '10');
 
 -- ----------------------------
 -- Table structure for `resource_type`
