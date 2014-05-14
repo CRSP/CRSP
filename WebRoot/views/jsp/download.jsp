@@ -20,10 +20,23 @@
 			</div>
 			<div class="modal-body">
 				<p>
-					资源大小：<c:if test="${resource_profile.size >= 1024 * 1024 * 1024}">${resource_profile.size / (1024 * 1024 * 1024)}GB</c:if>
-							<c:if test="${resource_profile.size >= 1024 * 1024 && resource_profile.size <= 1024 * 1024 * 1024 - 1}">${resource_profile.size / (1024 * 1024)}MB</c:if>
-							<c:if test="${resource_profile.size <= 1024 * 1024 - 1 && resource_profile.size >= 1024}">${resource_profile.size / 1024}KB</c:if>
-							<c:if test="${resource_profile.size <= 1024 - 1 && resource_profile.size >= 0}">${resource_profile.size}B</c:if>
+					资源大小：
+					<c:if test="${resource_profile.size >= 1024 * 1024 * 1024}">
+						<fmt:formatNumber
+							value="${resource_profile.size / (1024 * 1024 * 1024)}"
+							pattern="#.##" minFractionDigits="2"></fmt:formatNumber>GB</c:if>
+					<c:if
+						test="${resource_profile.size >= 1024 * 1024 && resource_profile.size <= 1024 * 1024 * 1024 - 1}">
+						<fmt:formatNumber value="${resource_profile.size / (1024 * 1024)}"
+							pattern="#.##" minFractionDigits="2"></fmt:formatNumber>MB</c:if>
+					<c:if
+						test="${resource_profile.size <= 1024 * 1024 - 1 && resource_profile.size >= 1024}">
+						<fmt:formatNumber value="${resource_profile.size / 1024}"
+							pattern="#.##" minFractionDigits="2"></fmt:formatNumber>KB</c:if>
+					<c:if
+						test="${resource_profile.size <= 1024 - 1 && resource_profile.size >= 0}">
+						<fmt:formatNumber value="${resource_profile.size}" pattern="#.##"
+							minFractionDigits="2"></fmt:formatNumber>B</c:if>
 				</p>
 				<p>上传日期：${resource_profile.time}</p>
 				<p>资源积分：${resource_profile.price}分</p>
@@ -33,9 +46,10 @@
 				<p>资源状态: ${resource_profile.status_name}</p>
 			</div>
 			<div class="modal-footer">
-				<button href="#" class="btn btn-primary" id="download_button">
-					<i class="icon-download-alt icon-white"></i>下载
-				</button>
+				<a
+					href="${requestScope.basePath}/resource/download/${resource_profile.id}"
+					class="btn btn-primary" id="download_button"> <i
+					class="icon-download-alt icon-white"></i>下载 </a>
 			</div>
 		</div>
 	</div>
@@ -43,15 +57,15 @@
 </body>
 <script>
 	$('#download_button').click(
-		function() {
-		$.get('${requestScope.basePath}/resource/download/' + '1',
-		function(data) {
-			if(!data['isLogined']) {
-				$('#loginModel').modal('show');
-			} else {
-				alert(data['rUrl']);
-			}
-		})
-	});
+			function() {
+				$.get('${requestScope.basePath}/resource/download/' + '1',
+						function(data) {
+							if (!data['isLogined']) {
+								$('#loginModel').modal('show');
+							} else {
+								alert(data['rUrl']);
+							}
+						})
+			});
 </script>
 </html>

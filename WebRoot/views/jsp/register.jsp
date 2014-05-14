@@ -104,20 +104,6 @@
 
 	}
 
-	function getSchools() {
-		$.get('${requestScope.basePath}/user/register/school/'
-				+ $('#reg_provinces option:selected').val(), function(data) {
-			//获取学校
-			$('#reg_schools').empty();
-			for ( var i = 0; i < data.length; i++) {
-				var opt = data[i];
-				$('#reg_schools').append(
-						[ '<option value="', opt.id, '">', opt.school_name,
-								'</option>' ].join(''));
-			}
-		});
-	}
-
 	function getDepartments() {
 		$.get('${requestScope.basePath}/user/register/department/' + $('#reg_schools option:selected').val(), function(data) {
 			//获取学院
@@ -128,6 +114,27 @@
 						[ '<option value="', opt.id, '">', opt.department_name,
 								'</option>' ].join(''));
 			}
+		});
+	}
+	
+	function getSchools() {
+		$.get('${requestScope.basePath}/user/register/school/'
+				+ $('#reg_provinces option:selected').val(), function(data) {
+			//获取学校
+			$('#reg_schools').empty();
+			for ( var i = 0; i < data.length; i++) {
+				var opt = data[i];
+				if(i == 0) {
+					$('#reg_schools').append(
+						[ '<option value="', opt.id,'" selected="selected">', opt.school_name,
+								'</option>' ].join(''));
+				} else {
+					$('#reg_schools').append(
+						[ '<option value="', opt.id, '">', opt.school_name,
+								'</option>' ].join(''));
+				}
+			}
+			getDepartments();
 		});
 	}
 </script>

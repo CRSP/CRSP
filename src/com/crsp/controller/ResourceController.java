@@ -31,6 +31,7 @@ import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Department;
 import com.crsp.entity.Feature;
 import com.crsp.entity.Progress;
+import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
 import com.crsp.entity.User;
@@ -155,13 +156,52 @@ public class ResourceController {
 			if (r != null) {
 				Feature f = r.getFeature();
 				String path = f.getPath();
-				String fileName = "point.txt";
+				//String fileName = "point.txt";
+				String fileName = r.getName();
 
 				// 从数据库获取资源路径
 				String resourcePath = request.getSession().getServletContext()
 						.getRealPath("/")
 						+ File.separator + "resource" + File.separator + path;
 				File file = new File(resourcePath);
+				
+				//下载者记录
+				int downloaderId = Integer.parseInt(session.getAttribute("ID").toString());
+				Record downloadRecord = new Record();
+				downloadRecord.setDelta(r.getPrice());
+				downloadRecord.setDownload_user_id(downloaderId);
+				downloadRecord.setResource_id(resourceid);
+				downloadRecord.setTime(TimeUtil.getStringDateShort());
+				downloadRecord.setUpload_user_id(r.getUser_id());
+				
+				//上传人记录
+				int uploaderId = r.getUser_id();
+				Record uploadRecord = new Record();
+				uploadRecord.setDelta(r.getPrice());
+				uploadRecord.setDownload_user_id(downloaderId);
+				uploadRecord.setResource_id(r.getId());
+				uploadRecord.setTime(TimeUtil.getStringDateShort());
+				uploadRecord.setUpload_user_id(uploaderId);
+				
+				//下载者扣分
+				User downloader = userService.getUser(downloaderId);
+				int downloadPoints = downloader.getPoints();
+				int resourcePrice = r.getPrice();
+				if(downloadPoints - resourcePrice < 0) {
+					msgMap.put("msg", "积分不够");
+					return msgMap;
+				}
+				downloader.setPoints(downloader.getPoints() - r.getPrice());
+				userService.saveUser(downloader);
+				
+				//上传人加分
+				User uploader = userService.getUser(r.getUser_id());
+				uploader.setPoints(uploader.getPoints() + r.getPrice());
+				userService.saveUser(uploader);
+				
+				//写入记录
+				
+				
 				response.reset();
 				response.addHeader("Content-Disposition",
 						"attachment;filename=" + fileName);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
 import com.crsp.utils.Page;
@@ -31,4 +32,6 @@ public interface ResourceServiceI {
 	public Resource getResource(int resourceId);
 	
 	public ResourceDTO getProfile(int resourceId);
+	
+	public void saveRecord(Record  record);
 }
