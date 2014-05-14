@@ -165,9 +165,14 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		rDto.setResource_name(resource.getName());
 		School school = schoolDAO.findById(resource.getSchool_id());
 		rDto.setSchool_name(school.getName());
-		rDto.setStatus_name("冻结中");
+		rDto.setStatus_name("待审核");
+		int size = resource.getFeature().getSize();
+		rDto.setTime(resource.getTime());
+		rDto.setDownload_count(resource.getDownload_count());
+		rDto.setType_name(resource.getResource_type().getName());
+		rDto.setPrice(resource.getPrice());
 		if(resource.getStatus() == 1)
-			rDto.setStatus_name("可下载");
+			rDto.setStatus_name("已审核");
 		rDto.setTime(resource.getTime());
 		return rDto;
 	}

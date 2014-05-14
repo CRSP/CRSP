@@ -16,16 +16,21 @@
 		<div class="modal"
 			style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
 			<div class="modal-header">
-				<h4>cocos2d x跑酷源码 C++版</h4>
+				<h4>${resource_profile.resource_name}</h4>
 			</div>
 			<div class="modal-body">
-				<p>资源大小：18.7MB</p>
-				<p>上传日期：2014-03-28</p>
-				<p>资源积分：2分</p>
-				<p>下载次数：10</p>
-				<p>上 传 者：Howord_Elll</p>
-				<p>资源类型：文档</p>
-				<p>资源状态: 可下载</p>
+				<p>
+					资源大小：<c:if test="${resource_profile.size >= 1024 * 1024 * 1024}">${resource_profile.size / (1024 * 1024 * 1024)}GB</c:if>
+							<c:if test="${resource_profile.size >= 1024 * 1024 && resource_profile.size <= 1024 * 1024 * 1024 - 1}">${resource_profile.size / (1024 * 1024)}MB</c:if>
+							<c:if test="${resource_profile.size <= 1024 * 1024 - 1 && resource_profile.size >= 1024}">${resource_profile.size / 1024}KB</c:if>
+							<c:if test="${resource_profile.size <= 1024 - 1 && resource_profile.size >= 0}">${resource_profile.size}B</c:if>
+				</p>
+				<p>上传日期：${resource_profile.time}</p>
+				<p>资源积分：${resource_profile.price}分</p>
+				<p>下载次数：${resource_profile.download_count}</p>
+				<p>上 传 者：${resource_profile.uploader_name}</p>
+				<p>资源类型：${resource_profile.type_name}</p>
+				<p>资源状态: ${resource_profile.status_name}</p>
 			</div>
 			<div class="modal-footer">
 				<button href="#" class="btn btn-primary" id="download_button">

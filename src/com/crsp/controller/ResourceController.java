@@ -237,6 +237,7 @@ public class ResourceController {
 				String originalName = f.getOriginalFilename();
 				String ext = originalName.substring(originalName.indexOf("."));
 				String fileName = code + ext;
+				long size = f.getSize();
 				String resourcePath = request.getSession().getServletContext()
 						.getRealPath("/")
 						+ File.separator
@@ -261,6 +262,7 @@ public class ResourceController {
 				feature.setAmount(0);
 				feature.setCode(code);
 				feature.setPath(Path + fileName);
+				feature.setSize((int)size);
 				resourceService.addFeature(feature);
 
 				// 写入资源记录

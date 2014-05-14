@@ -135,7 +135,6 @@ public class UserServiceImpl implements UserServiceI {
 				rdto.setStatus_name("已审核");
 			}
 			rdto.setTime(r.getTime());
-			rdto.setType(0);
 			rDtos.add(rdto);
 		}
 		pages.setPageList(rDtos);
@@ -168,7 +167,6 @@ public class UserServiceImpl implements UserServiceI {
 				rdto.setStatus_name("已审核");
 			}
 			rdto.setTime(r.getTime());
-			rdto.setType(1);
 			rDtos.add(rdto);
 		}
 		pages.setPageList(rDtos);
