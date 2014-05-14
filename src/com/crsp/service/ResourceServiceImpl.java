@@ -17,6 +17,7 @@ import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Feature;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
+import com.crsp.entity.School;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -140,7 +141,34 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	 * @see com.crsp.service.ResourceServiceI#addFeature(com.crsp.entity.Feature)
 	 */
 	@Override
-	public void addFeature(Feature feature) {
+	public int addFeature(Feature feature) {
 		featureDAO.add(feature);
+		return feature.getId();
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#getResource(int)
+	 */
+	@Override
+	public Resource getResource(int resourceId) {
+		return resourceDAO.findById(resourceId);
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#getProfile(int)
+	 */
+	@Override
+	public ResourceDTO getProfile(int resourceId) {
+		ResourceDTO rDto = new ResourceDTO();
+		Resource resource = resourceDAO.findById(resourceId);
+		rDto.setId(resource.getId());
+		rDto.setResource_name(resource.getName());
+		School school = schoolDAO.findById(resource.getSchool_id());
+		rDto.setSchool_name(school.getName());
+		rDto.setStatus_name("冻结中");
+		if(resource.getStatus() == 1)
+			rDto.setStatus_name("可下载");
+		rDto.setTime(resource.getTime());
+		return rDto;
 	}
 }

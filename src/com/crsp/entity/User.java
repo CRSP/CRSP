@@ -24,7 +24,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;// Id,主键
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "school_id")
 	private School school;// 校园对象
 	@ManyToOne

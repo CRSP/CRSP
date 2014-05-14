@@ -19,7 +19,7 @@ public class FeatrueDAOImpl extends BaseDAOImpl<Feature> implements FeatureDAO{
 	 */
 	@Override
 	public Feature findByCode(String code) {
-		String hql = "from Feature f where f.code=" + code;
+		String hql = "from Feature f where f.code='" + code + "'";
 		return (Feature) super.queryObject(hql);
 	}
 

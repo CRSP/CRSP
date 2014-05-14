@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<a href="${requestScope.basePath}/school/profile/1" class="btn btn-primary">去看看<i
+					<a href="${requestScope.basePath}/school/profile/${school.id}" class="btn btn-primary">去看看<i
 						class=" icon-zoom-in icon-white"></i> </a>
 				</div>
 			</div>

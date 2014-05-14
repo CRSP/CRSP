@@ -27,8 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.crsp.dto.UserDTO;
+import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Department;
+import com.crsp.entity.Feature;
 import com.crsp.entity.Progress;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
@@ -131,6 +132,13 @@ public class ResourceController {
 		return "resource_list";
 	}
 
+	@RequestMapping(value = "/profile/{resourceid}", method = RequestMethod.GET)
+	public String getResourceProfile(@PathVariable int resourceid, Map<String, Object> model) {
+		ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
+		model.put("resource_profile", resourceProfile);
+		return "download";
+	}
+	
 	@RequestMapping(value = "/download/{resourceid}", method = RequestMethod.GET)
 	@ResponseBody
 	public Map getDownloadURL(HttpServletRequest request,
@@ -142,34 +150,36 @@ public class ResourceController {
 			msgMap.put("isLogined", false);
 			return msgMap;
 		} else {
-			String fileName = "point.txt";
 
-			// 从数据库获取资源路径
-			String resourcePath = request.getSession().getServletContext()
-					.getRealPath("/")
-					+ File.separator
-					+ "resource"
-					+ File.separator
-					+ "2014"
-					+ File.separator + "4" + File.separator + fileName;
-			File file = new File(resourcePath);
-			response.reset();
-			response.addHeader("Content-Disposition", "attachment;filename="
-					+ fileName);
-			response.addHeader("Content-Length", "" + file.length());
-			try {
-				InputStream fis = new BufferedInputStream(new FileInputStream(
-						resourcePath));
-				byte[] buffer = new byte[fis.available()];
-				fis.read(buffer);
-				fis.close();
-				OutputStream os = new BufferedOutputStream(
-						response.getOutputStream());
-				os.write(buffer);
-				os.flush();
-				os.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			Resource r = resourceService.getResource(resourceid);
+			if (r != null) {
+				Feature f = r.getFeature();
+				String path = f.getPath();
+				String fileName = "point.txt";
+
+				// 从数据库获取资源路径
+				String resourcePath = request.getSession().getServletContext()
+						.getRealPath("/")
+						+ File.separator + "resource" + File.separator + path;
+				File file = new File(resourcePath);
+				response.reset();
+				response.addHeader("Content-Disposition",
+						"attachment;filename=" + fileName);
+				response.addHeader("Content-Length", "" + file.length());
+				try {
+					InputStream fis = new BufferedInputStream(
+							new FileInputStream(resourcePath));
+					byte[] buffer = new byte[fis.available()];
+					fis.read(buffer);
+					fis.close();
+					OutputStream os = new BufferedOutputStream(
+							response.getOutputStream());
+					os.write(buffer);
+					os.flush();
+					os.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			return msgMap;
 		}
@@ -206,7 +216,9 @@ public class ResourceController {
 		String resourceName = request.getParameter("resource_name");
 		String resourceType = request.getParameter("resource_type");
 		String resourcePrice = request.getParameter("resource_price");
-
+		String code = session.getAttribute("code").toString();
+		boolean isExisted = Boolean.parseBoolean(session.getAttribute(
+				"isExisted").toString());
 		List<Resource_Type> typeList = resourceService.getTypes();
 		String rnMsg = this.regValidator.resourceNameValid(resourceName);
 		String rtMsg = this.regValidator.resourceTypeValid(resourceType,
@@ -215,12 +227,16 @@ public class ResourceController {
 		Map msgMap = new HashMap();
 
 		if (rnMsg.equals("") && rtMsg.equals("") && rpMsg.equals("")
-				&& userId != -1) {
+				&& userId != -1 && !isExisted) {
 			for (MultipartFile f : files) {
 				// 按月分配文件夹存储用户上传资源
 				Calendar cal = Calendar.getInstance();
 				int year = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH) + 1;
+				String Path = year + File.separator + month + File.separator;
+				String originalName = f.getOriginalFilename();
+				String ext = originalName.substring(originalName.indexOf("."));
+				String fileName = code + ext;
 				String resourcePath = request.getSession().getServletContext()
 						.getRealPath("/")
 						+ File.separator
@@ -231,25 +247,35 @@ public class ResourceController {
 
 				if (f.getSize() > 0) {
 					File dr = new File(resourcePath);
-					File targetFile = new File(resourcePath
-							+ new String(f.getOriginalFilename().getBytes(
-									"ISO-8859-1"), "UTF-8"));
+					File targetFile = new File(resourcePath + fileName);
 					if (!dr.exists()) {
 						dr.mkdirs();
 					}
 					f.transferTo(targetFile);// 写入目标文件
 				}
+
+				User u = userService.getUser(userId);
+
+				// 写入特征文件记录
+				Feature feature = new Feature();
+				feature.setAmount(0);
+				feature.setCode(code);
+				feature.setPath(Path + fileName);
+				resourceService.addFeature(feature);
+
 				// 写入资源记录
 				Resource resource = new Resource();
-				User u = userService.getUser(userId);
 				resource.setDepartment_id(u.getDepartment().getId());
 				Resource_Type rt = new Resource_Type();
 				rt.setId(Integer.parseInt(resourceType));
 				resource.setResource_type(rt);
 				resource.setName(resourceName);
+				resource.setSchool_id(u.getSchool().getId());
 				resource.setTime(TimeUtil.getStringDateShort());
 				resource.setUser_name(u.getUser_name());
 				resource.setUser_id(userId);
+				resource.setFeature(feature);
+				resource.setPrice(Integer.parseInt(resourcePrice));
 				resourceService.AddResource(resource);
 			}
 		}
@@ -257,13 +283,55 @@ public class ResourceController {
 
 	@RequestMapping(value = "/upfile/existence", method = RequestMethod.POST)
 	@ResponseBody
-	public Map checkExistence() {
+	public Map checkExistence(HttpServletRequest request, HttpSession session) {
 		Map msgMap = new HashMap();
-
 		// 判断是否存在相同资源
-
-		msgMap.put("isExisted", false);
+		String code = request.getParameter("code");
+		Feature f = resourceService.getFeature(code);
+		if (f == null) {
+			msgMap.put("isExisted", false);
+			session.setAttribute("isExisted", false);
+			session.setAttribute("code", code);
+			return msgMap;
+		}
+		msgMap.put("isExisted", true);
+		session.setAttribute("isExisted", true);
+		session.setAttribute("feature_id", f.getId());
+		System.out.println("feature_id:" + f.getId());
 		return msgMap;
+	}
+
+	@RequestMapping(value = "/put", method = RequestMethod.POST)
+	@ResponseBody
+	public void putResource(HttpServletRequest request, HttpSession session) {
+		int userId = -1;
+		if (session.getAttribute("ID") != null) {
+			userId = Integer.parseInt(session.getAttribute("ID").toString());
+		}
+		String resourceType = request.getParameter("resource_type");
+		String resourceName = request.getParameter("resource_name");
+		int feature_id = Integer.parseInt(session.getAttribute("feature_id")
+				.toString());
+		Feature f = new Feature();
+		f.setId(feature_id);
+		String resourcePrice = request.getParameter("resource_price");
+		if (userId != -1) {
+			// 写入资源记录
+			Resource resource = new Resource();
+			User u = userService.getUser(userId);
+			resource.setDepartment_id(u.getDepartment().getId());
+			Resource_Type rt = new Resource_Type();
+			rt.setId(Integer.parseInt(resourceType));
+			resource.setResource_type(rt);
+			resource.setName(resourceName);
+			resource.setSchool_id(u.getSchool().getId());
+			resource.setTime(TimeUtil.getStringDateShort());
+			resource.setUser_name(u.getUser_name());
+			resource.setUser_id(userId);
+			resource.setPrice(Integer.parseInt(resourcePrice));
+			resource.setFeature(f);
+			resourceService.AddResource(resource);
+		}
 	}
 
 	@RequestMapping(value = "/upfile/progress", method = RequestMethod.GET)

@@ -77,8 +77,8 @@ INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
 -- ----------------------------
 DROP TABLE IF EXISTS `feature`;
 CREATE TABLE `feature` (
-  `id` int(11) NOT NULL,
-  `path` varchar(45) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `path` varchar(100) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)

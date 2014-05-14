@@ -179,7 +179,6 @@ public class MyController {
 					+ File.separator
 					+ Path;
 
-			System.out.println("avatarPath:" + avatarPath);
 			if (avatar.getSize() > 0) {
 				File dr = new File(avatarPath);
 				File targetFile = new File(avatarPath + fileName);
@@ -195,9 +194,5 @@ public class MyController {
 		u.setUser_name(user.getUser_name());
 		userService.saveUser(u);
 		return "redirect:/my/upload";
-	}
-
-	private void saveAvatar(MultipartFile avatar) {
-
 	}
 }

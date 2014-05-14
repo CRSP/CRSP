@@ -88,7 +88,6 @@ public class UserServiceImpl implements UserServiceI {
 			udto.setErrMsg("该用户的账号已经存在!");
 		} else {
 			// 将新的用户信息封装成dto
-			udto.setId(user.getId());
 			udto.setUser_name(user.getUser_name());
 			School school = schoolDAO.findById(user.getSchool().getId());
 			try {
@@ -108,6 +107,7 @@ public class UserServiceImpl implements UserServiceI {
 				return udto;
 			}
 			userDAO.add(user);// 向数据库添加用户信息
+			udto.setId(user.getId());
 		}
 		return udto;
 	}
