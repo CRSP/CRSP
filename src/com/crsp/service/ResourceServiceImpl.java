@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crsp.dao.FeatureDAO;
+import com.crsp.dao.RecordDAO;
 import com.crsp.dao.ResourceDAO;
 import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dao.SchoolDAO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
 import com.crsp.entity.School;
@@ -35,6 +37,8 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	private Resource_TypeDAO resource_typeDAO;
 	@Autowired
 	private FeatureDAO featureDAO;
+	@Autowired
+	private RecordDAO recordDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -166,7 +170,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		School school = schoolDAO.findById(resource.getSchool_id());
 		rDto.setSchool_name(school.getName());
 		rDto.setStatus_name("待审核");
-		int size = resource.getFeature().getSize();
+		rDto.setSize(resource.getFeature().getSize());
 		rDto.setTime(resource.getTime());
 		rDto.setDownload_count(resource.getDownload_count());
 		rDto.setType_name(resource.getResource_type().getName());
@@ -175,5 +179,13 @@ public class ResourceServiceImpl implements ResourceServiceI {
 			rDto.setStatus_name("已审核");
 		rDto.setTime(resource.getTime());
 		return rDto;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#saveRecord(com.crsp.entity.Record)
+	 */
+	@Override
+	public void saveRecord(Record record) {
+		recordDAO.add(record);
 	}
 }
