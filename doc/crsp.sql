@@ -78,26 +78,26 @@ INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
 DROP TABLE IF EXISTS `feature`;
 CREATE TABLE `feature` (
   `id` int(11) NOT NULL auto_increment,
-  `path` varchar(45) NOT NULL,
+  `path` varchar(100) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
-  `size` int(11) default NULL,
+  `size` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feature
 -- ----------------------------
-INSERT INTO `feature` VALUES ('1', '', '1', '1', null);
-INSERT INTO `feature` VALUES ('2', '', '', '1', null);
-INSERT INTO `feature` VALUES ('3', '', '', '1', null);
-INSERT INTO `feature` VALUES ('4', '', '', '1', null);
-INSERT INTO `feature` VALUES ('5', '', '', '1', null);
-INSERT INTO `feature` VALUES ('6', '', '', '1', null);
-INSERT INTO `feature` VALUES ('7', '', '', '1', null);
-INSERT INTO `feature` VALUES ('8', '', '', '1', null);
-INSERT INTO `feature` VALUES ('9', '', '', '1', null);
-INSERT INTO `feature` VALUES ('10', '', '', '1', null);
+INSERT INTO `feature` VALUES ('1', '', '1', '1', 0);
+INSERT INTO `feature` VALUES ('2', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('3', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('4', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('5', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('6', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('7', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('8', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('9', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('10', '', '', '1', 0);
 
 -- ----------------------------
 -- Table structure for `province`
