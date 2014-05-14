@@ -40,6 +40,7 @@ public class Resource implements Serializable {
 	private int download_count;// 被下载的次数
 	private int school_id; // 学校Id
 	private int department_id;// 院系ID
+	private int size;// 资源大小
 
 	public int getId() {
 		return id;
@@ -127,6 +128,14 @@ public class Resource implements Serializable {
 
 	public void setDepartment_id(int department_id) {
 		this.department_id = department_id;
+	}
+
+	public int getSize(){
+		return size;
+	}
+
+	public void setSize(int size){
+		this.size = size;
 	}
 
 	public Feature getFeature() {

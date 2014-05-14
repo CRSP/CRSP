@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-05-12 18:08:18
+Date: 2014-05-14 09:37:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,7 +87,7 @@ CREATE TABLE `feature` (
 -- ----------------------------
 -- Records of feature
 -- ----------------------------
-INSERT INTO `feature` VALUES ('1', '', '', '1');
+INSERT INTO `feature` VALUES ('1', '', '1', '1');
 INSERT INTO `feature` VALUES ('2', '', '', '1');
 INSERT INTO `feature` VALUES ('3', '', '', '1');
 INSERT INTO `feature` VALUES ('4', '', '', '1');
@@ -287,29 +287,30 @@ CREATE TABLE `resource` (
   `download_count` varchar(45) NOT NULL,
   `school_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
+  `size` int(11) NOT NULL,
   `feature_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fk_resource_resource_type1_idx` (`type_id`),
   KEY `fk_resource_user1_idx` (`user_id`),
   KEY `fk_resource_feature1_idx` (`feature_id`),
+  CONSTRAINT `fk_resource_feature1` FOREIGN KEY (`feature_id`) REFERENCES `feature` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_resource_resource_type1` FOREIGN KEY (`type_id`) REFERENCES `resource_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resource_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resource_feature1` FOREIGN KEY (`feature_id`) REFERENCES `feature` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_resource_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1', '1');
-INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2', '2');
-INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3', '3');
-INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4', '4');
-INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5', '5');
-INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6', '6');
-INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7', '7');
-INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8', '8');
-INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9', '9');
-INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10', '10');
+INSERT INTO `resource` VALUES ('1', '1', '1', '资源1', '1', '\"2014-01-01\"', '1', '漩涡鸣人', '1', '1', '1', '20', '1');
+INSERT INTO `resource` VALUES ('2', '2', '2', '资源2', '1', '\"2014-01-02\"', '2', '宇智波佐助', '2', '2', '2', '20', '2');
+INSERT INTO `resource` VALUES ('3', '3', '3', '资源3', '1', '\"2014-01-03\"', '3', '春野樱', '3', '3', '3', '20', '3');
+INSERT INTO `resource` VALUES ('4', '4', '4', '资源4', '1', '\"2014-01-04\"', '4', '李洛克', '4', '4', '4', '20', '4');
+INSERT INTO `resource` VALUES ('5', '5', '5', '资源5', '1', '\"2014-01-05\"', '5', '日向宁次', '5', '5', '5', '20', '5');
+INSERT INTO `resource` VALUES ('6', '6', '6', '资源6', '1', '\"2014-01-06\"', '6', '日向雏田', '6', '6', '6', '20', '6');
+INSERT INTO `resource` VALUES ('7', '7', '7', '资源7', '1', '\"2014-01-07\"', '7', '千手柱间', '7', '7', '7', '20', '7');
+INSERT INTO `resource` VALUES ('8', '8', '8', '资源8', '1', '\"2014-01-08\"', '8', '千手扉间', '8', '8', '8', '20', '8');
+INSERT INTO `resource` VALUES ('9', '9', '9', '资源9', '1', '\"2014-01-09\"', '9', '猿飞日斩', '9', '9', '9', '20', '9');
+INSERT INTO `resource` VALUES ('10', '10', '10', '资源10', '1', '\"2014-01-10\"', '10', '波风水门', '10', '10', '10', '20', '10');
 
 -- ----------------------------
 -- Table structure for `resource_type`
@@ -435,8 +436,8 @@ CREATE TABLE `school_department` (
   PRIMARY KEY  (`id`),
   KEY `fk_school_department_school1_idx` (`school_id`),
   KEY `fk_school_department_department1_idx` (`department_id`),
-  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_school_department_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_school_department_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1413,8 +1414,8 @@ CREATE TABLE `user` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_school1_idx` (`school_id`),
   KEY `fk_user_department1_idx` (`department_id`),
-  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
