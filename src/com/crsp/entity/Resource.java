@@ -40,6 +40,7 @@ public class Resource implements Serializable {
 	private int download_count;// 被下载的次数
 	private int school_id; // 学校Id
 	private int department_id;// 院系ID
+	private int size;// 资源大小
 
 	public int getId() {
 		return id;
@@ -137,13 +138,22 @@ public class Resource implements Serializable {
 		this.feature = feature;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	@Override
 	public String toString() {
 		return "Resource [id=" + id + ", resource_type=" + resource_type
-				+ ", user_id=" + user_id + ", user_name=" + user_name
-				+ ", name=" + name + ", status=" + status + ", time=" + time
-				+ ", price=" + price + ", download_count=" + download_count
-				+ ", school_id=" + school_id + ", department_id="
-				+ department_id + "]";
+				+ ", feature=" + feature + ", user_id=" + user_id
+				+ ", user_name=" + user_name + ", name=" + name + ", status="
+				+ status + ", time=" + time + ", price=" + price
+				+ ", download_count=" + download_count + ", school_id="
+				+ school_id + ", department_id=" + department_id + ", size="
+				+ size + "]";
 	}
 }
