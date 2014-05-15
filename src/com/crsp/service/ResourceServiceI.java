@@ -33,5 +33,7 @@ public interface ResourceServiceI {
 	
 	public ResourceDTO getProfile(int resourceId);
 	
-	public void saveRecord(Record  record);
+	public void addRecord(Record  record);
+	
+	public void saveResource(Resource resource);
 }

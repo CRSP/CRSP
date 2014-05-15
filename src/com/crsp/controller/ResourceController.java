@@ -134,94 +134,93 @@ public class ResourceController {
 	}
 
 	@RequestMapping(value = "/profile/{resourceid}", method = RequestMethod.GET)
-	public String getResourceProfile(@PathVariable int resourceid, Map<String, Object> model) {
+	public String getResourceProfile(@PathVariable int resourceid,
+			Map<String, Object> model) {
 		ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
 		model.put("resource_profile", resourceProfile);
 		return "download";
 	}
-	
+
 	@RequestMapping(value = "/download/{resourceid}", method = RequestMethod.GET)
-	@ResponseBody
-	public Map getDownloadURL(HttpServletRequest request,
+	public String getDownloadURL(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable int resourceid,
-			HttpSession session) {
+			HttpSession session, Map<String, Object> model) {
 		// 判断是否登录
-		Map msgMap = new HashMap();
 		if (session.getAttribute("user_name") == null) {
-			msgMap.put("isLogined", false);
-			return msgMap;
+			model.put("msg", "请先登陆!");
+			return "download_error";
 		} else {
-
 			Resource r = resourceService.getResource(resourceid);
-			if (r != null) {
-				Feature f = r.getFeature();
-				String path = f.getPath();
-				//String fileName = "point.txt";
-				String fileName = r.getName();
-
-				// 从数据库获取资源路径
-				String resourcePath = request.getSession().getServletContext()
-						.getRealPath("/")
-						+ File.separator + "resource" + File.separator + path;
-				File file = new File(resourcePath);
-				
-				//下载者记录
-				int downloaderId = Integer.parseInt(session.getAttribute("ID").toString());
-				Record downloadRecord = new Record();
-				downloadRecord.setDelta(r.getPrice());
-				downloadRecord.setDownload_user_id(downloaderId);
-				downloadRecord.setResource_id(resourceid);
-				downloadRecord.setTime(TimeUtil.getStringDateShort());
-				downloadRecord.setUpload_user_id(r.getUser_id());
-				
-				//上传人记录
-				int uploaderId = r.getUser_id();
-				Record uploadRecord = new Record();
-				uploadRecord.setDelta(r.getPrice());
-				uploadRecord.setDownload_user_id(downloaderId);
-				uploadRecord.setResource_id(r.getId());
-				uploadRecord.setTime(TimeUtil.getStringDateShort());
-				uploadRecord.setUpload_user_id(uploaderId);
-				
-				//下载者扣分
-				User downloader = userService.getUser(downloaderId);
-				int downloadPoints = downloader.getPoints();
-				int resourcePrice = r.getPrice();
-				if(downloadPoints - resourcePrice < 0) {
-					msgMap.put("msg", "积分不够");
-					return msgMap;
-				}
-				downloader.setPoints(downloader.getPoints() - r.getPrice());
-				userService.saveUser(downloader);
-				
-				//上传人加分
-				User uploader = userService.getUser(r.getUser_id());
-				uploader.setPoints(uploader.getPoints() + r.getPrice());
-				userService.saveUser(uploader);
-				
-				//写入记录
-				
-				
-				response.reset();
-				response.addHeader("Content-Disposition",
-						"attachment;filename=" + fileName);
-				response.addHeader("Content-Length", "" + file.length());
-				try {
-					InputStream fis = new BufferedInputStream(
-							new FileInputStream(resourcePath));
-					byte[] buffer = new byte[fis.available()];
-					fis.read(buffer);
-					fis.close();
-					OutputStream os = new BufferedOutputStream(
-							response.getOutputStream());
-					os.write(buffer);
-					os.flush();
-					os.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			if (r == null) {
+				model.put("msg", "资源不存在!");
+				return "download_error";
 			}
-			return msgMap;
+			if (r.getStatus() == 0) {
+				model.put("msg", "资源审核中!");
+				return "download_error";
+			}
+			Feature f = r.getFeature();
+			String path = f.getPath();
+			String fileName = r.getName()
+					+ f.getPath().substring(f.getPath().indexOf("."));
+
+			// 从数据库获取资源路径
+			String resourcePath = request.getSession().getServletContext()
+					.getRealPath("/")
+					+ File.separator + "resource" + File.separator + path;
+			File file = new File(resourcePath);
+
+			// 下载者记录
+			int downloaderId = Integer.parseInt(session.getAttribute("ID")
+					.toString());
+			Record record = new Record();
+			record.setDelta(r.getPrice());
+			record.setUpload_user_id(r.getUser_id());
+			record.setDownload_user_id(downloaderId);
+			record.setResource_id(resourceid);
+			record.setTime(TimeUtil.getStringDateShort());
+			record.setUpload_user_id(r.getUser_id());
+
+			User downloader = userService.getUser(downloaderId);
+			int downloadPoints = downloader.getPoints();
+			int resourcePrice = r.getPrice();
+			if (downloadPoints - resourcePrice < 0) {
+				model.put("msg", "积分不够!");
+				return "download_error";
+			}
+			downloader.setPoints(downloader.getPoints() - r.getPrice());
+			userService.saveUser(downloader);
+
+			// 上传人加分
+			User uploader = userService.getUser(r.getUser_id());
+			uploader.setPoints(uploader.getPoints() + r.getPrice());
+			userService.saveUser(uploader);
+
+			// 写入记录
+			resourceService.addRecord(record);
+
+			r.setDownload_count(r.getDownload_count() + 1);
+			resourceService.saveResource(r);
+
+			response.reset();
+			response.addHeader("Content-Disposition", "attachment;filename="
+					+ fileName);
+			response.addHeader("Content-Length", "" + file.length());
+			try {
+				InputStream fis = new BufferedInputStream(new FileInputStream(
+						resourcePath));
+				byte[] buffer = new byte[fis.available()];
+				fis.read(buffer);
+				fis.close();
+				OutputStream os = new BufferedOutputStream(
+						response.getOutputStream());
+				os.write(buffer);
+				os.flush();
+				os.close();
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+			return "download";
 		}
 	}
 
@@ -253,12 +252,18 @@ public class ResourceController {
 		}
 
 		// 资源信息验证
-		String resourceName = request.getParameter("resource_name");
+		String resourceName = new String(request.getParameter("resource_name")
+				.getBytes("ISO-8859-1"), "UTF-8");
 		String resourceType = request.getParameter("resource_type");
 		String resourcePrice = request.getParameter("resource_price");
 		String code = session.getAttribute("code").toString();
-		boolean isExisted = Boolean.parseBoolean(session.getAttribute(
-				"isExisted").toString());
+		boolean isExisted = true;
+		try {
+			isExisted = Boolean.parseBoolean(session.getAttribute("isExisted")
+					.toString());
+		} catch (Exception e) {
+
+		}
 		List<Resource_Type> typeList = resourceService.getTypes();
 		String rnMsg = this.regValidator.resourceNameValid(resourceName);
 		String rtMsg = this.regValidator.resourceTypeValid(resourceType,
@@ -269,6 +274,8 @@ public class ResourceController {
 		if (rnMsg.equals("") && rtMsg.equals("") && rpMsg.equals("")
 				&& userId != -1 && !isExisted) {
 			for (MultipartFile f : files) {
+				if (f.getSize() > 52428800)
+					return;
 				// 按月分配文件夹存储用户上传资源
 				Calendar cal = Calendar.getInstance();
 				int year = cal.get(Calendar.YEAR);
@@ -302,7 +309,7 @@ public class ResourceController {
 				feature.setAmount(0);
 				feature.setCode(code);
 				feature.setPath(Path + fileName);
-				feature.setSize((int)size);
+				feature.setSize((int) size);
 				resourceService.addFeature(feature);
 
 				// 写入资源记录

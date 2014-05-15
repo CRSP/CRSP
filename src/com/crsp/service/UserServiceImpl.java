@@ -135,6 +135,7 @@ public class UserServiceImpl implements UserServiceI {
 				rdto.setStatus_name("已审核");
 			}
 			rdto.setTime(r.getTime());
+			rdto.setType_name(r.getResource_type().getName());
 			rDtos.add(rdto);
 		}
 		pages.setPageList(rDtos);
@@ -157,6 +158,7 @@ public class UserServiceImpl implements UserServiceI {
 		// 根据相应的资源记录查询该用户下载的资源信息
 		for (Record record : records) {
 			Resource r = resourceDAO.findById(record.getResource_id());
+			User u = userDAO.findById(id);
 			ResourceDTO rdto = new ResourceDTO();
 			rdto.setId(r.getId());
 			rdto.setUploader_name(r.getUser_name());
@@ -167,6 +169,8 @@ public class UserServiceImpl implements UserServiceI {
 				rdto.setStatus_name("已审核");
 			}
 			rdto.setTime(r.getTime());
+			rdto.setType_name(r.getResource_type().getName());
+			rdto.setSchool_name(u.getSchool().getName());
 			rDtos.add(rdto);
 		}
 		pages.setPageList(rDtos);
@@ -196,6 +200,7 @@ public class UserServiceImpl implements UserServiceI {
 				rdto.setDelta(r.getDelta());
 			}
 			rdto.setTime(r.getTime());
+			rdto.setResource_id(r.getResource_id());
 			rDtos.add(rdto);
 		}
 		pages.setPageList(rDtos);

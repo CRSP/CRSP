@@ -17,9 +17,9 @@
 		<!-- my resources begin -->
 		<div class="span6">
 			<ul class="nav nav-tabs">
-				<li><a href="${requestScope.basePath}/my/upload">上传资源</a>
+				<li><a href="${requestScope.basePath}/my/upload">上传资源</a></li>
+				<li><a href="${requestScope.basePath}/my/download">下载资源</a>
 				</li>
-				<li><a href="${requestScope.basePath}/my/download">下载资源</a></li>
 				<li class="active"><a href="${requestScope.basePath}/my/record">得分记录</a>
 				</li>
 			</ul>
@@ -40,12 +40,14 @@
 							<tr>
 								<td>${record.delta}</td>
 								<td>${record.time}</td>
-								<td><a href="#">${record.id}</a> <c:if
-										test="${record.delta < 0}">
+								<td><a
+									href="${requestScope.basePath}/resource/profile/${record.resource_id}">${record.id}</a>
+									<c:if test="${record.delta < 0}">
 									-下载资源扣除积分
 								</c:if> <c:if test="${record.delta > 0}">
 									-上传资源得到下载,奖励积分
-								</c:if></td>
+								</c:if>
+								</td>
 							</tr>
 						</c:forEach>
 						<c:if test="${fn:length(records) == 0}">
@@ -60,8 +62,7 @@
 						<tr>
 							<td colspan="8">
 								<div class="pagination">
-									<span><a
-										href="${requestScope.basePath}/my/record/">首页</a>
+									<span><a href="${requestScope.basePath}/my/record/">首页</a>
 									</span><span><a
 										href="${requestScope.basePath}/my/record/${page.pageNow - 1}">上一页</a>
 									</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
@@ -69,8 +70,7 @@
 									</span><span><a
 										href="${requestScope.basePath}/my/record/${page.pageCount}">尾页</a>
 									</span>
-								</div>
-							</td>
+								</div></td>
 						</tr>
 					</tfoot>
 				</table>

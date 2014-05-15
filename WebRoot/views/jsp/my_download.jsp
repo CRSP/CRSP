@@ -31,16 +31,18 @@
 							<th>资源名</th>
 							<th>学校</th>
 							<th>上传人</th>
+							<th>资源类型</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="download" items="${downalods}">
+						<c:forEach var="download" items="${downloads}">
 							<tr>
 								<td>
-									<div class="autocut">${download.resource_name}</div>
+									<div class="autocut"><a href="${requestScope.basePath}/resource/profile/${download.id}">${download.resource_name}</a></div>
 								</td>
 								<td>${download.school_name}</td>
 								<td>${download.uploader_name}</td>
+								<td>${download.type_name}</td>
 							</tr>
 						</c:forEach>
 						<c:if test="${fn:length(downloads) == 0}">

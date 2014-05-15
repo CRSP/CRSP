@@ -100,11 +100,8 @@
 				id="progress_finish" disabled="disabled">确认</button>
 		</div>
 	</div>
-
-
 	<%@ include file="footer.jsp"%>
-
-
+	
 	<script>
 		function toFloat1(data) {
 			var d0 = parseInt(data * 10);
@@ -115,9 +112,6 @@
 			} else {
 				result = d0 / 10;
 			}
-			console.log(d0);
-			console.log(d1);
-			console.log(3.7+0.1);
 			return result;
 		}
 		var progress_width;
@@ -153,14 +147,7 @@
 								progress_contentlength = parseFloat(toFloat1(obj.contentLength)) + 'B';
 								progress_bytesread = parseFloat(toFloat1(obj.bytesRead)) + 'B';
 							}
-							
 							progress_velocity = parseInt(obj.velocity);
-							console.log(progress_pasttime);
-							console.log(progress_bytesread);
-							console.log(progress_contentlength);
-							console.log(progress_velocity);
-							console.log(progress_predicttime);
-							console.log('-----------------------------------');
 						});
 				//更新对话框数据
 				$('#progress_bar').width(progress);
@@ -181,19 +168,12 @@
 		var ajax_options = {
 			url: '${requestScope.basePath}/resource/create',
 			success : function(data) {
-				console.log(data);
-				console.log(data['rnMsg']);
-				console.log(data['rtMsg']);
-				console.log(data['rpMsg']);
+
 			}
 		};
 
 		$('#progress_modal').on('shown', function() {
 			progress_width = $('#progress_width').width();
-			
-			console.log(progress_width);
-			
-			
 			//验证信息是否完整
 			var resource_name = $('#resource_name').val();
 			var resource_type = $('#resource_type').val();
@@ -214,8 +194,6 @@
 				$.post('${requestScope.basePath}/resource/upfile/existence', {
 					code: code
 				}, function(data) {
-						
-					console.log('data:' + data);
 					if(!data.isExisted) {
 						//如果不可以
 						GetProgress();  
@@ -229,6 +207,7 @@
 							resource_price: $('#resource_price').val()
 						}, function (data) {
 							$('#progress_bar').width(progress_width);
+							$('#progress_finish').removeAttr('disabled');
 						});
 					}
 				});
@@ -244,7 +223,6 @@
 		
 		$('#upload_form').submit(function(e) {
 			e.preventDefault();
-			//var pw = progress_width;
 			//是否已登陆
 			var islogined = false;
 			$.post('${requestScope.basePath}/user/islogined', function(data) {
@@ -263,8 +241,8 @@
 				alert("请完善资源信息");
 				return ;
 			}
-			if(resource_name.length < 6 || resource_name.length >  20) {
-				alert("资源名长度为6-20个字符");
+			if(resource_name.length < 4|| resource_name.length >  20) {
+				alert("资源名长度为4-20个字符");
 				return ;
 			}
 			if(file == '') {
@@ -272,6 +250,11 @@
 				return ;
 			}
 			
+			var size = document.getElementById("resource_file").files[0].size;
+			if(size > 52428800) {
+				alert("文件过大，只能上传50M以下大小的文件");
+				return ;
+			}
 			$('#progress_modal').modal('show');
 		}); 
 	</script>

@@ -31,6 +31,7 @@
 							<th>资源名</th>
 							<th>状态</th>
 							<th>上传时间</th>
+							<th>资源类型</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,6 +44,7 @@
 								</td>
 								<td>${upload.status_name}</td>
 								<td>${upload.time}</td>
+								<td>${upload.type_name}</td>
 							</tr>
 						</c:forEach>
 						<c:if test="${fn:length(uploads) == 0}">

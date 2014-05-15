@@ -153,7 +153,7 @@ INSERT INTO `province` VALUES ('34', '特别行政区', '澳门');
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `resource_id` int(11) NOT NULL,
   `upload_user_id` int(11) NOT NULL,
   `download_user_id` int(11) NOT NULL,

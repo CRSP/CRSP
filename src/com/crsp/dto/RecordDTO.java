@@ -7,6 +7,7 @@ public class RecordDTO extends BaseDTO implements Serializable {
 	private int id;
 	private int delta;
 	private String time;
+	private int resource_id;
 
 	public int getId() {
 		return id;
@@ -30,6 +31,14 @@ public class RecordDTO extends BaseDTO implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+	
+	public int getResource_id() {
+		return resource_id;
+	}
+
+	public void setResource_id(int resource_id) {
+		this.resource_id = resource_id;
 	}
 
 	@Override

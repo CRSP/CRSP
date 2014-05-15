@@ -175,17 +175,27 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		rDto.setDownload_count(resource.getDownload_count());
 		rDto.setType_name(resource.getResource_type().getName());
 		rDto.setPrice(resource.getPrice());
+		rDto.setUploader_name(resource.getUser_name());
 		if(resource.getStatus() == 1)
 			rDto.setStatus_name("已审核");
 		rDto.setTime(resource.getTime());
 		return rDto;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.crsp.service.ResourceServiceI#saveRecord(com.crsp.entity.Record)
+	/*
+	 * (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#addRecord(com.crsp.entity.Record)
 	 */
 	@Override
-	public void saveRecord(Record record) {
+	public void addRecord(Record record) {
 		recordDAO.add(record);
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.crsp.service.ResourceServiceI#saveResource()
+	 */
+	@Override
+	public void saveResource(Resource resource) {
+		resourceDAO.update(resource);
 	}
 }
