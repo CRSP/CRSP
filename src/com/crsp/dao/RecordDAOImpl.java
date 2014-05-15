@@ -24,7 +24,7 @@ public class RecordDAOImpl extends BaseDAOImpl<Record> implements RecordDAO {
 	 */
 	@Override
 	public List<Record> queryRecordsByUser(Page page, int user_id) {
-		String hql = "from Record r where r.upload_user_id=? or r.download_user_id=?";
+		String hql = "from Record r where r.upload_user_id=? or r.download_user_id=? order by r.time desc";
 		return this.listByPage(hql, new Object[] { user_id, user_id }, page);
 	}
 
@@ -35,7 +35,7 @@ public class RecordDAOImpl extends BaseDAOImpl<Record> implements RecordDAO {
 	 */
 	@Override
 	public List<Record> queryUserDownRecords(Page page, int user_id) {
-		String hql = "from Record r where r.download_user_id=" + user_id;
+		String hql = "from Record r where r.download_user_id=" + user_id + " order by r.time desc";
 		return this.listByPage(hql, page);
 	}
 }

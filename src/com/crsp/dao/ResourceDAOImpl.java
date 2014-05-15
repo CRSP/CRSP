@@ -28,7 +28,7 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 	 */
 	@Override
 	public List<Resource> queryResourcesByUser(Page page, int user_id) {
-		String hql = "from Resource r where r.user_id=" + user_id;
+		String hql = "from Resource r where r.user_id=" + user_id + " order by r.time desc";
 		return this.listByPage(hql, page);
 	}
 
