@@ -41,6 +41,8 @@ public class User implements Serializable {
 	private int points;// 积分
 
 	private String email;// 邮箱
+	
+	private int status;// 0为冻结状态,1为可用状态 
 
 	public User() {
 
@@ -118,11 +120,20 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", school=" + school + ", department="
 				+ department + ", user_id=" + user_id + ", user_pwd="
 				+ user_pwd + ", user_name=" + user_name + ", avatar=" + avatar
-				+ ", points=" + points + ", email=" + email + "]";
+				+ ", points=" + points + ", email=" + email + ", status="
+				+ status + "]";
 	}
 }
