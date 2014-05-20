@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +45,8 @@ public class IndexController {
 
 	//需要资源最多的12间学校
 	//需要最热10个资源
-	//Autowired
 	@RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
-	public String showIndexPage(Map<String, Object> model) {
+	public String showIndexPage(Map<String, Object> model, HttpServletRequest request) {
 		List schools = schoolService.getHottestSchools().getPageList();
 		List resource = resouceService.getHottestResource().getPageList();
 		model.put("schools", schools);

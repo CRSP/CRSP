@@ -285,13 +285,12 @@ public class ResourceController {
 				String ext = originalName.substring(originalName.indexOf("."));
 				String fileName = code + ext;
 				long size = f.getSize();
-				String resourcePath = request.getSession().getServletContext()
-						.getRealPath("/")
-						+ File.separator
-						+ "resource"
-						+ File.separator
-						+ year
+				String resourcePath = System.getProperty("user.dir")
+						+ File.separator + ".." + File.separator + "webapps"
+						+ File.separator + "resource" + File.separator + year
 						+ File.separator + month + File.separator;
+				
+				System.out.println(resourcePath);
 
 				if (f.getSize() > 0) {
 					File dr = new File(resourcePath);
