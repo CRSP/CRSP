@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-05-14 10:23:24
+Date: 2014-05-15 16:49:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,27 +77,27 @@ INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
 -- ----------------------------
 DROP TABLE IF EXISTS `feature`;
 CREATE TABLE `feature` (
-  `id` int(11) NOT NULL auto_increment,
-  `path` varchar(100) NOT NULL,
+  `id` int(11) NOT NULL,
+  `path` varchar(45) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
-  `size` int(11) NOT NULL default '0',
+  `size` int(11) default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feature
 -- ----------------------------
-INSERT INTO `feature` VALUES ('1', '', '1', '1', 0);
-INSERT INTO `feature` VALUES ('2', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('3', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('4', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('5', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('6', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('7', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('8', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('9', '', '', '1', 0);
-INSERT INTO `feature` VALUES ('10', '', '', '1', 0);
+INSERT INTO `feature` VALUES ('1', '', '1', '1', '1');
+INSERT INTO `feature` VALUES ('2', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('3', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('4', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('5', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('6', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('7', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('8', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('9', '', '', '1', '1');
+INSERT INTO `feature` VALUES ('10', '', '', '1', '1');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -153,7 +153,7 @@ INSERT INTO `province` VALUES ('34', '特别行政区', '澳门');
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `upload_user_id` int(11) NOT NULL,
   `download_user_id` int(11) NOT NULL,
@@ -1411,6 +1411,7 @@ CREATE TABLE `user` (
   `avatar` varchar(100) default NULL,
   `points` int(11) default NULL,
   `email` varchar(45) NOT NULL,
+  `status` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_school1_idx` (`school_id`),
@@ -1422,13 +1423,13 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', '', null, '123456@163.com');
-INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', '', null, '123456@164.com');
-INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', '', null, '123456@165.com');
-INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', '', null, '123456@166.com');
-INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', '', null, '123456@167.com');
-INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', '', null, '123456@168.com');
-INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', '', null, '123456@169.com');
-INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', '', null, '123456@170.com');
-INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', '', null, '123456@171.com');
-INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', '', null, '123456@172.com');
+INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', '', null, '123456@163.com', '1');
+INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', '', null, '123456@164.com', '1');
+INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', '', null, '123456@165.com', '1');
+INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', '', null, '123456@166.com', '1');
+INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', '', null, '123456@167.com', '1');
+INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', '', null, '123456@168.com', '1');
+INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', '', null, '123456@169.com', '1');
+INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', '', null, '123456@170.com', '1');
+INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', '', null, '123456@171.com', '1');
+INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', '', null, '123456@172.com', '1');

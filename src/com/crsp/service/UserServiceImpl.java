@@ -58,7 +58,12 @@ public class UserServiceImpl implements UserServiceI {
 			udto.setErrMsg("请检查你输入的登录信息是否正确!");
 			return udto;
 		} else {
-			if (!user.getUser_pwd().equals(password)) {
+			if (user.getStatus() == 0) {
+				// 用户状态被禁用
+				udto.setErr(true);
+				udto.setErrMsg("该账户为冻结状态!");
+				return udto;
+			} else if (!user.getUser_pwd().equals(password)) {
 				// 查询的用户密码不正确
 				udto.setErr(true);
 				udto.setErrMsg("请检查你输入的登录信息是否正确!");
