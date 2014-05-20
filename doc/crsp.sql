@@ -77,11 +77,11 @@ INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
 -- ----------------------------
 DROP TABLE IF EXISTS `feature`;
 CREATE TABLE `feature` (
-  `id` int(11) NOT NULL,
-  `path` varchar(45) NOT NULL,
+  `id` int(11) NOT NULL  auto_increment,
+  `path` varchar(100) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
-  `size` int(11) default '0',
+  `size` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -153,7 +153,7 @@ INSERT INTO `province` VALUES ('34', '特别行政区', '澳门');
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  auto_increment,
   `resource_id` int(11) NOT NULL,
   `upload_user_id` int(11) NOT NULL,
   `download_user_id` int(11) NOT NULL,
