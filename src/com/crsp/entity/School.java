@@ -45,12 +45,13 @@ public class School implements Serializable {
 	public School() {
 	}
 	
-	public School(int id, String name, int resource_count, Province province) {
+	public School(int id, String name, int resource_count, Province province, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.resource_count = resource_count;
 		this.province = province;
+		this.description = description;
 	}
 	
 	public String getAvatar() {

@@ -41,7 +41,7 @@
 								<img src="${school.school_avatar}" class="img-polaroid span4" />
 							</c:if>
 							<div>
-								<p>${school.school_description}</p>
+								<p class="autocut_description">${school.school_description}</p>
 							</div>
 						</div>
 						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
@@ -61,7 +61,7 @@
 								<img src="${school.school_avatar}" class="img-polaroid span4" />
 							</c:if>
 							<div>
-								<p>${school.school_description}</p>
+								<p class="autocut_description">${school.school_description}</p>
 							</div>
 						</div>
 						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
@@ -81,7 +81,7 @@
 								<img src="${school.school_avatar}" class="img-polaroid span4" />
 							</c:if>
 							<div>
-								<p>${school.school_description}</p>
+								<p class="autocut_description">${school.school_description}</p>
 							</div>
 						</div>
 						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
@@ -101,7 +101,7 @@
 								<img src="${school.school_avatar}" class="img-polaroid span4" />
 							</c:if>
 							<div>
-								<p>${school.school_description}</p>
+								<p class="autocut_description">${school.school_description}</p>
 							</div>
 						</div>
 						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>

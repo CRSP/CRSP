@@ -88,6 +88,7 @@ public class SchoolServiceImpl implements SchoolServiceI{
 			sdto.setId(s.getId());
 			sdto.setSchool_name(s.getName());
 			sdto.setProvince_name(s.getProvince().getName());
+			sdto.setSchool_description(s.getDescription());
 			sdto.setResource_quanities(s.getResource_count());
 			sDtos.add(sdto);
 		}

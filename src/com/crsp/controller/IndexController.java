@@ -1,6 +1,5 @@
 package com.crsp.controller;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.crsp.entity.Province;
 import com.crsp.service.ResourceServiceI;
 import com.crsp.service.SchoolServiceI;
+import com.crsp.utils.Formattor;
 
 @Controller
 @RequestMapping(value="/")
@@ -48,6 +47,8 @@ public class IndexController {
 	@RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
 	public String showIndexPage(Map<String, Object> model, HttpServletRequest request) {
 		List schools = schoolService.getHottestSchools().getPageList();
+		//简介处理
+		Formattor.formatDescription(schools);
 		List resource = resouceService.getHottestResource().getPageList();
 		model.put("schools", schools);
 		model.put("resource", resource);

@@ -31,7 +31,7 @@ public class SchoolDAOImpl extends BaseDAOImpl<School> implements SchoolDAO{
 	 */
 	@Override
 	public List<School> querySchoolByProvince(Page page, int province_id) {
-		String hql = "select new School(s.id,s.name,s.resource_count,s.province) from School s where s.province.id=" + province_id;
+		String hql = "select new School(s.id,s.name,s.resource_count,s.province,s.description) from School s where s.province.id=" + province_id;
 		return this.listByPage(hql, page);
 	}
 
