@@ -124,7 +124,7 @@
 							</li>
 						</ul>
 					</li>
-					<li><a href="#contact">关于</a></li>
+					<li><a href="http://huangruichang.github.io" target="blank">关于</a></li>
 					<li><a href="#contact">联系</a></li>
 					<li>
 						<form class="navbar-search pull-left">

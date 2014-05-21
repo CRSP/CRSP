@@ -36,4 +36,7 @@ public interface ResourceServiceI {
 	public void addRecord(Record  record);
 	
 	public void saveResource(Resource resource);
+	
+	// 每个ResourceDTO装入id, resource_name, uploader_name
+	public Pages<ResourceDTO> searchResource(String keyword, Page page); // 对资源名模糊查询获取资源
 }

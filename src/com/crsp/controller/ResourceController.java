@@ -388,4 +388,10 @@ public class ResourceController {
 		Progress status = (Progress) model.get("status");
 		return status;
 	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public String searchResource() {
+		
+		return "";
+	}
 }
