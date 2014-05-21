@@ -29,7 +29,7 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 	@Override
 	public List<Resource> queryResourcesByUser(Page page, int user_id) {
 		String hql = "from Resource r where r.user_id=" + user_id + " order by r.time desc";
-		return this.listByPage(hql, page);
+		return super.listByPage(hql, page);
 	}
 
 	/*
@@ -40,7 +40,7 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 	@Override
 	public List<Resource> queryNewResources(Page page) {
 		String hql = "from Resource r order by r.time desc";
-		return this.listByPage(hql, page);
+		return super.listByPage(hql, page);
 	}
 
 	/*
@@ -52,7 +52,7 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 	public List<Resource> queryMostDownload() {
 		Page page = new Page();
 		String hql = "from Resource r order by r.download_count desc";
-		return this.listByPage(hql, page);
+		return super.listByPage(hql, page);
 	}
 
 	/*
@@ -66,6 +66,15 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 			int department_id) {
 		String hql = "from Resource r where r.school_id=" + school_id
 				+ " and r.department_id=" + department_id;
-		return this.listByPage(hql, page);
+		return super.listByPage(hql, page);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.dao.ResourceDAO#queryResourceLikeName(java.lang.String, com.crsp.utils.Page)
+	 */
+	@Override
+	public List<Resource> queryResourceLikeName(String keyword, Page page) {
+		String hql = "from Resource r where r.name like '%" + keyword + "%'";
+		return super.listByPage(hql, page);
 	}
 }

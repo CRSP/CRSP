@@ -132,7 +132,9 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		return resource_typeDAO.list();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.crsp.service.ResourceServiceI#getFeature(java.lang.String)
 	 */
 	@Override
@@ -141,24 +143,31 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		return feature;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.crsp.service.ResourceServiceI#addFeature(com.crsp.entity.Feature)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.crsp.service.ResourceServiceI#addFeature(com.crsp.entity.Feature)
 	 */
 	@Override
 	public int addFeature(Feature feature) {
 		featureDAO.add(feature);
 		return feature.getId();
 	}
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.crsp.service.ResourceServiceI#getResource(int)
 	 */
 	@Override
 	public Resource getResource(int resourceId) {
 		return resourceDAO.findById(resourceId);
 	}
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.crsp.service.ResourceServiceI#getProfile(int)
 	 */
 	@Override
@@ -176,7 +185,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		rDto.setType_name(resource.getResource_type().getName());
 		rDto.setPrice(resource.getPrice());
 		rDto.setUploader_name(resource.getUser_name());
-		if(resource.getStatus() == 1)
+		if (resource.getStatus() == 1)
 			rDto.setStatus_name("已审核");
 		rDto.setTime(resource.getTime());
 		return rDto;
@@ -184,18 +193,44 @@ public class ResourceServiceImpl implements ResourceServiceI {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.crsp.service.ResourceServiceI#addRecord(com.crsp.entity.Record)
 	 */
 	@Override
 	public void addRecord(Record record) {
 		recordDAO.add(record);
 	}
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.crsp.service.ResourceServiceI#saveResource()
 	 */
 	@Override
 	public void saveResource(Resource resource) {
 		resourceDAO.update(resource);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.crsp.service.ResourceServiceI#searchResource(java.lang.String,
+	 * com.crsp.utils.Page)
+	 */
+	@Override
+	public Pages<ResourceDTO> searchResource(String keyword, Page page) {
+		Pages<ResourceDTO> pDTO = new Pages<ResourceDTO>();
+		List<ResourceDTO> datas = new ArrayList<ResourceDTO>();
+		List<Resource> list = resourceDAO.queryResourceLikeName(keyword, page);
+		for (Resource r : list) {
+			ResourceDTO rDTO = new ResourceDTO();
+			rDTO.setId(r.getId());
+			rDTO.setResource_name(r.getName());
+			rDTO.setUploader_name(r.getUser_name());
+			datas.add(rDTO);
+		}
+		pDTO.setPage(page);
+		pDTO.setPageList(datas);
+		return pDTO;
 	}
 }

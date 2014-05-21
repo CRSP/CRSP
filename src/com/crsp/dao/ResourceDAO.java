@@ -25,4 +25,7 @@ public interface ResourceDAO extends BaseDAO<Resource>{
 	
 	// 获取某个学校院系拥有的资源
 	public List<Resource> queryResourcesBySchDpm(Page page,int school_id,int department_id);
+	
+	// 模糊查询资源信息
+	public List<Resource> queryResourceLikeName(String keyword, Page page);
 }
