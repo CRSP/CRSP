@@ -77,6 +77,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		for (Resource r : list) {
 			ResourceDTO rDto = new ResourceDTO();
 			rDto.setSchool_name(schoolDAO.findById(r.getSchool_id()).getName());
+			rDto.setResource_name(r.getName());
 			rDto.setUploader_name(r.getUser_name());
 			rDtos.add(rDto);
 		}

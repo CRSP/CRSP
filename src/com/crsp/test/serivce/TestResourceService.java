@@ -72,4 +72,14 @@ public class TestResourceService {
 		Feature feature = resourceService.getFeature("1");
 		System.out.println(feature.toString());
 	}
+	
+	@Test
+	public void searchResource(){
+		Page page = new Page(1,10);
+		Pages<ResourceDTO> pages = resourceService.searchResource("资源1",page);
+		List<ResourceDTO> list = pages.getPageList();
+		for(ResourceDTO r:list){
+			System.out.println(r.toString());
+		}
+	}
 }
