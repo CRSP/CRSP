@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-05-15 16:49:10
+Date: 2014-05-25 22:20:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,6 +40,127 @@ INSERT INTO `admin` VALUES ('7', '管理员7', '123456', '1');
 INSERT INTO `admin` VALUES ('8', '管理员8', '123456', '1');
 INSERT INTO `admin` VALUES ('9', '管理员9', '123456', '1');
 INSERT INTO `admin` VALUES ('10', '管理员10', '123456', '1');
+
+-- ----------------------------
+-- Table structure for `comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `date` varchar(45) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `fk_comment_resource1` (`resource_id`),
+  KEY `fk_comment_user1` (`user_id`),
+  CONSTRAINT `fk_comment_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_comment_resource1` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+INSERT INTO `comment` VALUES ('1', '哎呦！不错哦1', '2014-01-01', '1', '1');
+INSERT INTO `comment` VALUES ('2', '哎呦！不错哦2', '2014-01-02', '2', '1');
+INSERT INTO `comment` VALUES ('3', '哎呦！不错哦3', '2014-01-03', '3', '1');
+INSERT INTO `comment` VALUES ('4', '哎呦！不错哦4', '2014-01-04', '4', '1');
+INSERT INTO `comment` VALUES ('5', '哎呦！不错哦5', '2014-01-05', '5', '1');
+INSERT INTO `comment` VALUES ('6', '哎呦！不错哦6', '2014-01-06', '6', '1');
+INSERT INTO `comment` VALUES ('7', '哎呦！不错哦7', '2014-01-07', '7', '1');
+INSERT INTO `comment` VALUES ('8', '哎呦！不错哦8', '2014-01-08', '8', '1');
+INSERT INTO `comment` VALUES ('9', '哎呦！不错哦9', '2014-01-09', '9', '1');
+INSERT INTO `comment` VALUES ('10', '哎呦！不错哦10', '2014-01-10', '10', '1');
+INSERT INTO `comment` VALUES ('11', '哎呦！不错哦11', '2014-01-11', '1', '2');
+INSERT INTO `comment` VALUES ('12', '哎呦！不错哦12', '2014-01-12', '2', '2');
+INSERT INTO `comment` VALUES ('13', '哎呦！不错哦13', '2014-01-13', '3', '2');
+INSERT INTO `comment` VALUES ('14', '哎呦！不错哦14', '2014-01-14', '4', '2');
+INSERT INTO `comment` VALUES ('15', '哎呦！不错哦15', '2014-01-15', '5', '2');
+INSERT INTO `comment` VALUES ('16', '哎呦！不错哦16', '2014-01-16', '6', '2');
+INSERT INTO `comment` VALUES ('17', '哎呦！不错哦17', '2014-01-17', '7', '2');
+INSERT INTO `comment` VALUES ('18', '哎呦！不错哦18', '2014-01-18', '8', '2');
+INSERT INTO `comment` VALUES ('19', '哎呦！不错哦19', '2014-01-19', '9', '2');
+INSERT INTO `comment` VALUES ('20', '哎呦！不错哦20', '2014-01-20', '10', '2');
+INSERT INTO `comment` VALUES ('21', '哎呦！不错哦21', '2014-01-21', '1', '3');
+INSERT INTO `comment` VALUES ('22', '哎呦！不错哦22', '2014-01-22', '2', '3');
+INSERT INTO `comment` VALUES ('23', '哎呦！不错哦23', '2014-01-23', '3', '3');
+INSERT INTO `comment` VALUES ('24', '哎呦！不错哦24', '2014-01-24', '4', '3');
+INSERT INTO `comment` VALUES ('25', '哎呦！不错哦25', '2014-01-25', '5', '3');
+INSERT INTO `comment` VALUES ('26', '哎呦！不错哦26', '2014-01-26', '6', '3');
+INSERT INTO `comment` VALUES ('27', '哎呦！不错哦27', '2014-01-27', '7', '3');
+INSERT INTO `comment` VALUES ('28', '哎呦！不错哦28', '2014-01-28', '8', '3');
+INSERT INTO `comment` VALUES ('29', '哎呦！不错哦29', '2014-01-29', '9', '3');
+INSERT INTO `comment` VALUES ('30', '哎呦！不错哦30', '2014-01-30', '10', '3');
+INSERT INTO `comment` VALUES ('31', '哎呦！不错哦31', '2014-03-01', '1', '4');
+INSERT INTO `comment` VALUES ('32', '哎呦！不错哦32', '2014-03-02', '2', '4');
+INSERT INTO `comment` VALUES ('33', '哎呦！不错哦33', '2014-03-03', '3', '4');
+INSERT INTO `comment` VALUES ('34', '哎呦！不错哦34', '2014-03-04', '4', '4');
+INSERT INTO `comment` VALUES ('35', '哎呦！不错哦35', '2014-03-05', '5', '4');
+INSERT INTO `comment` VALUES ('36', '哎呦！不错哦36', '2014-03-06', '6', '4');
+INSERT INTO `comment` VALUES ('37', '哎呦！不错哦37', '2014-03-07', '7', '4');
+INSERT INTO `comment` VALUES ('38', '哎呦！不错哦38', '2014-03-08', '8', '4');
+INSERT INTO `comment` VALUES ('39', '哎呦！不错哦39', '2014-03-09', '9', '4');
+INSERT INTO `comment` VALUES ('40', '哎呦！不错哦40', '2014-03-10', '10', '4');
+INSERT INTO `comment` VALUES ('41', '哎呦！不错哦41', '2014-03-11', '1', '5');
+INSERT INTO `comment` VALUES ('42', '哎呦！不错哦42', '2014-03-12', '2', '5');
+INSERT INTO `comment` VALUES ('43', '哎呦！不错哦43', '2014-03-13', '3', '5');
+INSERT INTO `comment` VALUES ('44', '哎呦！不错哦44', '2014-03-14', '4', '5');
+INSERT INTO `comment` VALUES ('45', '哎呦！不错哦45', '2014-03-15', '5', '5');
+INSERT INTO `comment` VALUES ('46', '哎呦！不错哦46', '2014-03-16', '6', '5');
+INSERT INTO `comment` VALUES ('47', '哎呦！不错哦47', '2014-03-17', '7', '5');
+INSERT INTO `comment` VALUES ('48', '哎呦！不错哦48', '2014-03-18', '8', '5');
+INSERT INTO `comment` VALUES ('49', '哎呦！不错哦49', '2014-03-19', '9', '5');
+INSERT INTO `comment` VALUES ('50', '哎呦！不错哦50', '2014-03-20', '10', '5');
+INSERT INTO `comment` VALUES ('51', '哎呦！不错哦51', '2014-03-21', '1', '6');
+INSERT INTO `comment` VALUES ('52', '哎呦！不错哦52', '2014-03-22', '2', '6');
+INSERT INTO `comment` VALUES ('53', '哎呦！不错哦53', '2014-03-23', '3', '6');
+INSERT INTO `comment` VALUES ('54', '哎呦！不错哦54', '2014-03-24', '4', '6');
+INSERT INTO `comment` VALUES ('55', '哎呦！不错哦55', '2014-03-25', '5', '6');
+INSERT INTO `comment` VALUES ('56', '哎呦！不错哦56', '2014-03-26', '6', '6');
+INSERT INTO `comment` VALUES ('57', '哎呦！不错哦57', '2014-03-27', '7', '6');
+INSERT INTO `comment` VALUES ('58', '哎呦！不错哦58', '2014-03-28', '8', '6');
+INSERT INTO `comment` VALUES ('59', '哎呦！不错哦59', '2014-03-29', '9', '6');
+INSERT INTO `comment` VALUES ('60', '哎呦！不错哦60', '2014-03-30', '10', '6');
+INSERT INTO `comment` VALUES ('61', '哎呦！不错哦61', '2014-04-01', '1', '7');
+INSERT INTO `comment` VALUES ('62', '哎呦！不错哦62', '2014-04-02', '2', '7');
+INSERT INTO `comment` VALUES ('63', '哎呦！不错哦63', '2014-04-03', '3', '7');
+INSERT INTO `comment` VALUES ('64', '哎呦！不错哦64', '2014-04-04', '4', '7');
+INSERT INTO `comment` VALUES ('65', '哎呦！不错哦65', '2014-04-05', '5', '7');
+INSERT INTO `comment` VALUES ('66', '哎呦！不错哦66', '2014-04-06', '6', '7');
+INSERT INTO `comment` VALUES ('67', '哎呦！不错哦67', '2014-04-07', '7', '7');
+INSERT INTO `comment` VALUES ('68', '哎呦！不错哦68', '2014-04-08', '8', '7');
+INSERT INTO `comment` VALUES ('69', '哎呦！不错哦69', '2014-04-09', '9', '7');
+INSERT INTO `comment` VALUES ('70', '哎呦！不错哦70', '2014-04-10', '10', '7');
+INSERT INTO `comment` VALUES ('71', '哎呦！不错哦71', '2014-04-11', '1', '8');
+INSERT INTO `comment` VALUES ('72', '哎呦！不错哦72', '2014-04-12', '2', '8');
+INSERT INTO `comment` VALUES ('73', '哎呦！不错哦73', '2014-04-13', '3', '8');
+INSERT INTO `comment` VALUES ('74', '哎呦！不错哦74', '2014-04-14', '4', '8');
+INSERT INTO `comment` VALUES ('75', '哎呦！不错哦75', '2014-04-15', '5', '8');
+INSERT INTO `comment` VALUES ('76', '哎呦！不错哦76', '2014-04-16', '6', '8');
+INSERT INTO `comment` VALUES ('77', '哎呦！不错哦77', '2014-04-17', '7', '8');
+INSERT INTO `comment` VALUES ('78', '哎呦！不错哦78', '2014-04-18', '8', '8');
+INSERT INTO `comment` VALUES ('79', '哎呦！不错哦79', '2014-04-19', '9', '8');
+INSERT INTO `comment` VALUES ('80', '哎呦！不错哦80', '2014-04-20', '10', '8');
+INSERT INTO `comment` VALUES ('81', '哎呦！不错哦81', '2014-04-21', '1', '9');
+INSERT INTO `comment` VALUES ('82', '哎呦！不错哦82', '2014-04-22', '2', '9');
+INSERT INTO `comment` VALUES ('83', '哎呦！不错哦83', '2014-04-23', '3', '9');
+INSERT INTO `comment` VALUES ('84', '哎呦！不错哦84', '2014-04-24', '4', '9');
+INSERT INTO `comment` VALUES ('85', '哎呦！不错哦85', '2014-04-25', '5', '9');
+INSERT INTO `comment` VALUES ('86', '哎呦！不错哦86', '2014-04-26', '6', '9');
+INSERT INTO `comment` VALUES ('87', '哎呦！不错哦87', '2014-04-27', '7', '9');
+INSERT INTO `comment` VALUES ('88', '哎呦！不错哦88', '2014-04-28', '8', '9');
+INSERT INTO `comment` VALUES ('89', '哎呦！不错哦89', '2014-04-29', '9', '9');
+INSERT INTO `comment` VALUES ('90', '哎呦！不错哦90', '2014-04-30', '10', '9');
+INSERT INTO `comment` VALUES ('91', '哎呦！不错哦91', '2014-05-01', '1', '10');
+INSERT INTO `comment` VALUES ('92', '哎呦！不错哦92', '2014-05-02', '2', '10');
+INSERT INTO `comment` VALUES ('93', '哎呦！不错哦93', '2014-05-03', '3', '10');
+INSERT INTO `comment` VALUES ('94', '哎呦！不错哦94', '2014-05-04', '4', '10');
+INSERT INTO `comment` VALUES ('95', '哎呦！不错哦95', '2014-05-05', '5', '10');
+INSERT INTO `comment` VALUES ('96', '哎呦！不错哦96', '2014-05-06', '6', '10');
+INSERT INTO `comment` VALUES ('97', '哎呦！不错哦97', '2014-05-07', '7', '10');
+INSERT INTO `comment` VALUES ('98', '哎呦！不错哦98', '2014-05-08', '8', '10');
+INSERT INTO `comment` VALUES ('99', '哎呦！不错哦99', '2014-05-09', '9', '10');
+INSERT INTO `comment` VALUES ('100', '哎呦！不错哦100', '2014-05-10', '10', '10');
 
 -- ----------------------------
 -- Table structure for `department`
@@ -77,7 +198,7 @@ INSERT INTO `department` VALUES ('14', '体育部 ', '', '', '14');
 -- ----------------------------
 DROP TABLE IF EXISTS `feature`;
 CREATE TABLE `feature` (
-  `id` int(11) NOT NULL  auto_increment,
+  `id` int(11) NOT NULL auto_increment,
   `path` varchar(100) NOT NULL,
   `code` varchar(45) NOT NULL,
   `amount` int(11) NOT NULL default '1',
@@ -153,7 +274,7 @@ INSERT INTO `province` VALUES ('34', '特别行政区', '澳门');
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record` (
-  `id` int(11) NOT NULL  auto_increment,
+  `id` int(11) NOT NULL auto_increment,
   `resource_id` int(11) NOT NULL,
   `upload_user_id` int(11) NOT NULL,
   `download_user_id` int(11) NOT NULL,
@@ -1422,13 +1543,13 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', '', null, '123456@163.com', '1');
-INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', '', null, '123456@164.com', '1');
-INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', '', null, '123456@165.com', '1');
-INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', '', null, '123456@166.com', '1');
-INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', '', null, '123456@167.com', '1');
-INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', '', null, '123456@168.com', '1');
-INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', '', null, '123456@169.com', '1');
-INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', '', null, '123456@170.com', '1');
-INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', '', null, '123456@171.com', '1');
-INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', '', null, '123456@172.com', '1');
+INSERT INTO `user` VALUES ('1', '1', '1', '11080701', '123456', '漩涡鸣人', '', '30', '123456@163.com', '1');
+INSERT INTO `user` VALUES ('2', '2', '2', '11080702', '123456', '宇智波佐助', '', '30', '123456@164.com', '1');
+INSERT INTO `user` VALUES ('3', '3', '3', '11080703', '123456', '春野樱', '', '30', '123456@165.com', '1');
+INSERT INTO `user` VALUES ('4', '4', '4', '11080704', '123456', '李洛克', '', '30', '123456@166.com', '1');
+INSERT INTO `user` VALUES ('5', '5', '5', '11080705', '123456', '日向宁次', '', '30', '123456@167.com', '1');
+INSERT INTO `user` VALUES ('6', '6', '6', '11080706', '123456', '日向雏田', '', '30', '123456@168.com', '1');
+INSERT INTO `user` VALUES ('7', '7', '7', '11080707', '123456', '千手柱间', '', '30', '123456@169.com', '1');
+INSERT INTO `user` VALUES ('8', '8', '8', '11080708', '123456', '千手扉间', '', '30', '123456@170.com', '1');
+INSERT INTO `user` VALUES ('9', '9', '9', '11080709', '123456', '猿飞日斩', '', '30', '123456@171.com', '1');
+INSERT INTO `user` VALUES ('10', '10', '10', '11080710', '123456', '波风水门', '', '30', '123456@172.com', '1');

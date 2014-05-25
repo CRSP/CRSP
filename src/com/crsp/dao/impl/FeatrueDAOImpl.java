@@ -1,10 +1,11 @@
 /**
  * 
  */
-package com.crsp.dao;
+package com.crsp.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.crsp.dao.FeatureDAO;
 import com.crsp.entity.Feature;
 
 /**

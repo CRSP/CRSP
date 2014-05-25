@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.crsp.service;
+package com.crsp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crsp.dao.ProvinceDAO;
 import com.crsp.entity.Province;
+import com.crsp.service.ProvinceServiceI;
 import com.crsp.utils.Pages;
 
 /**

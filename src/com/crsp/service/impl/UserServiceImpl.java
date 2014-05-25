@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crsp.service;
+package com.crsp.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.School;
 import com.crsp.entity.User;
+import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 

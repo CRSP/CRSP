@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Comment;
 import com.crsp.entity.Feature;
 import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
@@ -29,20 +30,20 @@ public interface ResourceServiceI {
 	public Feature getFeature(String code);// 按特征码查找，如果没有，则返回null
 
 	public int addFeature(Feature feature);// 增加特征文件
-	
+
 	public Resource getResource(int resourceId);
-	
+
 	public ResourceDTO getProfile(int resourceId);
-	
-	public void addRecord(Record  record);
-	
+
+	public void addRecord(Record record);
+
 	public void saveResource(Resource resource);
-	
+
 	// 每个ResourceDTO装入id, resource_name, uploader_name
 	public Pages<ResourceDTO> searchResource(String keyword, Page page); // 对资源名模糊查询获取资源
-	
+
 	// 每个commentDTO装入id, user_id, user_name, content, date
-	public Pages<CommentDTO> getComments(int resource_id, Page page);	//获取评论
-	
+	public Pages<CommentDTO> getComments(int resource_id, Page page); // 获取评论
+
 	public void addComments(Comment comment);
 }

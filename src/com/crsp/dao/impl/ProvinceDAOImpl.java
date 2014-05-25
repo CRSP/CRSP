@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.crsp.dao;
+package com.crsp.dao.impl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.crsp.dao.ProvinceDAO;
 import com.crsp.entity.Province;
 
 /**

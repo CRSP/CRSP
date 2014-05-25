@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crsp.service;
+package com.crsp.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,17 +9,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crsp.dao.CommentDAO;
 import com.crsp.dao.FeatureDAO;
 import com.crsp.dao.RecordDAO;
 import com.crsp.dao.ResourceDAO;
 import com.crsp.dao.Resource_TypeDAO;
 import com.crsp.dao.SchoolDAO;
+import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Comment;
 import com.crsp.entity.Feature;
 import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
 import com.crsp.entity.School;
+import com.crsp.service.ResourceServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -39,6 +43,8 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	private FeatureDAO featureDAO;
 	@Autowired
 	private RecordDAO recordDAO;
+	@Autowired
+	private CommentDAO commentDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -235,5 +241,41 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		pDTO.setPage(page);
 		pDTO.setPageList(datas);
 		return pDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.crsp.service.ResourceServiceI#getComments(int,
+	 * com.crsp.utils.Page)
+	 */
+	@Override
+	public Pages<CommentDTO> getComments(int resource_id, Page page) {
+		Pages<CommentDTO> pDTO = new Pages<CommentDTO>();
+		List<CommentDTO> datas = new ArrayList<CommentDTO>();
+		List<Comment> list = commentDAO.listByResource(resource_id, page);
+		for (Comment c : list) {
+			CommentDTO cDTO = new CommentDTO();
+			cDTO.setId(c.getId());
+			cDTO.setUser_id(c.getUser().getId());
+			cDTO.setUser_name(c.getUser().getUser_name());
+			cDTO.setContent(c.getContent());
+			cDTO.setDate(c.getDate());
+			datas.add(cDTO);
+		}
+		pDTO.setPage(page);
+		pDTO.setPageList(datas);
+		return pDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.crsp.service.ResourceServiceI#addComments(com.crsp.entity.Comment)
+	 */
+	@Override
+	public void addComments(Comment comment) {
+		commentDAO.add(comment);
 	}
 }

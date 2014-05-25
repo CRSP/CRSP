@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crsp.service;
+package com.crsp.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import com.crsp.dto.DepartmentDTO;
 import com.crsp.dto.SchoolDTO;
 import com.crsp.entity.Department;
 import com.crsp.entity.School;
+import com.crsp.service.SchoolServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 

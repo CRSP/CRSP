@@ -41,8 +41,8 @@ public class User implements Serializable {
 	private int points;// 积分
 
 	private String email;// 邮箱
-	
-	private int status;// 0为冻结状态,1为可用状态 
+
+	private int status;// 0为冻结状态,1为可用状态
 
 	public User() {
 

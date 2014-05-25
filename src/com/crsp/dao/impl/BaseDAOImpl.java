@@ -1,4 +1,4 @@
-package com.crsp.dao;
+package com.crsp.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.crsp.dao.BaseDAO;
 import com.crsp.utils.Page;
 import com.crsp.utils.PageUtil;
 
