@@ -52,6 +52,38 @@
 					class="icon-download-alt icon-white"></i>下载 </a>
 			</div>
 		</div>
+		<div class="offset2 span8">
+			<div class="media">
+				<a class="pull-left" href="#"> <img class="media-object"
+					data-src="holder.js/64x64" alt="64x64"
+					src="${requestScope.basePath}/views/avatars/default.jpg"
+					style="width: 64px; height: 64px;"> </a>
+				<div class="media-body">
+					<h4 class="media-heading"><a>18厘米</a><span class="pull-right">2014-5-24</span></h4>
+					么么哒.
+				</div>
+			</div>
+			<div class="media">
+				<a class="pull-left" href="#"> <img class="media-object"
+					data-src="holder.js/64x64" alt="64x64"
+					src="${requestScope.basePath}/views/avatars/default.jpg"
+					style="width: 64px; height: 64px;"> </a>
+				<div class="media-body">
+					<h4 class="media-heading"><a>40厘米</a><span class="pull-right">2014-5-24</span></h4>
+					Nice，这个资源我找很久了，谢谢PO主.
+				</div>
+			</div>
+			<div class="media">
+				<a class="pull-left" href="#"> <img class="media-object"
+					data-src="holder.js/64x64" alt="64x64"
+					src="${requestScope.basePath}/views/avatars/default.jpg"
+					style="width: 64px; height: 64px;"> </a>
+				<div class="media-body">
+					<h4 class="media-heading"><a>2厘米の大和民族</a><span class="pull-right">2014-5-24</span></h4>
+					不错不错......
+				</div>
+			</div>
+		</div>
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>
