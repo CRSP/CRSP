@@ -41,7 +41,7 @@ public class SchoolDAOImpl extends BaseDAOImpl<School> implements SchoolDAO{
 	@Override
 	public List<School> querySchoolMostResource() {
 		Page page = new Page();
-		page.setPageSize(12);
+		page.setPageSize(7);
 		String hql = "from School s order by s.resource_count desc";
 		return this.listByPage(hql, page);
 	}

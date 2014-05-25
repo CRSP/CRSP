@@ -289,7 +289,7 @@ public class ResourceController {
 						+ File.separator + ".." + File.separator + "webapps"
 						+ File.separator + "resource" + File.separator + year
 						+ File.separator + month + File.separator;
-				
+
 				System.out.println(resourcePath);
 
 				if (f.getSize() > 0) {
@@ -345,7 +345,6 @@ public class ResourceController {
 		msgMap.put("isExisted", true);
 		session.setAttribute("isExisted", true);
 		session.setAttribute("feature_id", f.getId());
-		System.out.println("feature_id:" + f.getId());
 		return msgMap;
 	}
 
@@ -388,10 +387,36 @@ public class ResourceController {
 		Progress status = (Progress) model.get("status");
 		return status;
 	}
-	
-	@RequestMapping(value="/search", method = RequestMethod.POST)
-	public String searchResource() {
-		
-		return "";
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchResource(HttpServletRequest request,
+			Map<String, Object> model) {
+		Page page = new Page();
+		// page.setPageNow(1);
+		String keyword = request.getParameter("keyword");
+		Pages<ResourceDTO> resourcePages = resourceService.searchResource(
+				keyword, page);
+		List<ResourceDTO> resource = resourcePages.getPageList();
+		model.put("resourceList", resource);
+		model.put("page", page);
+		model.put("from", "search");
+		model.put("keyword", keyword);
+		return "resource_list";
+	}
+
+	@RequestMapping(value = "/search/{p}", method = RequestMethod.GET)
+	public String searchResource(@PathVariable int p,
+			HttpServletRequest request, Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(p);
+		String keyword = request.getParameter("keyword");
+		Pages<ResourceDTO> resourcePages = resourceService.searchResource(
+				keyword, page);
+		List<ResourceDTO> resource = resourcePages.getPageList();
+		model.put("resourceList", resource);
+		model.put("page", page);
+		model.put("from", "search");
+		model.put("keyword", keyword);
+		return "resource_list";
 	}
 }

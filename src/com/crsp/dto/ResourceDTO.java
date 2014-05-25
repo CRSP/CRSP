@@ -14,6 +14,7 @@ public class ResourceDTO extends BaseDTO implements Serializable {
 	private int download_count;// 被下载的次数
 	private String type_name;
 	private int price;
+	private int uploader_id;
 
 	public int getId() {
 		return id;
@@ -93,6 +94,14 @@ public class ResourceDTO extends BaseDTO implements Serializable {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public int getUploader_id() {
+		return uploader_id;
+	}
+
+	public void setUploader_id(int uploader_id) {
+		this.uploader_id = uploader_id;
 	}
 
 	@Override

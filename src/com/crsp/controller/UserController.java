@@ -24,7 +24,9 @@ import com.crsp.entity.User;
 import com.crsp.service.SchoolServiceI;
 import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
+import com.crsp.utils.Pages;
 import com.crsp.utils.RegValidator;
+import com.sun.xml.internal.ws.resources.HttpserverMessages;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -166,5 +168,31 @@ public class UserController {
 		}
 		msgMap.put("islogined", true);
 		return msgMap;
+	}
+
+	@RequestMapping(value = "/{userid}/profile", method = RequestMethod.GET)
+	public String getUserProfile(@PathVariable int userid,
+			HttpServletRequest request, Map<String, Object> model) {
+		Page page = new Page();
+		Pages uploadList = userService.getMyUpload(userid, page);
+		UserDTO userDTO = userService.getUserProfile(userid);
+		model.put("uploads", uploadList.getPageList());
+		model.put("page", page);
+		model.put("profile", userDTO);
+		return "user_profile";
+	}
+
+	@RequestMapping(value = "/{userid}/profile/{p}", method = RequestMethod.GET)
+	public String getUserProfile(@PathVariable int userid, @PathVariable int p,
+			HttpServletRequest request, Map<String, Object> model) {
+		Page page = new Page();
+		page.setPageNow(p);
+		Pages uploadList = userService.getMyUpload(userid, page);
+		UserDTO userDTO = userService.getUserProfile(userid);
+		model.put("uploads", uploadList.getPageList());
+		model.put("page", page);
+		model.put("profile", userDTO);
+		model.put("isMy", false);
+		return "user_profile";
 	}
 }

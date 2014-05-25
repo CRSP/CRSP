@@ -5,7 +5,7 @@ import java.util.List;
 import com.crsp.dto.SchoolDTO;
 
 public class Formattor {
-	public static int DEFAULT_LONG = 60;
+	public static int DEFAULT_LONG = 90;
 	
 	private static String cutString(String s) {
 		if(s.length() > DEFAULT_LONG) {

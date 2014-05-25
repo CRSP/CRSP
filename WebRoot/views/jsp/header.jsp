@@ -25,7 +25,7 @@
 <link href="${ requestScope.viewPath }/css/style.css" rel="stylesheet"
 	media="screen">
 
-<div class="navbar">
+<div class="navbar navbar-inverse">
 	<div class="navbar-inner">
 		<div class="container">
 			<button type="button" class="btn btn-navbar" data-toggle="collapse"
@@ -127,8 +127,8 @@
 					<li><a href="http://huangruichang.github.io" target="blank">关于</a></li>
 					<li><a href="#contact">联系</a></li>
 					<li>
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="搜索资源">
+						<form class="navbar-search pull-left" action="${requestScope.basePath}/resource/search" method="get">
+							<input type="text" class="search-query" placeholder="搜索资源" name="keyword">
 							<input type="submit" class="btn" value="提交">
 						</form>
 					</li>

@@ -20,17 +20,27 @@
 		<li class="divider"></li>
 		<li><a>剩余积分:&nbsp;${profile.points}</a>
 		</li>
-		<li class="divider"></li>
-		<li><a href="${requestScope.basePath}/my/profile/init"><button
-					class="btn btn-primary">
-					<i class="icon-user icon-white"></i>修改个人资料
-				</button> </a>
-		</li>
-		<li class="divider"></li>
-		<li><a href="${requestScope.basePath}/resource/upload"><button
-					class="btn btn-success">
-					<i class="icon-circle-arrow-up icon-white"></i>我要上传
-				</button> </a>
-		</li>
+		<c:if test="${isMy}">
+			<li class="divider"></li>
+			<li><a href="${requestScope.basePath}/my/profile/init"><button
+						class="btn btn-primary">
+						<i class="icon-user icon-white"></i>修改个人资料
+					</button> </a>
+			</li>
+			<li class="divider"></li>
+			<li><a href="${requestScope.basePath}/resource/upload"><button
+						class="btn btn-success">
+						<i class="icon-circle-arrow-up icon-white"></i>我要上传
+					</button> </a>
+			</li>
+		</c:if>
+		<c:if test="${!isMy}">
+			<li class="divider"></li>
+			<li><a href="${requestScope.basePath}/resource/upload"><button
+						class="btn btn-warning">
+						<i class="icon-circle-arrow-up icon-white"></i>我要举报
+					</button> </a>
+			</li>
+		</c:if>
 	</ul>
 </div>

@@ -34,9 +34,11 @@
 						<td>${resource.id}</td>
 						<td>${resource.resource_name}</td>
 						<td>${resource.uploader_name}</td>
-						<td><a href="${requestScope.basePath}/resource/profile/${resource.id}"
+						<td><a
+							href="${requestScope.basePath}/resource/profile/${resource.id}"
 							class="btn btn-primary"><i
-								class="icon-download-alt icon-white"></i>进入下载页</a></td>
+								class="icon-download-alt icon-white"></i>进入下载页</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -65,6 +67,19 @@
 									href="${requestScope.basePath}/resource/${schoolid}/${departmentid}/${page.pageCount}">尾页</a>
 								</span>
 							</div>
+						</c:if>
+						<c:if test="${from == 'search'}">
+							<div class="pagination">
+								<span><a
+									href="${requestScope.basePath}/resource/search?keyword=${keyword}">首页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/search/${page.pageNow - 1}?keyword=${keyword}">上一页</a>
+								</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+									href="${requestScope.basePath}/resource/search/${page.pageNow + 1}?keyword=${keyword}">下一页</a>
+								</span><span><a
+									href="${requestScope.basePath}/resource/search/${page.pageCount}?keyword=${keyword}">尾页</a>
+								</span>
+							</div>
 						</c:if></td>
 				</tr>
 			</tfoot>
@@ -72,5 +87,4 @@
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>
-
 </html>

@@ -12,7 +12,6 @@
 
 <body>
 	<%@ include file="header.jsp"%>
-
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="hero-unit">
@@ -22,91 +21,70 @@
 					supporting pieces of content. Use it as a starting point to create
 					something more unique.</p>
 				<p>
-					<a href="${requestScope.basePath}/resource/upload" class="btn btn-success btn-large">我要分享 »</a>
+					<a href="${requestScope.basePath}/resource/upload"
+						class="btn btn-success btn-large">我要分享 »</a>
 				</p>
 			</div>
 		</div>
 		<hr>
 		<div class="span7">
-			<div class="row-fluid myrow">
-				<c:forEach var="school" items="${schools}" varStatus="status"
-					begin="0" end="2">
-					<div class="span4">
-						<div class="span12">
-							<div class="span12 schoolname">${school.school_name}</div>
-							<c:if test="${empty school.school_avatar}">
-								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
-							</c:if>
-							<c:if test="${not empty school.school_avatar}">
-								<img src="${school.school_avatar}" class="img-polaroid span4" />
-							</c:if>
-							<div>
-								<p class="autocut_description">${school.school_description}</p>
-							</div>
-						</div>
-						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
+			<c:forEach var="school" items="${schools}" varStatus="status">
+				<div class="media">
+					<a class="pull-left"
+						href="${requestScope.basePath}/school/profile/${school.id}"> <img
+						class="media-object " alt="64x64"
+						src="${requestScope.basePath}/views/avatars/default.jpg"
+						style="width: 64px; height: 64px;"> </a>
+					<div class="media-body">
+						<h4 class="media-heading">${school.school_name}</h4>
+						${school.school_description}
 					</div>
-				</c:forEach>
-			</div>
-			<div class="row-fluid">
-				<c:forEach var="school" items="${schools}" varStatus="status"
-					begin="3" end="5">
-					<div class="span4">
-						<div class="span12">
-							<div class="span12 schoolname">${school.school_name}</div>
-							<c:if test="${empty school.school_avatar}">
-								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
-							</c:if>
-							<c:if test="${not empty school.school_avatar}">
-								<img src="${school.school_avatar}" class="img-polaroid span4" />
-							</c:if>
-							<div>
-								<p class="autocut_description">${school.school_description}</p>
-							</div>
+				</div>
+			</c:forEach>
+		</div>
+
+		<div class="span5">
+			<div id="myCarousel" class="carousel slide">
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1" class=""></li>
+					<li data-target="#myCarousel" data-slide-to="2" class=""></li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="item active">
+						<img src="${requestScope.basePath}/views/images/sample1.jpg"
+							alt="">
+						<div class="carousel-caption">
+							<h4>First Thumbnail label</h4>
+							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
+								quam. Donec id elit non mi porta gravida at eget metus. Nullam
+								id dolor id nibh ultricies vehicula ut id elit.</p>
 						</div>
-						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
-				</c:forEach>
-			</div>
-			<div class="row-fluid">
-				<c:forEach var="school" items="${schools}" varStatus="status"
-					begin="6" end="8">
-					<div class="span4">
-						<div class="span12">
-							<div class="span12 schoolname">${school.school_name}</div>
-							<c:if test="${empty school.school_avatar}">
-								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
-							</c:if>
-							<c:if test="${not empty school.school_avatar}">
-								<img src="${school.school_avatar}" class="img-polaroid span4" />
-							</c:if>
-							<div>
-								<p class="autocut_description">${school.school_description}</p>
-							</div>
+					<div class="item">
+						<img src="${requestScope.basePath}/views/images/sample2.jpg"
+							alt="">
+						<div class="carousel-caption">
+							<h4>Second Thumbnail label</h4>
+							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
+								quam. Donec id elit non mi porta gravida at eget metus. Nullam
+								id dolor id nibh ultricies vehicula ut id elit.</p>
 						</div>
-						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
-				</c:forEach>
-			</div>
-			<div class="row-fluid">
-				<c:forEach var="school" items="${schools}" varStatus="status"
-					begin="9" end="11">
-					<div class="span4">
-						<div class="span12">
-							<div class="span12 schoolname">${school.school_name}</div>
-							<c:if test="${empty school.school_avatar}">
-								<img src="${requestScope.basePath}/views/avatars/default.jpg" class="img-polaroid span4" />
-							</c:if>
-							<c:if test="${not empty school.school_avatar}">
-								<img src="${school.school_avatar}" class="img-polaroid span4" />
-							</c:if>
-							<div>
-								<p class="autocut_description">${school.school_description}</p>
-							</div>
+					<div class="item">
+						<img src="${requestScope.basePath}/views/images/sample3.jpg"
+							alt="">
+						<div class="carousel-caption">
+							<h4>Third Thumbnail label</h4>
+							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
+								quam. Donec id elit non mi porta gravida at eget metus. Nullam
+								id dolor id nibh ultricies vehicula ut id elit.</p>
 						</div>
-						<a class="btn" href="${requestScope.basePath}/school/profile/${school.id}">去看看</a>
 					</div>
-				</c:forEach>
+				</div>
+				<a class="left carousel-control" href="#myCarousel"
+					data-slide="prev">‹</a> <a class="right carousel-control"
+					href="#myCarousel" data-slide="next">›</a>
 			</div>
 		</div>
 
@@ -116,21 +94,26 @@
 				<caption style="font-size: 20px;">最热资源</caption>
 				<thead>
 					<tr>
-
 						<th>资源名</th>
 						<th>学校</th>
 						<th>上传人</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach  var="resource" items="${resource}">
+					<c:forEach var="resource" items="${resource}">
 						<tr>
 							<td>
 								<div class="autocut">
-									${resource.resource_name}
-								</div></td>
-							<td>${resource.school_name}</td>
-							<td>${resource.uploader_name}</td>
+									<a
+										href="${requestScope.basePath}/resource/profile/${resource.id}">${resource.resource_name}</a>
+								</div>
+							</td>
+							<td><a
+								href="${requestScope.basePath}/school/profile/${resource.id}">${resource.school_name}</a>
+							</td>
+							<td><a
+								href="${requestScope.basePath}/user/${resource.uploader_id}/profile/">${resource.uploader_name}</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -141,4 +124,9 @@
 
 	<%@ include file="footer.jsp"%>
 </body>
+<script>
+	$('.carousel').carousel({
+		interval : 2000
+	})
+</script>
 </html>

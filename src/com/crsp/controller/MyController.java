@@ -57,6 +57,7 @@ public class MyController {
 		model.put("uploads", uploadList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_upload";
 	}
 
@@ -72,6 +73,7 @@ public class MyController {
 		model.put("uploads", uploadList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_upload";
 	}
 
@@ -86,6 +88,7 @@ public class MyController {
 		model.put("downloads", downloadList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_download";
 	}
 
@@ -101,6 +104,7 @@ public class MyController {
 		model.put("downloads", downloadList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_download";
 	}
 
@@ -115,6 +119,7 @@ public class MyController {
 		model.put("records", recordList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_record";
 	}
 
@@ -130,6 +135,7 @@ public class MyController {
 		model.put("records", recordList.getPageList());
 		model.put("page", page);
 		model.put("profile", userDTO);
+		model.put("isMy", true);
 		return "my_record";
 	}
 
@@ -139,6 +145,7 @@ public class MyController {
 		UserDTO userDTO = userService.getUserProfile(userId);
 		model.put("profile", userDTO);
 		model.put("user", new User());
+		model.put("isMy", true);
 		return "updateprofile";
 	}
 
