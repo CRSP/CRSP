@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
+import com.crsp.entity.Comment;
 import com.crsp.entity.Department;
 import com.crsp.entity.Feature;
 import com.crsp.entity.Progress;
@@ -133,11 +135,30 @@ public class ResourceController {
 		return "resource_list";
 	}
 
-	@RequestMapping(value = "/profile/{resourceid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile/{resourceid}/", method = RequestMethod.GET)
 	public String getResourceProfile(@PathVariable int resourceid,
 			Map<String, Object> model) {
 		ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
+		Page page = new Page();
+		Pages<CommentDTO> commentPages = resourceService.getComments(
+				resourceid, page);
 		model.put("resource_profile", resourceProfile);
+		model.put("resource_comments", commentPages.getPageList());
+		model.put("page", page);
+		return "download";
+	}
+
+	@RequestMapping(value = "/profile/{resourceid}/{p}", method = RequestMethod.GET)
+	public String getResourceProfile(@PathVariable int resourceid,
+			@PathVariable int p, Map<String, Object> model) {
+		ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
+		Page page = new Page();
+		page.setPageNow(p);
+		Pages<CommentDTO> commentPages = resourceService.getComments(
+				resourceid, page);
+		model.put("resource_profile", resourceProfile);
+		model.put("resource_comments", commentPages.getPageList());
+		model.put("page", page);
 		return "download";
 	}
 
@@ -418,5 +439,32 @@ public class ResourceController {
 		model.put("from", "search");
 		model.put("keyword", keyword);
 		return "resource_list";
+	}
+
+	@RequestMapping(value = "/comments/post", method = RequestMethod.POST)
+	@ResponseBody
+	public Map comment(HttpSession session, HttpServletRequest request) {
+		Map msgMap = new HashMap();
+		if (session.getAttribute("user_name") == null) {
+			msgMap.put("msg", "请先登陆");
+		} else {
+			String content = request.getParameter("content");
+			int resourceId = Integer.parseInt(request
+					.getParameter("resource_id"));
+			String date = TimeUtil.getStringDateShort();
+			Comment comment = new Comment();
+			comment.setContent(content);
+			comment.setDate(date);
+			Resource resource = new Resource();
+			resource.setId(resourceId);
+			User user = new User();
+			user.setId(Integer.parseInt(session.getAttribute("ID").toString()));
+			comment.setResource(resource);
+			comment.setUser(user);
+			resourceService.addComments(comment);
+			msgMap.put("ok", "评论成功");
+		}
+		System.out.println(msgMap.toString());
+		return msgMap;
 	}
 }

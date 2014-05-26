@@ -37,7 +37,7 @@
 		<c:if test="${!isMy}">
 			<li class="divider"></li>
 			<li><a href="${requestScope.basePath}/resource/upload"><button
-						class="btn btn-warning">
+						class="btn btn-danger">
 						<i class="icon-circle-arrow-up icon-white"></i>我要举报
 					</button> </a>
 			</li>

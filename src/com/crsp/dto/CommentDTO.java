@@ -12,6 +12,7 @@ public class CommentDTO implements Serializable {
 	private String user_name;
 	private String content;
 	private String date;
+	private String user_avatar;
 
 	public int getId() {
 		return id;
@@ -51,6 +52,14 @@ public class CommentDTO implements Serializable {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+	
+	public String getUser_avatar() {
+		return user_avatar;
+	}
+
+	public void setUser_avatar(String user_avatar) {
+		this.user_avatar = user_avatar;
 	}
 
 	@Override

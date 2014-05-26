@@ -46,7 +46,7 @@ INSERT INTO `admin` VALUES ('10', '管理员10', '123456', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `content` varchar(255) NOT NULL,
   `date` varchar(45) NOT NULL,
   `user_id` int(11) NOT NULL,

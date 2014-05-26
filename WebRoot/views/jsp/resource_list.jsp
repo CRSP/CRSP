@@ -35,7 +35,7 @@
 						<td>${resource.resource_name}</td>
 						<td>${resource.uploader_name}</td>
 						<td><a
-							href="${requestScope.basePath}/resource/profile/${resource.id}"
+							href="${requestScope.basePath}/resource/profile/${resource.id}/"
 							class="btn btn-primary"><i
 								class="icon-download-alt icon-white"></i>进入下载页</a>
 						</td>

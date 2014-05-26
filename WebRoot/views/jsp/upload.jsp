@@ -101,7 +101,7 @@
 		</div>
 	</div>
 	<%@ include file="footer.jsp"%>
-	
+
 	<script>
 		function toFloat1(data) {
 			var d0 = parseInt(data * 10);
@@ -230,32 +230,32 @@
 				if(!islogined) {
 					alert("请先登陆!");
 				}
+				if(!islogined) return ;
+				var resource_name = $('#resource_name').val();
+				var resource_type = $('#resource_type').val();
+				var resource_price = $('#resource_price').val();
+				var file = $('#resource_file').val();
+				
+				if(resource_name == '' || resource_type == '' || resource_price == '') {
+					alert("请完善资源信息");
+					return ;
+				}
+				if(resource_name.length < 4|| resource_name.length >  20) {
+					alert("资源名长度为4-20个字符");
+					return ;
+				}
+				if(file == '') {
+					alert("请选择要上传的文件");
+					return ;
+				}
+				
+				var size = document.getElementById("resource_file").files[0].size;
+				if(size > 52428800) {
+					alert("文件过大，只能上传50M以下大小的文件");
+					return ;
+				}
+				$('#progress_modal').modal('show');
 			});
-			if(!islogined) return ;
-			var resource_name = $('#resource_name').val();
-			var resource_type = $('#resource_type').val();
-			var resource_price = $('#resource_price').val();
-			var file = $('#resource_file').val();
-			
-			if(resource_name == '' || resource_type == '' || resource_price == '') {
-				alert("请完善资源信息");
-				return ;
-			}
-			if(resource_name.length < 4|| resource_name.length >  20) {
-				alert("资源名长度为4-20个字符");
-				return ;
-			}
-			if(file == '') {
-				alert("请选择要上传的文件");
-				return ;
-			}
-			
-			var size = document.getElementById("resource_file").files[0].size;
-			if(size > 52428800) {
-				alert("文件过大，只能上传50M以下大小的文件");
-				return ;
-			}
-			$('#progress_modal').modal('show');
 		}); 
 	</script>
 </body>

@@ -261,6 +261,7 @@ public class ResourceServiceImpl implements ResourceServiceI {
 			cDTO.setUser_name(c.getUser().getUser_name());
 			cDTO.setContent(c.getContent());
 			cDTO.setDate(c.getDate());
+			cDTO.setUser_avatar(c.getUser().getAvatar());
 			datas.add(cDTO);
 		}
 		pDTO.setPage(page);

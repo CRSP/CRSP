@@ -46,45 +46,78 @@
 				<p>资源状态: ${resource_profile.status_name}</p>
 			</div>
 			<div class="modal-footer">
-				<a
+				<a data-toggle="modal" href="#CommentModel" class="btn btn-success"
+					id="comment_button"> <i class="icon-comment icon-white"></i>评论
+				</a> <a
+					href="${requestScope.basePath}/resource/download/${resource_profile.id}"
+					class="btn btn-danger" id="inform_button"> <i
+					class="icon-warning-sign icon-white"></i>举报 </a> <a
 					href="${requestScope.basePath}/resource/download/${resource_profile.id}"
 					class="btn btn-primary" id="download_button"> <i
 					class="icon-download-alt icon-white"></i>下载 </a>
 			</div>
 		</div>
 		<div class="offset2 span8">
-			<div class="media">
-				<a class="pull-left" href="#"> <img class="media-object"
-					data-src="holder.js/64x64" alt="64x64"
-					src="${requestScope.basePath}/views/avatars/default.jpg"
-					style="width: 64px; height: 64px;"> </a>
-				<div class="media-body">
-					<h4 class="media-heading"><a>18厘米</a><span class="pull-right">2014-5-24</span></h4>
-					么么哒.
+			<c:if test="${fn:length(resource_comments) == 0}">
+				没有评论!
+			</c:if>
+			<c:forEach items="${resource_comments}" var="comment">
+				<div class="media">
+					<a class="pull-left" href="#"> <c:if
+							test="${comment.user_avatar != ''}">
+							<img class="media-object" data-src="holder.js/64x64" alt="64x64"
+								src="${requestScope.basePath}/views/avatars/${comment.user_avatar}"
+								style="width: 64px; height: 64px;">
+						</c:if> <c:if test="${comment.user_avatar == ''}">
+							<img class="media-object" data-src="holder.js/64x64" alt="64x64"
+								src="${requestScope.basePath}/views/avatars/default.jpg"
+								style="width: 64px; height: 64px;">
+						</c:if> </a>
+					<div class="media-body">
+						<h4 class="media-heading">
+							<a
+								href="${requestScope.basePath}/user/${comment.user_id}/profile/">${comment.user_name}</a><span
+								class="pull-right">${comment.date}</span>
+						</h4>
+						${comment.content}
+					</div>
 				</div>
-			</div>
-			<div class="media">
-				<a class="pull-left" href="#"> <img class="media-object"
-					data-src="holder.js/64x64" alt="64x64"
-					src="${requestScope.basePath}/views/avatars/default.jpg"
-					style="width: 64px; height: 64px;"> </a>
-				<div class="media-body">
-					<h4 class="media-heading"><a>40厘米</a><span class="pull-right">2014-5-24</span></h4>
-					Nice，这个资源我找很久了，谢谢PO主.
-				</div>
-			</div>
-			<div class="media">
-				<a class="pull-left" href="#"> <img class="media-object"
-					data-src="holder.js/64x64" alt="64x64"
-					src="${requestScope.basePath}/views/avatars/default.jpg"
-					style="width: 64px; height: 64px;"> </a>
-				<div class="media-body">
-					<h4 class="media-heading"><a>2厘米の大和民族</a><span class="pull-right">2014-5-24</span></h4>
-					不错不错......
-				</div>
+			</c:forEach>
+			<div class="pagination">
+				<span><a
+					href="${requestScope.basePath}/resource/profile/${resource_profile.id}/">首页</a>
+				</span><span><a
+					href="${requestScope.basePath}/resource/profile/${resource_profile.id}/${page.pageNow - 1}">上一页</a>
+				</span><span>&nbsp;&nbsp;当前页${page.pageNow}/${page.pageCount}&nbsp;&nbsp;</span><span><a
+					href="${requestScope.basePath}/resource/profile/${resource_profile.id}/${page.pageNow + 1}">下一页</a>
+				</span><span><a
+					href="${requestScope.basePath}/resource/profile/${page.pageNow}/${page.pageCount}">尾页</a>
+				</span>
 			</div>
 		</div>
 	</div>
+
+	<form class="form-horizontal" method="post"
+		action="${requestScope.basePath}/resource/comments/post" id="comment">
+		<div class="modal hide fade" id="CommentModel">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h6>
+					<i class="icon-comment"></i>评论
+				</h6>
+			</div>
+			<div class="modal-body">
+				<textarea rows="4" class="span5" name="content"></textarea>
+				<input type="hidden" name="resource_id" value="${resource_profile.id}"/>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">关闭</a>
+				<!-- <a class="btn btn-success" id="submit">提交</a> -->
+				<input type="submit" class="btn btn-success" value="提交" />
+			</div>
+		</div>
+	</form>
 	<%@ include file="footer.jsp"%>
 </body>
 <script>
@@ -99,5 +132,35 @@
 							}
 						})
 			});
+</script>
+
+<script>
+	$(document).ready(function() {
+		var ajax_options = {
+			url : '${requestScope.basePath}/resource/comments/post',
+			success : function(data) {
+				if (data['msg'])
+					alert(data['msg']);
+				if (data['ok']) {
+					location.reload();
+				}
+			}
+		};
+		$('#comment').submit(function(e) {
+			e.preventDefault();
+			//是否已登陆			
+			var islogined = false;
+			$.post('${requestScope.basePath}/user/islogined', function(data) {
+				islogined = data['islogined'];
+				if (!islogined) {
+					alert("请先登陆!");
+				}
+				if (!islogined)
+					return;
+				$('#comment').ajaxSubmit(ajax_options);
+			});
+			
+		});
+	});
 </script>
 </html>
