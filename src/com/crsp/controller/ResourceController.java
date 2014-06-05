@@ -186,11 +186,13 @@ public class ResourceController {
 					+ f.getPath().substring(f.getPath().indexOf("."));
 
 			// 从数据库获取资源路径
-			String resourcePath = request.getSession().getServletContext()
-					.getRealPath("/")
+			String resourcePath = System.getProperty("user.dir")
+					+ File.separator + ".." + File.separator + "webapps"
 					+ File.separator + "resource" + File.separator + path;
 			File file = new File(resourcePath);
 
+			System.out.println("fuck:" + resourcePath);
+			
 			// 下载者记录
 			int downloaderId = Integer.parseInt(session.getAttribute("ID")
 					.toString());
@@ -310,9 +312,6 @@ public class ResourceController {
 						+ File.separator + ".." + File.separator + "webapps"
 						+ File.separator + "resource" + File.separator + year
 						+ File.separator + month + File.separator;
-
-				System.out.println(resourcePath);
-
 				if (f.getSize() > 0) {
 					File dr = new File(resourcePath);
 					File targetFile = new File(resourcePath + fileName);
