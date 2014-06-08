@@ -167,11 +167,11 @@ INSERT INTO `comment` VALUES ('100', '哎呦！不错哦100', '2014-05-10', '10'
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(45) NOT NULL,
   `description` varchar(255) default NULL,
   `avatar` varchar(100) default NULL,
-  `resource_count` int(11) NOT NULL,
+  `resource_count` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
