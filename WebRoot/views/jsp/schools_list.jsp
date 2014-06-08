@@ -30,8 +30,8 @@
 							class="img-polaroid" style="float: left;">
 					</c:if>
 					<c:if test="${not empty school.school_avatar}">
-						<img src="${requestScope.schoolAvatarSchool}/${school.school_avatar}"
-							class="img-polaroid" style="float: left;">
+						<img src="${requestScope.schoolAvatarPath}/${school.school_avatar}"
+							class="img-polaroid" style="float: left;" width="120" height="120">
 					</c:if>
 					<div>
 						<p class="autocut_school_description" style="margin-left:150px">&nbsp;&nbsp;&nbsp;&nbsp;${school.school_description}</p>

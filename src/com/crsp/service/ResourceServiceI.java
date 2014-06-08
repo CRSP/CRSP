@@ -47,5 +47,5 @@ public interface ResourceServiceI {
 
 	public void addComments(Comment comment);
 	
-	public void addMock(Mock mock);		//举报资源
+	//public void addMock(Mock mock);		//举报资源
 }

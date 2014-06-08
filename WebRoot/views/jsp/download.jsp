@@ -48,9 +48,7 @@
 			<div class="modal-footer">
 				<a data-toggle="modal" href="#CommentModel" class="btn btn-success"
 					id="comment_button"> <i class="icon-comment icon-white"></i>评论
-				</a> <a
-					href="${requestScope.basePath}/resource/download/${resource_profile.id}"
-					class="btn btn-danger" id="inform_button"> <i
+				</a> <a data-toggle="modal" href="#MockModel" class="btn btn-danger" id="inform_button" id="mock_button"> <i
 					class="icon-warning-sign icon-white"></i>举报 </a> <a
 					href="${requestScope.basePath}/resource/download/${resource_profile.id}"
 					class="btn btn-primary" id="download_button"> <i
@@ -109,30 +107,38 @@
 			</div>
 			<div class="modal-body">
 				<textarea rows="4" class="span5" name="content"></textarea>
-				<input type="hidden" name="resource_id" value="${resource_profile.id}"/>
+				<input type="hidden" name="resource_id"
+					value="${resource_profile.id}" />
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">关闭</a>
-				<!-- <a class="btn btn-success" id="submit">提交</a> -->
-				<input type="submit" class="btn btn-success" value="提交" />
+				<a href="#" class="btn" data-dismiss="modal">关闭</a> <input
+					type="submit" class="btn btn-success" value="提交" />
+			</div>
+		</div>
+	</form>
+	<form class="form-horizontal" method="post"
+		action="#" id="mock">
+		<div class="modal hide fade" id="MockModel">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h6>
+					<i class="icon-warning-sign"></i>举报
+				</h6>
+			</div>
+			<div class="modal-body">
+				<textarea rows="4" class="span5" name="content"></textarea>
+				<input type="hidden" name="resource_id"
+					value="${resource_profile.id}" />
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">关闭</a> <input
+					type="submit" class="btn btn-success" value="提交" />
 			</div>
 		</div>
 	</form>
 	<%@ include file="footer.jsp"%>
 </body>
-<script>
-	$('#download_button').click(
-			function() {
-				$.get('${requestScope.basePath}/resource/download/' + '1',
-						function(data) {
-							if (!data['isLogined']) {
-								$('#loginModel').modal('show');
-							} else {
-								alert(data['rUrl']);
-							}
-						})
-			});
-</script>
 
 <script>
 	$(document).ready(function() {
@@ -159,7 +165,6 @@
 					return;
 				$('#comment').ajaxSubmit(ajax_options);
 			});
-			
 		});
 	});
 </script>
