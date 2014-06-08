@@ -6,6 +6,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path;
+	String schoolAvatarPath = "http://localhost:8080/crspAdmin/avatar";
 	request.setAttribute("basePath", basePath);
 	request.setAttribute("viewPath", basePath + "/views");
 	request.setCharacterEncoding("UTF-8");

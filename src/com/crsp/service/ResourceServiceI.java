@@ -46,4 +46,6 @@ public interface ResourceServiceI {
 	public Pages<CommentDTO> getComments(int resource_id, Page page); // 获取评论
 
 	public void addComments(Comment comment);
+	
+	public void addMock(Mock mock);		//举报资源
 }

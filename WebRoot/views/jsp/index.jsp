@@ -30,11 +30,20 @@
 		<div class="span7">
 			<c:forEach var="school" items="${schools}" varStatus="status">
 				<div class="media">
-					<a class="pull-left"
-						href="${requestScope.basePath}/school/profile/${school.id}"> <img
-						class="media-object " alt="64x64"
-						src="${requestScope.basePath}/views/avatars/default.jpg"
-						style="width: 64px; height: 64px;"> </a>
+					<c:if test="${empty school.school_avatar}">
+						<a class="pull-left"
+							href="${requestScope.basePath}/school/profile/${school.id}"> <img
+							class="media-object " alt="64x64"
+							src="${requestScope.basePath}/views/avatars/default.jpg"
+							style="width: 64px; height: 64px;"> </a>
+					</c:if>
+					<c:if test="${not empty school.school_avatar}">
+						<a class="pull-left"
+							href="${requestScope.basePath}/school/profile/${school.id}"> <img
+							class="media-object " alt="64x64"
+							src="${requestScope.schoolAvatarPath}/${school.school_avatar}"
+							style="width: 64px; height: 64px;"> </a>
+					</c:if>
 					<div class="media-body">
 						<h4 class="media-heading">${school.school_name}</h4>
 						${school.school_description}

@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <div class="well span3">
 	<ul class="nav nav-list">
-		<li><c:if test="${profile.avatar == ''}">
+		<li><c:if test="${empty profile.avatar}">
 				<img src="${requestScope.basePath}/views/avatars/default.jpg"
 					class="img-polaroid" width="120">
-			</c:if> <c:if test="${profile.avatar != ''}">
+			</c:if> <c:if test="${ not empty profile.avatar}">
 				<img src="${requestScope.basePath}/views/avatars/${profile.avatar}"
 					class="img-polaroid" width="120">
 			</c:if></li>
@@ -31,14 +31,6 @@
 			<li><a href="${requestScope.basePath}/resource/upload"><button
 						class="btn btn-success">
 						<i class="icon-circle-arrow-up icon-white"></i>我要上传
-					</button> </a>
-			</li>
-		</c:if>
-		<c:if test="${!isMy}">
-			<li class="divider"></li>
-			<li><a href="${requestScope.basePath}/resource/upload"><button
-						class="btn btn-danger">
-						<i class="icon-circle-arrow-up icon-white"></i>我要举报
 					</button> </a>
 			</li>
 		</c:if>
