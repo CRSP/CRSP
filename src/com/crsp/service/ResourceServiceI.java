@@ -6,6 +6,7 @@ import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Comment;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Mock;
 import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
@@ -47,5 +48,5 @@ public interface ResourceServiceI {
 
 	public void addComments(Comment comment);
 	
-	//public void addMock(Mock mock);		//举报资源
+	public void addMock(Mock mock);		//举报资源
 }

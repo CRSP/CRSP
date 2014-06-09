@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.crsp.dao.ResourceDAO;
+import com.crsp.entity.Mock;
 import com.crsp.entity.Resource;
 import com.crsp.utils.Page;
 
@@ -77,5 +78,13 @@ public class ResourceDAOImpl extends BaseDAOImpl<Resource> implements
 	public List<Resource> queryResourceLikeName(String keyword, Page page) {
 		String hql = "from Resource r where r.name like '%" + keyword + "%'";
 		return super.listByPage(hql, page);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.crsp.dao.ResourceDAO#addMock(com.crsp.entity.Mock)
+	 */
+	@Override
+	public void addMock(Mock mock) {
+		getSession().save(mock);
 	}
 }

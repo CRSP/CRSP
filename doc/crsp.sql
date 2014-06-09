@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2014-05-25 22:20:01
+Date: 2014-06-09 13:39:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -219,6 +219,28 @@ INSERT INTO `feature` VALUES ('7', '', '', '1', '1');
 INSERT INTO `feature` VALUES ('8', '', '', '1', '1');
 INSERT INTO `feature` VALUES ('9', '', '', '1', '1');
 INSERT INTO `feature` VALUES ('10', '', '', '1', '1');
+
+-- ----------------------------
+-- Table structure for `mock`
+-- ----------------------------
+DROP TABLE IF EXISTS `mock`;
+CREATE TABLE `mock` (
+  `id` int(11) NOT NULL auto_increment,
+  `content` varchar(200) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `resource_id` (`resource_id`),
+  CONSTRAINT `mock_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `mock_ibfk_2` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mock
+-- ----------------------------
+INSERT INTO `mock` VALUES ('1', '这个资源有错', '1', '1', '0');
 
 -- ----------------------------
 -- Table structure for `province`

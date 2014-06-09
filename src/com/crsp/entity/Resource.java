@@ -25,10 +25,10 @@ public class Resource implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;// 主键
-	@ManyToOne(targetEntity = Resource_Type.class)
+	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private Resource_Type resource_type;// 外键,类型编号
-	@ManyToOne(targetEntity = Feature.class)
+	@ManyToOne
 	@JoinColumn(name = "feature_id")
 	private Feature feature;// 特征码对象
 	private int user_id;// 外键,用户的Id

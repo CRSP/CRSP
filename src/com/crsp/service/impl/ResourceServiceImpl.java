@@ -19,6 +19,7 @@ import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Comment;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Mock;
 import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
@@ -278,5 +279,15 @@ public class ResourceServiceImpl implements ResourceServiceI {
 	@Override
 	public void addComments(Comment comment) {
 		commentDAO.add(comment);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.crsp.service.ResourceServiceI#addMock(com.crsp.entity.Mock)
+	 */
+	@Override
+	public void addMock(Mock mock) {
+		resourceDAO.addMock(mock);
 	}
 }

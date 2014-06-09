@@ -14,8 +14,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crsp.dto.CommentDTO;
 import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Mock;
+import com.crsp.entity.Resource;
 import com.crsp.entity.Resource_Type;
+import com.crsp.entity.User;
 import com.crsp.service.ResourceServiceI;
+import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 
@@ -28,7 +32,8 @@ import com.crsp.utils.Pages;
 public class TestResourceService {
 	@Autowired
 	private ResourceServiceI resourceService;
-
+	@Autowired
+	private UserServiceI userService;
 	@Test
 	public void getNewestResource() {
 		Page page = new Page();
@@ -94,5 +99,17 @@ public class TestResourceService {
 		for (CommentDTO c : list) {
 			System.out.println(c.toString());
 		}
+	}
+	
+	@Test
+	public void addMock(){
+		User user = userService.getUser(1);
+		Resource res = resourceService.getResource(1);
+		Mock mock = new Mock();
+		mock.setContent("这个资源有错");
+		mock.setStatus(0);
+		mock.setUser(user);
+		mock.setResource(res);
+		resourceService.addMock(mock);
 	}
 }
