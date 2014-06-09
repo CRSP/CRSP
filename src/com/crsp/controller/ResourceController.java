@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -141,7 +142,8 @@ public class ResourceController {
 	public String getResourceProfile(@PathVariable int resourceid,
 			Map<String, Object> model) {
 		try {
-			ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
+			ResourceDTO resourceProfile = resourceService
+					.getProfile(resourceid);
 			Page page = new Page();
 			Pages<CommentDTO> commentPages = resourceService.getComments(
 					resourceid, page);
@@ -197,8 +199,6 @@ public class ResourceController {
 					+ File.separator + "resource" + File.separator + path;
 			File file = new File(resourcePath);
 
-			System.out.println("fuck:" + resourcePath);
-
 			// 下载者记录
 			int downloaderId = Integer.parseInt(session.getAttribute("ID")
 					.toString());
@@ -232,8 +232,16 @@ public class ResourceController {
 			resourceService.saveResource(r);
 
 			response.reset();
-			response.addHeader("Content-Disposition", "attachment;filename="
-					+ fileName);
+			try {
+				response.addHeader(
+						"Content-Disposition",
+						"attachment;filename="
+								+ new String(fileName.getBytes("UTF-8"),
+										"ISO-8859-1"));
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			response.addHeader("Content-Length", "" + file.length());
 			try {
 				InputStream fis = new BufferedInputStream(new FileInputStream(
