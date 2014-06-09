@@ -32,6 +32,7 @@ import com.crsp.dto.ResourceDTO;
 import com.crsp.entity.Comment;
 import com.crsp.entity.Department;
 import com.crsp.entity.Feature;
+import com.crsp.entity.Mock;
 import com.crsp.entity.Progress;
 import com.crsp.entity.Record;
 import com.crsp.entity.Resource;
@@ -192,7 +193,7 @@ public class ResourceController {
 			File file = new File(resourcePath);
 
 			System.out.println("fuck:" + resourcePath);
-			
+
 			// 下载者记录
 			int downloaderId = Integer.parseInt(session.getAttribute("ID")
 					.toString());
@@ -463,7 +464,30 @@ public class ResourceController {
 			resourceService.addComments(comment);
 			msgMap.put("ok", "评论成功");
 		}
-		System.out.println(msgMap.toString());
+		return msgMap;
+	}
+
+	@RequestMapping(value = "/mocks/post", method = RequestMethod.POST)
+	@ResponseBody
+	public Map mock(HttpSession session, HttpServletRequest request) {
+		Map msgMap = new HashMap();
+		if (session.getAttribute("user_name") == null) {
+			msgMap.put("msg", "请先登陆");
+		} else {
+			String content = request.getParameter("content");
+			int resourceId = Integer.parseInt(request
+					.getParameter("resource_id"));
+			Resource r = resourceService.getResource(resourceId);
+			int userId = r.getUser_id();
+			User u = userService.getUser(userId);
+			Mock mock = new Mock();
+			mock.setContent(content);
+			mock.setResource(r);
+			mock.setStatus(0);
+			mock.setUser(u);
+			resourceService.addMock(mock);
+			msgMap.put("ok", "举报成功");
+		}
 		return msgMap;
 	}
 }

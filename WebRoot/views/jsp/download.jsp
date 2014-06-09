@@ -117,7 +117,7 @@
 		</div>
 	</form>
 	<form class="form-horizontal" method="post"
-		action="#" id="mock">
+		action="${requestScope.basePath}/resource/mocks/post" id="mock">
 		<div class="modal hide fade" id="MockModel">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -148,6 +148,18 @@
 				if (data['msg'])
 					alert(data['msg']);
 				if (data['ok']) {
+					alert(data['ok']);
+					location.reload();
+				}
+			}
+		};
+		var ajax_options_mock = {
+			url : '${requestScope.basePath}/resource/mocks/post',
+			success : function(data) {
+				if (data['msg'])
+					alert(data['msg']);
+				if (data['ok']) {
+					alert(data['ok']);
 					location.reload();
 				}
 			}
@@ -164,6 +176,20 @@
 				if (!islogined)
 					return;
 				$('#comment').ajaxSubmit(ajax_options);
+			});
+		});
+		$('#mock').submit(function(e) {
+			e.preventDefault();
+			//是否已登陆			
+			var islogined = false;
+			$.post('${requestScope.basePath}/user/islogined', function(data) {
+				islogined = data['islogined'];
+				if (!islogined) {
+					alert("请先登陆!");
+				}
+				if (!islogined)
+					return;
+				$('#mock').ajaxSubmit(ajax_options_mock);
 			});
 		});
 	});
