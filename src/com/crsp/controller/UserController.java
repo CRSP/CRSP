@@ -26,6 +26,7 @@ import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 import com.crsp.utils.RegValidator;
+import com.crsp.utils.TagFilter;
 import com.sun.xml.internal.ws.resources.HttpserverMessages;
 
 @Controller
@@ -64,8 +65,10 @@ public class UserController {
 
 		Map msgMap = new HashMap();
 
-		String userId = request.getParameter("user_id").toString();
-		String userPwd = request.getParameter("user_pwd").toString();
+		String userId = TagFilter.Html2Text(request.getParameter("user_id")
+				.toString());
+		String userPwd = TagFilter.Html2Text(request.getParameter("user_pwd")
+				.toString());
 
 		UserDTO u = userService.login(userId, userPwd);
 
@@ -105,7 +108,8 @@ public class UserController {
 		this.regValidator.validate(user, bindingResult);
 
 		// 验证两次密码是否相同
-		String rpwd = request.getParameter("rpwd").toString();
+		String rpwd = TagFilter.Html2Text(request.getParameter("rpwd")
+				.toString());
 		if (!user.getUser_pwd().equals(rpwd)) {
 			model.put("message", "两次密码不相同");
 			return "register";

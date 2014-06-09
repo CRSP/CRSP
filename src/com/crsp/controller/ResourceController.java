@@ -43,6 +43,7 @@ import com.crsp.service.UserServiceI;
 import com.crsp.utils.Page;
 import com.crsp.utils.Pages;
 import com.crsp.utils.RegValidator;
+import com.crsp.utils.TagFilter;
 import com.crsp.utils.TimeUtil;
 
 @Controller
@@ -139,14 +140,18 @@ public class ResourceController {
 	@RequestMapping(value = "/profile/{resourceid}/", method = RequestMethod.GET)
 	public String getResourceProfile(@PathVariable int resourceid,
 			Map<String, Object> model) {
-		ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
-		Page page = new Page();
-		Pages<CommentDTO> commentPages = resourceService.getComments(
-				resourceid, page);
-		model.put("resource_profile", resourceProfile);
-		model.put("resource_comments", commentPages.getPageList());
-		model.put("page", page);
-		return "download";
+		try {
+			ResourceDTO resourceProfile = resourceService.getProfile(resourceid);
+			Page page = new Page();
+			Pages<CommentDTO> commentPages = resourceService.getComments(
+					resourceid, page);
+			model.put("resource_profile", resourceProfile);
+			model.put("resource_comments", commentPages.getPageList());
+			model.put("page", page);
+			return "download";
+		} catch (Exception e) {
+			return "redirect:/index";
+		}
 	}
 
 	@RequestMapping(value = "/profile/{resourceid}/{p}", method = RequestMethod.GET)
@@ -276,10 +281,13 @@ public class ResourceController {
 		}
 
 		// 资源信息验证
-		String resourceName = new String(request.getParameter("resource_name")
-				.getBytes("ISO-8859-1"), "UTF-8");
-		String resourceType = request.getParameter("resource_type");
-		String resourcePrice = request.getParameter("resource_price");
+		String resourceName = new String(TagFilter.Html2Text(
+				request.getParameter("resource_name")).getBytes("ISO-8859-1"),
+				"UTF-8");
+		String resourceType = TagFilter.Html2Text(request
+				.getParameter("resource_type"));
+		String resourcePrice = TagFilter.Html2Text(request
+				.getParameter("resource_price"));
 		String code = session.getAttribute("code").toString();
 		boolean isExisted = true;
 		try {
@@ -355,7 +363,7 @@ public class ResourceController {
 	public Map checkExistence(HttpServletRequest request, HttpSession session) {
 		Map msgMap = new HashMap();
 		// 判断是否存在相同资源
-		String code = request.getParameter("code");
+		String code = TagFilter.Html2Text(request.getParameter("code"));
 		Feature f = resourceService.getFeature(code);
 		if (f == null) {
 			msgMap.put("isExisted", false);
@@ -376,13 +384,16 @@ public class ResourceController {
 		if (session.getAttribute("ID") != null) {
 			userId = Integer.parseInt(session.getAttribute("ID").toString());
 		}
-		String resourceType = request.getParameter("resource_type");
-		String resourceName = request.getParameter("resource_name");
+		String resourceType = TagFilter.Html2Text(request
+				.getParameter("resource_type"));
+		String resourceName = TagFilter.Html2Text(request
+				.getParameter("resource_name"));
 		int feature_id = Integer.parseInt(session.getAttribute("feature_id")
 				.toString());
 		Feature f = new Feature();
 		f.setId(feature_id);
-		String resourcePrice = request.getParameter("resource_price");
+		String resourcePrice = TagFilter.Html2Text(request
+				.getParameter("resource_price"));
 		if (userId != -1) {
 			// 写入资源记录
 			Resource resource = new Resource();
@@ -413,8 +424,7 @@ public class ResourceController {
 	public String searchResource(HttpServletRequest request,
 			Map<String, Object> model) {
 		Page page = new Page();
-		// page.setPageNow(1);
-		String keyword = request.getParameter("keyword");
+		String keyword = TagFilter.Html2Text(request.getParameter("keyword"));
 		Pages<ResourceDTO> resourcePages = resourceService.searchResource(
 				keyword, page);
 		List<ResourceDTO> resource = resourcePages.getPageList();
@@ -430,7 +440,7 @@ public class ResourceController {
 			HttpServletRequest request, Map<String, Object> model) {
 		Page page = new Page();
 		page.setPageNow(p);
-		String keyword = request.getParameter("keyword");
+		String keyword = TagFilter.Html2Text(request.getParameter("keyword"));
 		Pages<ResourceDTO> resourcePages = resourceService.searchResource(
 				keyword, page);
 		List<ResourceDTO> resource = resourcePages.getPageList();
@@ -448,7 +458,8 @@ public class ResourceController {
 		if (session.getAttribute("user_name") == null) {
 			msgMap.put("msg", "请先登陆");
 		} else {
-			String content = request.getParameter("content");
+			String content = TagFilter.Html2Text(request
+					.getParameter("content"));
 			int resourceId = Integer.parseInt(request
 					.getParameter("resource_id"));
 			String date = TimeUtil.getStringDateShort();
@@ -474,7 +485,8 @@ public class ResourceController {
 		if (session.getAttribute("user_name") == null) {
 			msgMap.put("msg", "请先登陆");
 		} else {
-			String content = request.getParameter("content");
+			String content = TagFilter.Html2Text(request
+					.getParameter("content"));
 			int resourceId = Integer.parseInt(request
 					.getParameter("resource_id"));
 			Resource r = resourceService.getResource(resourceId);
