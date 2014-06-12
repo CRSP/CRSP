@@ -196,7 +196,11 @@ public class ResourceServiceImpl implements ResourceServiceI {
 		rDto.setPrice(resource.getPrice());
 		rDto.setUploader_name(resource.getUser_name());
 		if (resource.getStatus() == 1)
-			rDto.setStatus_name("已审核");
+			rDto.setStatus_name("审核通过");
+		if (resource.getStatus() == 2)
+			rDto.setStatus_name("审核不通过");
+		if (resource.getStatus() == 3)
+			rDto.setStatus_name("已冻结");
 		rDto.setTime(resource.getTime());
 		return rDto;
 	}

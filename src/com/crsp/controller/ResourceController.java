@@ -188,6 +188,14 @@ public class ResourceController {
 				model.put("msg", "资源审核中!");
 				return "download_error";
 			}
+			if (r.getStatus() == 2) {
+				model.put("msg", "资源审核不通过!");
+				return "download_error";
+			}
+			if (r.getStatus() == 3) {
+				model.put("msg", "资源已冻结!");
+				return "download_error";
+			}
 			Feature f = r.getFeature();
 			String path = f.getPath();
 			String fileName = r.getName()
