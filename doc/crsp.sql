@@ -424,7 +424,7 @@ CREATE TABLE `resource` (
   `type_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL default '0',
   `time` varchar(45) NOT NULL,
   `price` int(11) NOT NULL,
   `user_name` varchar(45) NOT NULL,

@@ -15,9 +15,15 @@
 	<div class="container-fluid">
 		<div class="well span3">
 			<ul class="nav nav-list">
-				<li><a href="#"><img
-						src="${requestScope.basePath}/views/avatars/default.jpg"
-						class="img-polaroid"> </a>
+				<li><c:if test="${empty school_profile.school_avatar}">
+						<a href="#"><img
+							src="${requestScope.basePath}/views/avatars/default.jpg"
+							class="img-polaroid"> </a>
+					</c:if> <c:if test="${not empty school_profile.school_avatar}">
+						<a href="#"><img
+							src="${requestScope.schoolAvatarPath}/${school_profile.school_avatar}"
+							class="img-polaroid" width="120"> </a>
+					</c:if>
 				</li>
 				<li class="divider"></li>
 				<li><a>学校:${school_profile.school_name}</a>
@@ -48,15 +54,17 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${departments}" var="department">
-						<tr>
-							<td>${department.id}</td>
-							<td>${department.department_name}</td>
-							<td>${department.resource_quantities}</td>
-							<td><a href="${requestScope.basePath}/resource/${school_profile.id}/${department.id}" class="btn btn-primary">进入</a>
-							</td>
-						</tr>
-					</c:forEach>
+						<c:forEach items="${departments}" var="department">
+							<tr>
+								<td>${department.id}</td>
+								<td>${department.department_name}</td>
+								<td>${department.resource_quantities}</td>
+								<td><a
+									href="${requestScope.basePath}/resource/${school_profile.id}/${department.id}"
+									class="btn btn-primary">进入</a>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

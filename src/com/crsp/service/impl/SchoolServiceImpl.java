@@ -115,6 +115,7 @@ public class SchoolServiceImpl implements SchoolServiceI{
 			sDto.setSchool_name(school.getName());
 			sDto.setResource_quanities(school.getResource_count());
 			sDto.setProvince_name(school.getProvince().getName());
+			sDto.setSchool_avatar(school.getAvatar());
 		}catch(Exception e){
 			sDto.setErr(true);
 			sDto.setErrMsg("学校信息不存在!");

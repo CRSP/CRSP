@@ -9,6 +9,7 @@
 	String schoolAvatarPath = "http://localhost:8080/crspAdmin/avatar";
 	request.setAttribute("basePath", basePath);
 	request.setAttribute("viewPath", basePath + "/views");
+	request.setAttribute("schoolAvatarPath", schoolAvatarPath);
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 %>

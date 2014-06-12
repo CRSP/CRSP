@@ -196,9 +196,11 @@ public class MyController {
 				u.setAvatar(Path + fileName);
 			}
 		}
-		session.setAttribute("user_name", user.getUser_name());
+		session.setAttribute("user_name", new String(user.getUser_name()
+				.getBytes("ISO-8859-1"), "UTF-8"));
 		u.setEmail(user.getEmail());
-		u.setUser_name(user.getUser_name());
+		u.setUser_name(new String(user.getUser_name().getBytes("ISO-8859-1"),
+				"UTF-8"));
 		userService.saveUser(u);
 		return "redirect:/my/upload";
 	}
